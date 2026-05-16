@@ -629,7 +629,7 @@
       "Winston": "Knowledge Archivist"
     }
   },
-  "schema_version": "mini-software-house.v8.10",
+  "schema_version": "pantheon-mini.v8.10",
   "v8_10_mini_alignment": {
     "aligned_with_full_pantheon_version": "8.10",
     "agent_count_active": 12,

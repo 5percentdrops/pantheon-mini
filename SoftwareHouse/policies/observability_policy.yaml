@@ -20,7 +20,7 @@ policy:
     - workspace/wiki/lessons_learned.index.json
     - ~/.hermes-mini-*/logs/dream-*.log
     - ~/.hermes-mini-*/sessions/                 # size only, no body parsing
-    - Mini Software House/paperclip/agents.json
+    - Pantheon Mini/paperclip/agents.json
   outputs:
     - workspace/07_Finalization/metrics_dashboard.md
     - workspace/07_Finalization/metrics_dashboard.json

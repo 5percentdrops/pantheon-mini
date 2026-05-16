@@ -67,4 +67,4 @@ arthur = (ROOT / "rules/arthur_single_model_gpt5mini.md").read_text(encoding="ut
 if "Arthur = GPT-5 mini under Hermes" not in arthur:
     fail("Arthur model rule missing")
 
-print("PASS: Mini Software House V7 validated.")
+print("PASS: Pantheon Mini V7 validated.")

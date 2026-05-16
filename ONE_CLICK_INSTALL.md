@@ -1,4 +1,4 @@
-# Mini Software House V7 — One-Click Install
+# Pantheon Mini V7 — One-Click Install
 
 This is the mini operating version of Software House.
 

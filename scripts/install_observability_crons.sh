@@ -66,19 +66,19 @@ write() {
 }
 
 write "$ARTHUR_CRON" "$(cat <<EOF
-# Mini Software House V8.9 — central metrics rollup (every 15 min)
+# Pantheon Mini V8.9 — central metrics rollup (every 15 min)
 */15 * * * *  python3 $METRICS
 EOF
 )"
 
 write "$OUTCOMES_CRON" "$(cat <<EOF
-# Mini Software House V8.9 — weekly system outcomes scorecard (Mon 06:00 UTC)
+# Pantheon Mini V8.9 — weekly system outcomes scorecard (Mon 06:00 UTC)
 0 6 * * 1  python3 $OUTCOMES
 EOF
 )"
 
 write "$REDUNDANT_CRON" "$(cat <<EOF
-# Mini Software House V8.9 — weekly redundant-work scan (Sun 05:00 UTC)
+# Pantheon Mini V8.9 — weekly redundant-work scan (Sun 05:00 UTC)
 0 5 * * 0  python3 $REDUNDANT
 EOF
 )"

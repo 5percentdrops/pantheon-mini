@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""validate_org_sanity.py — Mini Software House organisation sanity check.
+"""validate_org_sanity.py — Pantheon Mini organisation sanity check.
 
 Originally `validate.py` (pre-V8.10 alignment). Renamed when validate.py
 was upgraded to a multi-validator chain. Still runs as one link of the

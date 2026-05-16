@@ -51,7 +51,7 @@ fi
 mkdir -p "$WINSTON_HOME/cron"
 
 body=$(cat <<EOF
-# Mini Software House V8.8 — Winston cross-agent dream aggregator
+# Pantheon Mini V8.8 — Winston cross-agent dream aggregator
 # Runs 1h after per-agent Dreaming (03:00 UTC) so all dreams have flushed.
 # Scrapes ~/.hermes-mini-mini-*/logs/dream-*.log + skills/*.md, dedups across
 # agents by sha256, writes workspace/wiki/lessons_learned.md.

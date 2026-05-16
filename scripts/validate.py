@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mini Software House V8.10 validator chain.
+"""Pantheon Mini V8.10 validator chain.
 
 Runs the original V7 mini validators + the V8.6–V8.10 patch validators
 adapted to mini's 12-active-agent roster. The pre-V8.10 single-file

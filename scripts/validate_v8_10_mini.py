@@ -134,7 +134,7 @@ for loc in ("schemas","contracts"):
 
 example = ROOT/"examples"/"mini_weekly_intel_walkthrough.md"
 if must_exist(example):
-    must_contain(example, ["Mini Software House Weekly Intel","Magnus","Ivan","Viktor"])
+    must_contain(example, ["Pantheon Mini Weekly Intel","Magnus","Ivan","Viktor"])
 
 # --- Mini-specific: role map ----------------------------------------
 role_map = ROOT/"SoftwareHouse"/"policies"/"mini_agent_role_map.yaml"
@@ -149,4 +149,4 @@ if FAILS:
     for f in FAILS: print(f"  - {f}")
     sys.exit(1)
 
-print("PASS: Mini Software House V8.10 aligned with full Pantheon V8.10 (mini-adapted to 12-agent active roster).")
+print("PASS: Pantheon Mini V8.10 aligned with full Pantheon V8.10 (mini-adapted to 12-agent active roster).")

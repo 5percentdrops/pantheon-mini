@@ -1,4 +1,4 @@
-# Mini Software House — 2 → 12 Smoke-Scale Ramp
+# Pantheon Mini — 2 → 12 Smoke-Scale Ramp
 
 Mini ships with 12 active agents (vs Pantheon's 33). The ramp here is shorter
 but the principle is the same as in the article: start at the smallest

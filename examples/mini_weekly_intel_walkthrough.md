@@ -1,4 +1,4 @@
-# Worked Example: Mini Software House Weekly Intel Pipeline
+# Worked Example: Pantheon Mini Weekly Intel Pipeline
 
 Mini-adapted analogue of Pantheon's `examples/weekly_market_intelligence.md`.
 Uses Mini's 12 active agents with Magnus covering SDD + 2nd-line review,

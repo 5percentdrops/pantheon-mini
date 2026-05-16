@@ -1,4 +1,4 @@
-# Mini Software House — V8.10
+# Pantheon Mini — V8.10
 
 A 12-agent AI software studio for fast local iteration on smaller projects.
 Structurally aligned with full Pantheon V8.10 (Paperclip control plane,
@@ -113,4 +113,4 @@ own runtime + keys.
 
 ## License
 
-Same terms as the original mini package (verify before redistribution).
+MIT — see [`LICENSE`](LICENSE). Same as full Pantheon.

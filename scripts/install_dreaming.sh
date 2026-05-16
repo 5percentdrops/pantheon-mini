@@ -68,7 +68,7 @@ for home in "${homes[@]}"; do
   mkdir -p "$cron_dir"
 
   body=$(cat <<EOF
-# Mini Software House V8.6 — nightly Dreaming pass for agent: $slug
+# Pantheon Mini V8.6 — nightly Dreaming pass for agent: $slug
 # Reviews 7d of sessions, dedups skills, consolidates MEMORY.md.
 # Owner: Hermes per-home scheduler (NOT system cron).
 0 $HOUR * * *  HERMES_HOME=$home bash $DREAM_RUNNER

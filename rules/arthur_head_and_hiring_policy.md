@@ -2,7 +2,7 @@
 
 ## Decision
 
-Arthur is the head of the Mini Software House.
+Arthur is the head of the Pantheon Mini.
 
 In Paperclip terms, Arthur occupies the top setup role that would normally be called the CEO.  
 In this organisation, the title is changed.

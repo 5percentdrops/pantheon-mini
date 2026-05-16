@@ -1,7 +1,7 @@
 policy:
   id: escalation_packet_policy_v8_8
   applies_to: every_engineer_escalation_to_marcus_or_maxwell
-  schema: Mini Software House/schemas/engineer_escalation_packet.schema.json
+  schema: Pantheon Mini/schemas/engineer_escalation_packet.schema.json
   hard_rules:
     - "Engineer may NOT emit conversational text in place of the packet"
     - "Marcus's runtime rejects non-conforming payloads (HTTP 400-equiv)"

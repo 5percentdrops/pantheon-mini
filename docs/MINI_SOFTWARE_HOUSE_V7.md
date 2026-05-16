@@ -1,4 +1,4 @@
-# Mini Software House V7 — One-Lane Essential Team
+# Pantheon Mini V7 — One-Lane Essential Team
 
 ## Purpose
 

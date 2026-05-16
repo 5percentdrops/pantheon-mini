@@ -27,7 +27,7 @@ pipeline:
       escalation_on_persistent_fail: magnus-architecture-escalation
       max_output_tokens: 4000                 # V8.10
       reason: |
-        Maxwell is the most expensive agent in Mini Software House (Opus 4.7 Max).
+        Maxwell is the most expensive agent in Pantheon Mini (Opus 4.7 Max).
         Silent acceptance of his overrides is the worst-class failure
         mode — confident wrong code shipped to merge_gate because no one
         challenged the senior. V8.8 forces Cody to re-grade against the

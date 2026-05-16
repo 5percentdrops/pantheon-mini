@@ -186,7 +186,7 @@ def main() -> int:
 
     icon = {"healthy": "✅", "watch": "🟡", "escalate_to_board": "🔴"}[verdict]
     md = [
-        f"# Mini Software House — Weekly System Outcomes ({snapshot})",
+        f"# Pantheon Mini — Weekly System Outcomes ({snapshot})",
         "",
         f"## Verdict: {icon} **{verdict.upper().replace('_', ' ')}**",
         "",

@@ -1,4 +1,4 @@
-# Mini Software House Policy
+# Pantheon Mini Policy
 
 ## Operating Principle
 
@@ -93,7 +93,7 @@ If a project truly needs frontend, mobile, Pine Script, Quantower, DevOps, or de
 
 ## Arthur as Head
 
-Arthur is the head and Project Manager of the Mini Software House.
+Arthur is the head and Project Manager of the Pantheon Mini.
 
 In Paperclip setup terms, Arthur replaces the default CEO role.
 

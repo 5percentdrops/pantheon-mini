@@ -49,7 +49,7 @@ fi
 mkdir -p "$ARTHUR_HOME/cron"
 
 body=$(cat <<EOF
-# Mini Software House V8.9 — central metrics rollup (Arthur-owned observability)
+# Pantheon Mini V8.9 — central metrics rollup (Arthur-owned observability)
 # Reads V8.6–V8.8 alert sinks, writes workspace/07_Finalization/metrics_dashboard.{md,json}
 # Cadence: every $INTERVAL minutes.
 */$INTERVAL * * * *  python3 $METRICS

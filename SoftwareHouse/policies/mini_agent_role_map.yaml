@@ -1,7 +1,7 @@
 policy:
   id: mini_agent_role_map_v8_10
   purpose: |
-    Mini Software House intentionally runs with 12 active agents instead
+    Pantheon Mini intentionally runs with 12 active agents instead
     of Pantheon's full 33. Several Pantheon roles are filled by different
     agents in Mini. This file is the source of truth for that mapping —
     pipelines, routes, and validators consult it instead of hardcoding

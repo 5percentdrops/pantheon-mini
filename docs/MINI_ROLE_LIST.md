@@ -1,4 +1,4 @@
-# Mini Software House Role List
+# Pantheon Mini Role List
 
 Use these clear role names.
 
@@ -14,7 +14,7 @@ Use these clear role names.
 
 ## Arthur's Special Responsibility
 
-Arthur is the head of the Mini Software House.
+Arthur is the head of the Pantheon Mini.
 
 Arthur replaces the default Paperclip CEO setup role with:
 

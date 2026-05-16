@@ -1,4 +1,4 @@
-# Mini Software House Team Roster
+# Pantheon Mini Team Roster
 
 ## Active Team
 

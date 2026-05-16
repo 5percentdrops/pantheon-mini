@@ -1,4 +1,4 @@
-# Mini Software House — V8.10 Alignment Patch Notes
+# Pantheon Mini — V8.10 Alignment Patch Notes
 
 Mini's V7 baseline (33 agent records, 12 active, 21 placeholders) brought
 forward to structural parity with full Pantheon V8.10 — without inflating
@@ -49,7 +49,7 @@ V8.9: `metrics_summary.py`, `install_metrics_cron.sh`,
 All scripts have:
 - `Pantheon/` paths rewritten to `SoftwareHouse/`
 - `~/.hermes-` rewritten to `~/.hermes-mini-`
-- Brand strings rewritten `Pantheon` → `Mini Software House`
+- Brand strings rewritten `Pantheon` → `Pantheon Mini`
 
 ### Validator chain
 
@@ -127,7 +127,7 @@ from `agents.json`.
 ```json
 {
   "version": "8.10-mini",
-  "schema_version": "mini-software-house.v8.10",
+  "schema_version": "pantheon-mini.v8.10",
   "v8_10_mini_alignment": {
     "aligned_with_full_pantheon_version": "8.10",
     "agent_count_active": 12,

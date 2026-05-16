@@ -60,7 +60,7 @@ fi
 mkdir -p "$ARTHUR_HOME/cron"
 
 body=$(cat <<EOF
-# Mini Software House V8.7 — per-host budget watcher (Arthur-owned)
+# Pantheon Mini V8.7 — per-host budget watcher (Arthur-owned)
 # Sums per-agent today's token-proxy bytes, alerts on >=80% cap burn.
 # Runs every $INTERVAL minutes.
 */$INTERVAL * * * *  python3 $WATCHER
