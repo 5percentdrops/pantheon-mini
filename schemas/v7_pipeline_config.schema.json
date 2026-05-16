@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Software House V7 Pipeline Config",
+  "type": "object",
+  "required": [
+    "version",
+    "workspace_root",
+    "attempt_ladder",
+    "merge_gate"
+  ],
+  "properties": {
+    "version": {
+      "const": "7.0"
+    },
+    "workspace_root": {
+      "type": "string"
+    },
+    "arthur_core_model": {
+      "type": "string"
+    },
+    "arthur_watcher": {
+      "type": "string"
+    },
+    "attempt_ladder": {
+      "type": "object",
+      "properties": {
+        "junior_max": {
+          "const": 12
+        },
+        "senior_max": {
+          "const": 15
+        },
+        "maxwell_max": {
+          "const": 17
+        },
+        "cody_attempt": {
+          "const": 18
+        },
+        "magnus_attempt": {
+          "const": 19
+        }
+      }
+    },
+    "merge_gate": {
+      "type": "boolean"
+    }
+  }
+}

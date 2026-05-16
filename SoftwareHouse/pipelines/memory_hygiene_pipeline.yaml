@@ -1,0 +1,26 @@
+pipeline:
+  id: memory_hygiene_v8_1
+  pattern: scheduled_pipeline
+  dispatch_events:
+    - weekly_memory_hygiene
+  assigned_agent: winston-director-knowledge-architecture
+  cadence: weekly
+  inputs:
+    - completed_paperclip_issues
+    - progress_logs
+    - failed_ci_logs
+    - pr_reviews
+    - user_feedback
+  outputs:
+    - weekly_summary.md
+    - proposed_memory_updates.md
+    - proposed_agent_rule_updates.md
+  output_contract: memory_update.schema.json
+  hard_rule:
+    governance_updates_require_human_approval: true
+  hard_gates:                                # V8.10
+    - per_run_max_output_tokens_enforced
+  output_budget:                             # V8.10
+    pipeline_total_max_tokens: 8000
+    max_output_tokens_per_artifact: 3000
+    enforcement: truncate_with_warning_then_escalate

@@ -1,0 +1,75 @@
+{
+  "version": "7.0-mini",
+  "active_agents": {
+    "Arthur": "project_manager_head_hiring_authority",
+    "Marcus": "senior_developer_planner_commit_owner",
+    "Jack": "standard_developer_implementer",
+    "Cody": "independent_code_reviewer_auditor",
+    "Maxwell": "staff_escalation_engineer",
+    "Magnus": "principal_architect",
+    "Winston": "knowledge_archivist"
+  },
+  "removed_agents": [
+    "Sonia",
+    "Leo",
+    "Dominic",
+    "Ellie",
+    "Felix",
+    "Ben",
+    "Nathan",
+    "Grant",
+    "Viktor",
+    "Theo",
+    "Nadia",
+    "Ivan",
+    "Owen",
+    "Vera",
+    "Graham",
+    "Stone",
+    "Adrian"
+  ],
+  "attempt_ladder": {
+    "1-12": "Jack",
+    "13-15": "Marcus",
+    "16-17": "Maxwell",
+    "18": "Cody",
+    "19": "Magnus"
+  },
+  "success_path": [
+    "Cody Pass",
+    "Arthur route to Marcus",
+    "Marcus final review",
+    "Marcus commit",
+    "Marcus PR draft",
+    "Arthur merge gate",
+    "Winston archive"
+  ],
+  "failure_path": [
+    "Jack fail at 12",
+    "Arthur context shredder",
+    "Marcus tactical fixes",
+    "Maxwell deep fixes",
+    "Cody forensic report",
+    "Magnus structural pathways",
+    "manual review"
+  ],
+  "rules": {
+    "harness": "Hermes only",
+    "caveman": "FULL for all agents",
+    "caveman_exception": "Arthur raw escalation error extract only",
+    "rtk": "terminal/output compression only; 150 head + 150 tail",
+    "merge": "gated"
+  },
+  "arthur_hiring_authority": {
+    "enabled": true,
+    "title": "Project Manager / Head",
+    "paperclip_ceo_role_renamed_to": "Arthur",
+    "can_activate_specialists": true,
+    "requires_hiring_packet": true,
+    "specialists_inactive_by_default": true,
+    "forbidden": [
+      "silent_team_expansion",
+      "routing_to_removed_agents_without_reason"
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+policy:
+  id: mini_agent_role_map_v8_10
+  purpose: |
+    Mini Software House intentionally runs with 12 active agents instead
+    of Pantheon's full 33. Several Pantheon roles are filled by different
+    agents in Mini. This file is the source of truth for that mapping —
+    pipelines, routes, and validators consult it instead of hardcoding
+    agent IDs they assume will be present.
+  active_agents_count: 12
+  inactive_placeholders_count: 21
+  role_map:
+    # Pantheon role            ->   Mini active agent that fills it
+    project_manager:                arthur-project-manager           # GPT? → sonnet-4.6 in mini
+    head_of_engineering:            magnus-principal-solution-architect
+    sdd_architect:                  magnus-principal-solution-architect   # Marcus inactive in Mini
+    tdd_planner:                    magnus-principal-solution-architect   # Marcus inactive
+    mid_pipeline_qa_reviewer:       qa                                   # Ivan (Nadia inactive in Mini)
+    first_line_pr_reviewer:         senior-devops                        # Viktor (Clara inactive in Mini)
+    second_line_pr_reviewer:        magnus-principal-solution-architect  # Cody inactive in Mini
+    staff_escalation:               maxwell-staff-escalation-engineer
+    architecture_escalation:        magnus-principal-solution-architect
+    knowledge_archivist:            winston-director-knowledge-architecture
+  engineer_pool_fan_out:
+    - jack-backend-developer
+    - ben-pinescript-developer
+    - qa                                # Ivan
+    - devops-dev                        # Theo
+    - frontend-dev                      # Leo
+    - mobile-dev                        # Ellie
+    - grant-quantower-csharp-automation-developer
+  active_with_models:
+    - arthur-project-manager:              anthropic/claude-sonnet-4.6
+    - magnus-principal-solution-architect: google/gemini-3.1-pro
+    - maxwell-staff-escalation-engineer:   anthropic/claude-opus-4.7
+    - winston-director-knowledge-architecture: anthropic/claude-3.5-haiku
+    - senior-devops:                       anthropic/claude-opus-4.7
+    - jack-backend-developer:              deepseek/deepseek-v4-pro
+    - ben-pinescript-developer:            deepseek/deepseek-v4-pro
+    - qa:                                  deepseek/deepseek-v4-pro
+    - devops-dev:                          deepseek/deepseek-v4-pro
+    - frontend-dev:                        deepseek/deepseek-v4-pro
+    - mobile-dev:                          deepseek/deepseek-v4-pro
+    - grant-quantower-csharp-automation-developer: deepseek/deepseek-v4-pro
+  upgrade_to_pantheon_parity:
+    description: |
+      To match Pantheon V8.10 exactly, activate these inactive agents by
+      assigning them models and re-running bootstrap_hermes_homes.sh:
+    - marcus-senior-backend-developer   (suggested: anthropic/claude-opus-4.7)
+    - clara-claude-pr-review-lead       (suggested: anthropic/claude-opus-4.7)
+    - cody-code-escalation-reviewer     (suggested: openai/gpt-5.5)
+    - senior-qa  (Nadia)                (suggested: anthropic/claude-opus-4.7 xhigh)
+    - plus 17 specialists for full 33-agent coverage
+  rationale: |
+    Mini exists for fast local iteration on smaller projects. Full
+    Pantheon role coverage requires the 33-agent roster + the higher
+    per-day token budget that implies. Mini compromises by re-using
+    Magnus across multiple senior roles — works because Magnus is a
+    Principal Architect with gemini-3.1-pro, capable of SDD, TDD
+    planning, and code review in mini-scale workloads.

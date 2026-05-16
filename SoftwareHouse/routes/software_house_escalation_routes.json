@@ -1,0 +1,17 @@
+{
+  "routes": [
+    {
+      "name": "parallel_escalation",
+      "path": [
+        "arthur-project-manager",
+        "cody-code-escalation-reviewer",
+        "magnus-principal-solution-architect",
+        "arthur-project-manager",
+        "marcus-senior-backend-developer",
+        "jack-backend-developer"
+      ],
+      "hard_rule": "Magnus reports to Arthur; Marcus rewrites plan before Jack executes.",
+      "harness": "Hermes"
+    }
+  ]
+}
