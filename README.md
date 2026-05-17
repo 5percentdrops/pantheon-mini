@@ -2,19 +2,19 @@
 
 # 🏛 Pantheon Mini
 
-### **12 AI agents. One small studio. Same architecture as full Pantheon.**
+### **7 AI agents. One small studio. One escalation ladder by attempt number.**
 
 *The minimal viable software house. Ships PRs without the 33-agent overhead.*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OS](https://img.shields.io/badge/OS-Linux%20%7C%20macOS%20%7C%20WSL-brightgreen)](README_INSTALL.md)
-[![Models](https://img.shields.io/badge/Models-Sonnet%204.6%20%7C%20Opus%204.7%20%7C%20Gemini%203.1%20Pro%20%7C%20DeepSeek%20V4%20Pro-blue)](#-the-mini-pantheon)
-[![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.10-orange)](https://github.com/5percentdrops/pantheon)
+[![Models](https://img.shields.io/badge/Models-Sonnet%204.6%20%7C%20Opus%204.7%20%7C%20Gemini%203.1%20Pro%20%7C%20DeepSeek%20V4%20Pro%20%7C%20GPT--5.5-blue)](#-the-active-mini-operating-team)
+[![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.11-orange)](https://github.com/5percentdrops/pantheon)
 [![Install](https://img.shields.io/badge/Install-One%20Click-orange)](#-quick-start)
 [![Stars](https://img.shields.io/github/stars/5percentdrops/pantheon-mini?style=social)](https://github.com/5percentdrops/pantheon-mini/stargazers)
 
 ```
-You write the PRD.   Pantheon Mini ships the PR.   Without firing 33 agents.
+You write the PRD.   Pantheon Mini ships the PR.   With 7 agents, not 33.
 ```
 
 </div>
@@ -27,7 +27,7 @@ You write the PRD.   Pantheon Mini ships the PR.   Without firing 33 agents.
 git clone https://github.com/5percentdrops/pantheon-mini.git && cd pantheon-mini && bash scripts/one_click_install.sh -y --setup-keys
 ```
 
-12 AI agents wake up. Each has a name, a model, a memory, a job. Coexists with full Pantheon on the same host — `~/.hermes-mini-*` namespace.
+7 AI agents wake up. Each has a name, a model, a memory, a job, and a fixed slot on the escalation ladder. Coexists with full Pantheon on the same host — `~/.hermes-mini-*` namespace.
 
 ---
 
@@ -35,7 +35,7 @@ git clone https://github.com/5percentdrops/pantheon-mini.git && cd pantheon-mini
 
 **Problem with full Pantheon:** 33 agents = 33 LLM connections = real token spend. Overkill for solo projects, prototypes, weekend builds.
 
-**Mini's deal:** Same Paperclip+Hermes architecture, same V8.10 hardening, same `SOUL.md`/`MEMORY.md`/skills loop — but only **12 active agents** filling all the critical roles. One agent (Magnus) covers what 4 agents do in full Pantheon (Marcus SDD, Cody review, Magnus arch, Marcus TDD).
+**Mini's deal:** Same Paperclip+Hermes architecture, same V8.10 hardening, same `SOUL.md`/`MEMORY.md`/skills loop — but only **7 active agents** on an attempt-numbered escalation ladder. Specialist work (frontend, mobile, devops, qa, pinescript, quantower) is intentionally collapsed onto Jack (implementer) or Marcus (planner). The 26 inactive Pantheon roles are placeholders for schema parity only.
 
 Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
@@ -45,58 +45,66 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
 | | Full Pantheon | **Pantheon Mini** |
 |---|---|---|
-| Active agents | 33 | **12** |
-| Inactive placeholders | 0 (all live) | 21 (activate when needed) |
+| Active agents | 33 | **7** |
+| Inactive placeholders | 0 (all live) | 26 (activate when needed) |
+| Escalation model | per-role | **attempt-numbered ladder** (1-12, 13-15, 16-17, 18, 19, archive, merge) |
 | Arthur model | GPT-5 mini | **Sonnet 4.6** |
-| Dual PR review | Clara (Opus) → Cody (GPT-5.5) | **Viktor (Opus) → Magnus (Gemini)** |
-| Mid-pipeline QA | Nadia (Opus XHigh) | **Ivan (DeepSeek)** |
-| SDD architecture | Marcus (Opus) | **Magnus (Gemini)** — also handles 2nd-line review |
+| Implementer | Jack/Ben/Theo/Leo/Ellie/Grant (specialist fan-out) | **Jack alone** (DeepSeek) |
+| Senior planner | Marcus | **Marcus** (also covers SDD/feature/red-test) |
+| Reviewer/auditor | Clara → Cody | **Cody alone** (GPT-5.5, attempt 18) |
 | Hermes namespace | `~/.hermes-*` | `~/.hermes-mini-*` |
-| Patches | V8.5 → V8.10 | **All ported, 0 parity gaps** |
+| Patches | V8.5 → V8.10 | **V8.5 → V8.11, 0 parity gaps** |
 | Daily token spend (heavy day) | $5–$20 | **$1–$5** |
 
 **Run both on same host:** zero collision. Use Mini for prototypes; Pantheon for production.
 
 ---
 
-## 🏛 The Mini Pantheon
+## 🏛 The Active Mini operating team
 
-12 named agents. Magnus does heavy lifting.
+7 named agents. Every Pantheon role maps onto one of them.
 
 ```
                           👤 YOU (Board / Final Approval)
                                       ↓
-                          🎯 Arthur — Project Manager (Sonnet 4.6)
+                       🎯 Arthur — Project Manager / Head  (merge gate, Sonnet 4.6)
                                       ↓
-                ┌─────────────────────┼─────────────────────┐
-                ↓                     ↓                     ↓
-       🏗 Magnus — SDD/Arch    🔨 Engineer Pool      🛡 Ivan — QA gate
-        (Gemini 3.1 Pro)       (DeepSeek V4 Pro)      (DeepSeek)
+                          📋 Marcus — Senior Developer / Planner  (Opus 4.7 XHigh)
+                          (SDD · feature tickets · red tests · PR description)
                                       ↓
-                              📜 PR opened
+                          🔨 Jack — Standard Developer / Implementer  (DeepSeek V4 Pro)
+                                  attempts 1-12 (red-to-green TDD)
                                       ↓
-                         👀 Viktor — 1st-line (Opus 4.7)
+                          (Jack stuck after attempt 12 → escalation ladder)
                                       ↓
-                         👀 Magnus — 2nd-line (Gemini)
+                ┌──────────────┬──────────────┬───────────────┐
+                ↓              ↓              ↓               ↓
+            Marcus 13-15   Maxwell 16-17   Cody 18         Magnus 19
+            (tactical)     (deep fix)     (audit)        (architect)
+                ↓              ↓              ↓               ↓
+                └──────────────┴──────────────┴───────────────┘
                                       ↓
-                         🔥 Maxwell — escalation (Opus 4.7)
+                          🔁 Solution returned through Arthur → Jack tests
                                       ↓
-                         ✅ Arthur — merge
+                          ✅ Arthur — merge gate
                                       ↓
-                         📚 Winston — wiki + cross-agent learning
+                          📚 Winston — final archive (Haiku 3.5)
 ```
 
-| Role | Agent | Model |
-|---|---|---|
-| 🎯 **Head** | Arthur | Sonnet 4.6 |
-| 🏗 **Architecture + 2nd-line review** | **Magnus** | Gemini 3.1 Pro |
-| 👀 **1st-line PR review** | **Viktor** | Opus 4.7 |
-| 🛡 **Mid-pipeline QA** | **Ivan** | DeepSeek V4 Pro |
-| 🔥 **Escalation** | Maxwell | Opus 4.7 |
-| 📚 **Knowledge** | Winston | Haiku 3.5 |
-| 👷 **Engineer pool (fan-out)** | Jack, Ben, Theo, Leo, Ellie, Grant | DeepSeek V4 Pro |
+| # | Role | Agent | Attempts | Model |
+|--:|---|---|---|---|
+| 1 | 🎯 **Project Manager / Head** | Arthur | merge gate | Sonnet 4.6 |
+| 2 | 📋 **Senior Developer / Planner** | Marcus | 13-15 | Opus 4.7 XHigh |
+| 3 | 🔨 **Standard Developer / Implementer** | Jack | 1-12 | DeepSeek V4 Pro |
+| 4 | 🔍 **Independent Reviewer / Auditor** | Cody | 18 | GPT-5.5 |
+| 5 | 🔥 **Staff Escalation Engineer** | Maxwell | 16-17 | Opus 4.7 Max |
+| 6 | 🏗 **Principal Architect** | Magnus | 19 | Gemini 3.1 Pro |
+| 7 | 📚 **Knowledge Archivist** | Winston | final archive | Haiku 3.5 |
 
-**21 placeholder agents** stay dormant until you assign them a model — see [`SoftwareHouse/policies/mini_agent_role_map.yaml`](SoftwareHouse/policies/mini_agent_role_map.yaml) for the upgrade-to-full-Pantheon path.
+**Ladder is the source of truth:**
+Jack 1-12 → Marcus 13-15 → Maxwell 16-17 → Cody 18 → Magnus 19 → Winston archives → Arthur merges (or Magnus terminates to manual review).
+
+**26 placeholder agents** stay dormant until you assign them a model — see [`SoftwareHouse/policies/mini_agent_role_map.yaml`](SoftwareHouse/policies/mini_agent_role_map.yaml) for the upgrade-to-full-Pantheon path.
 
 ---
 
@@ -116,22 +124,22 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 Each agent dreams at 03:00 UTC: sha256 dedup skills, consolidate MEMORY.md, `SOUL.md` immutable.
 
 ### 📐 Rubric-graded reviews (V8.7)
-Viktor grades implementations against `outcome.schema.json` rubrics. Auto-iterate with Jack before Magnus sees the PR.
+Cody grades implementations against `outcome.schema.json` rubrics on attempt 18. Auto-iterate with Jack before Magnus sees the work on attempt 19.
 
-### ⚡ Fan-out engineer pool (V8.7)
-Marcus's independent tickets dispatch across 4 parallel DeepSeek engineers (Jack/Ben/Ivan/Theo/Leo/Ellie/Grant). Serial fallback on contention.
+### ⚡ Fan-out (V8.7)
+Mini's fan-out collapses onto Jack (single-implementer pool). Full Pantheon retains the multi-engineer specialist fan-out.
 
 ### 💰 Per-host budget watcher (V8.7)
 Arthur cron `*/15` sums per-agent tokens, alerts WARN @ 80% / CRIT @ 95% — to `workspace/07_Finalization/budget_alerts.jsonl` + Arthur's MEMORY on CRIT.
 
 ### 📦 Rigid escalation contract (V8.8)
-Engineer → Magnus handoff is strict `engineer_escalation_packet.v1` JSON (RTK trace, red test IDs, blocked-on enum). Raw conversational text rejected.
+Engineer → Marcus handoff is strict `engineer_escalation_packet.v1` JSON (RTK trace, red test IDs, blocked-on enum). Raw conversational text rejected. V8.11: enum is the 7 active IDs.
 
 ### 🌐 Cross-agent learning (V8.8)
-Winston scrapes every home at 04:00 UTC, dedups by sha256, writes `workspace/wiki/lessons_learned.md` that engineers pre-read before TDD.
+Winston scrapes every home at 04:00 UTC, dedups by sha256, writes `workspace/wiki/lessons_learned.md` that Jack pre-reads before TDD.
 
 ### 🔥 Maxwell override grading (V8.8)
-Maxwell's escalation fixes don't auto-merge. Magnus (acting as Cody) re-grades against same rubric. Max 2 iterations → architecture review.
+Maxwell's escalation fixes don't auto-merge. Cody re-grades against same rubric on attempt 18. Max 2 iterations → architecture review by Magnus on attempt 19.
 
 ### 📊 Central observability dashboard (V8.9)
 `workspace/07_Finalization/metrics_dashboard.md` rolls up every alert sink. Watch list triggers on all 4 article failure modes.
@@ -144,6 +152,9 @@ Winston Sunday scan flags two agents doing the same job. Advisory only.
 
 ### 📏 Per-stage output caps + bypass-proof contracts (V8.10)
 Every pipeline declares `output_budget`; every stage declares `max_output_tokens` or `max_output_bytes`; every non-first stage declares `input_contract` or `input_event`. Mis-routed handoffs fail at schema validation.
+
+### 🪜 Attempt-numbered escalation ladder (V8.11)
+Mini drops the "12 active, several specialist seniors" model. The 7-agent Active Mini operating team owns every Pantheon role and routes by attempt number, not role family.
 
 ---
 
@@ -170,9 +181,9 @@ bash scripts/one_click_install.sh -y --setup-keys
 
 The 8-step installer:
 1. ✅ Workspace mkdir
-2. ✅ Validators (V7 baseline + V8.10 alignment)
+2. ✅ Validators (V7 baseline + V8.11 alignment)
 3. ✅ (V7 baseline kept — no agentcompanies/v1 conversion in mini)
-4. 🏠 Bootstrap **12 per-agent `~/.hermes-mini-<slug>/` homes**
+4. 🏠 Bootstrap **7 per-agent `~/.hermes-mini-<slug>/` homes** (Arthur, Marcus, Jack, Cody, Maxwell, Magnus, Winston)
 5. 🔑 Securely prompt for API keys (hidden input, chmod 600, zero network)
 6. 🔌 Register `hermes_local` Paperclip adapter
 7. 🌙 Install nightly Dreaming + Winston aggregator + V8.9 observability crons
@@ -182,7 +193,8 @@ The 8-step installer:
 ```
 Open Paperclip → Pantheon Mini → Arthur
 Send: "Build a CLI tool that counts unique words in a file."
-Watch Arthur → Magnus → Ivan → Jack → Viktor → Magnus → merge.
+Watch Arthur → Marcus → Jack → green → Arthur → merge.
+(On stuck: Jack 1-12 → Marcus 13-15 → Maxwell 16-17 → Cody 18 → Magnus 19.)
 ```
 
 ---
@@ -198,7 +210,7 @@ python3 scripts/parity_check_against_pantheon.py
 Output:
 ```
 ✅ PARITY PASS — Pantheon Mini matches full Pantheon's structural surface.
-   Only delta: active agent count (12 mini vs 33 full) and agent-specific paths.
+   Only delta: active agent count (7 mini vs 33 full) and agent-specific paths.
 ```
 
 ---
@@ -226,9 +238,9 @@ Output:
 ## 📊 Verify the install
 
 ```bash
-python3 scripts/validate_v8_10_mini.py          # V8.10 alignment fast check (PASS)
+python3 scripts/validate_v8_10_mini.py          # V8.11 alignment fast check (PASS)
 python3 scripts/parity_check_against_pantheon.py # 0 parity gaps vs full
-ls -d ~/.hermes-mini-* | wc -l                  # 12 homes
+ls -d ~/.hermes-mini-* | wc -l                  # 7 homes
 cat workspace/07_Finalization/metrics_dashboard.md  # after first cron tick
 ```
 
@@ -237,15 +249,18 @@ cat workspace/07_Finalization/metrics_dashboard.md  # after first cron tick
 ## ❓ FAQ
 
 **Q: Why use Mini instead of full Pantheon?**
-3x cheaper. 12 agents instead of 33. Same V8.10 architecture + same patches. Use Mini for prototypes, full for production.
+3x cheaper. 7 agents instead of 33. Same V8.10 architecture + same patches + V8.11 attempt-numbered ladder. Use Mini for prototypes, full for production.
 
 **Q: Can I run Mini and full Pantheon on the same machine?**
 Yes. Mini uses `~/.hermes-mini-*`, full uses `~/.hermes-*`. Zero collision.
 
-**Q: Why is Magnus doing so many jobs?**
-In full Pantheon, Marcus (SDD/TDD) and Cody (2nd-line review) are separate. In Mini, Magnus (Gemini 3.1 Pro Principal Architect) covers both — capable model, lower cost than running 2 senior Opus agents.
+**Q: How does Mini handle frontend / mobile / devops / qa / pinescript / quantower work?**
+All specialist implementation lanes route to Jack (Standard Developer / Implementer). Senior specialist planning routes to Marcus. This is intentional — Mini is the minimum viable lane, not a coverage-equivalent of full Pantheon.
 
-**Q: Can I activate the 21 dormant agents?**
+**Q: Why an attempt-numbered ladder instead of role-based?**
+Predictable budget exhaustion. Jack gets 12 attempts; Marcus 3 more; Maxwell 2 more; Cody 1 audit; Magnus 1 architectural rethink. After attempt 19, Magnus can terminate the lane to manual review.
+
+**Q: Can I activate the 26 dormant agents?**
 Yes. Assign a model in `SoftwareHouse/paperclip/agents.json`, re-run `scripts/one_click_install.sh`. See [`mini_agent_role_map.yaml`](SoftwareHouse/policies/mini_agent_role_map.yaml#upgrade_to_pantheon_parity).
 
 **Q: Does Mini have everything full has?**
@@ -259,10 +274,11 @@ Because it's literally a mini version of Pantheon. Same architecture, smaller pa
 ## 📚 Deeper docs
 
 - [`README_INSTALL.md`](README_INSTALL.md) — full install guide
-- [`SMOKE_SCALE.md`](SMOKE_SCALE.md) — 2 → 12 agent phased ramp
-- [`PATCH_NOTES_MINI_V8_10.md`](PATCH_NOTES_MINI_V8_10.md) — full V8.10 alignment patch list
-- [`SoftwareHouse/policies/mini_agent_role_map.yaml`](SoftwareHouse/policies/mini_agent_role_map.yaml) — Pantheon ↔ Mini role substitutions
-- [`examples/mini_weekly_intel_walkthrough.md`](examples/mini_weekly_intel_walkthrough.md) — 9-stage concrete trace
+- [`SMOKE_SCALE.md`](SMOKE_SCALE.md) — 2 → 7 agent phased ramp
+- [`PATCH_NOTES_MINI_V8_11.md`](PATCH_NOTES_MINI_V8_11.md) — V8.11 shrink to 7-agent Active Mini
+- [`PATCH_NOTES_MINI_V8_10.md`](PATCH_NOTES_MINI_V8_10.md) — V8.10 alignment patch list
+- [`SoftwareHouse/policies/mini_agent_role_map.yaml`](SoftwareHouse/policies/mini_agent_role_map.yaml) — Pantheon ↔ Mini role substitutions + escalation ladder
+- [`examples/mini_weekly_intel_walkthrough.md`](examples/mini_weekly_intel_walkthrough.md) — concrete pipeline trace
 
 ---
 
