@@ -5,117 +5,117 @@
     {
       "name": "intake_and_architecture",
       "path": [
-        "project-manager",
-        "system-architect",
-        "project-manager"
+        "arthur-project-manager",
+        "magnus-principal-solution-architect",
+        "arthur-project-manager"
       ],
       "harness": "Hermes"
     },
     {
       "name": "backend",
       "path": [
-        "project-manager",
-        "system-architect",
-        "senior-backend-dev",
-        "backend-dev",
-        "senior-backend-dev",
-        "senior-qa",
-        "qa",
-        "security-reviewer"
+        "arthur-project-manager",
+        "magnus-principal-solution-architect",
+        "marcus-senior-backend-developer",
+        "jack-backend-developer",
+        "marcus-senior-backend-developer",
+        "cody-code-escalation-reviewer",
+        "jack-backend-developer",
+        "cody-code-escalation-reviewer"
       ],
       "harness": "Hermes"
     },
     {
       "name": "frontend",
       "path": [
-        "project-manager",
-        "system-architect",
-        "senior-frontend-dev",
-        "frontend-dev",
-        "senior-frontend-dev",
-        "senior-qa",
-        "functional-tester"
+        "arthur-project-manager",
+        "magnus-principal-solution-architect",
+        "marcus-senior-backend-developer",
+        "jack-backend-developer",
+        "marcus-senior-backend-developer",
+        "cody-code-escalation-reviewer",
+        "jack-backend-developer"
       ],
       "harness": "Hermes"
     },
     {
       "name": "mobile",
       "path": [
-        "project-manager",
-        "system-architect",
-        "senior-mobile-designer",
-        "mobile-ui-dev",
-        "senior-mobile-dev",
-        "mobile-dev",
-        "senior-qa",
-        "functional-tester"
+        "arthur-project-manager",
+        "magnus-principal-solution-architect",
+        "marcus-senior-backend-developer",
+        "jack-backend-developer",
+        "marcus-senior-backend-developer",
+        "jack-backend-developer",
+        "cody-code-escalation-reviewer",
+        "jack-backend-developer"
       ],
       "harness": "Hermes"
     },
     {
       "name": "devops",
       "path": [
-        "project-manager",
-        "system-architect",
-        "senior-devops",
-        "devops-dev",
-        "security-reviewer",
-        "functional-tester"
+        "arthur-project-manager",
+        "magnus-principal-solution-architect",
+        "marcus-senior-backend-developer",
+        "jack-backend-developer",
+        "cody-code-escalation-reviewer",
+        "jack-backend-developer"
       ],
       "harness": "Hermes"
     },
     {
       "name": "pinescript_indicator",
       "path": [
-        "project-manager",
-        "senior-pinescript-dev",
-        "pinescript-dev",
-        "indicator-tester",
-        "senior-pinescript-dev",
-        "senior-qa"
+        "arthur-project-manager",
+        "marcus-senior-backend-developer",
+        "jack-backend-developer",
+        "jack-backend-developer",
+        "marcus-senior-backend-developer",
+        "cody-code-escalation-reviewer"
       ],
       "harness": "Hermes"
     },
     {
       "name": "data_backtest",
       "path": [
-        "project-manager",
-        "senior-data-analyst",
-        "data-analyst",
-        "senior-backtester",
+        "arthur-project-manager",
+        "marcus-senior-backend-developer",
+        "jack-backend-developer",
+        "marcus-senior-backend-developer",
         "backtester",
-        "senior-backtester",
-        "senior-qa"
+        "marcus-senior-backend-developer",
+        "cody-code-escalation-reviewer"
       ],
       "harness": "Hermes"
     },
     {
       "name": "security_gate",
       "path": [
-        "system-architect",
-        "security-reviewer",
-        "project-manager"
+        "magnus-principal-solution-architect",
+        "cody-code-escalation-reviewer",
+        "arthur-project-manager"
       ],
       "harness": "Hermes"
     },
     {
       "name": "closeout_learning",
       "path": [
-        "senior-qa",
-        "project-manager"
+        "cody-code-escalation-reviewer",
+        "arthur-project-manager"
       ],
       "harness": "Hermes"
     },
     {
       "name": "implementation_to_pr_review",
       "path": [
-        "project-manager",
-        "system-architect",
-        "senior-qa",
+        "arthur-project-manager",
+        "magnus-principal-solution-architect",
+        "cody-code-escalation-reviewer",
         "senior-backend-dev|senior-frontend-dev|senior-mobile-dev|senior-devops|senior-pinescript-dev",
-        "codex-pr-reviewer",
-        "senior-qa",
-        "project-manager"
+        "cody-code-escalation-reviewer",
+        "cody-code-escalation-reviewer",
+        "arthur-project-manager"
       ],
       "review_harness": "Hermes",
       "underlying_engine": "Latest Codex",
@@ -124,9 +124,9 @@
     {
       "name": "codex_security_review_escalation",
       "path": [
-        "codex-pr-reviewer",
-        "security-reviewer",
-        "project-manager"
+        "cody-code-escalation-reviewer",
+        "cody-code-escalation-reviewer",
+        "arthur-project-manager"
       ],
       "review_harness": "Hermes",
       "underlying_engine": "Latest Codex",
@@ -135,9 +135,9 @@
     {
       "name": "codex_architecture_review_escalation",
       "path": [
-        "codex-pr-reviewer",
-        "system-architect",
-        "project-manager"
+        "cody-code-escalation-reviewer",
+        "magnus-principal-solution-architect",
+        "arthur-project-manager"
       ],
       "review_harness": "Hermes",
       "underlying_engine": "Latest Codex",
@@ -146,10 +146,10 @@
     {
       "name": "codex_test_gap_escalation",
       "path": [
-        "codex-pr-reviewer",
-        "senior-qa",
-        "qa",
-        "project-manager"
+        "cody-code-escalation-reviewer",
+        "cody-code-escalation-reviewer",
+        "jack-backend-developer",
+        "arthur-project-manager"
       ],
       "review_harness": "Hermes",
       "underlying_engine": "Latest Codex",
@@ -158,18 +158,18 @@
     {
       "name": "dual_pr_review_workflow",
       "path": [
-        "project-manager",
-        "system-architect",
-        "senior-qa",
+        "arthur-project-manager",
+        "magnus-principal-solution-architect",
+        "cody-code-escalation-reviewer",
         "senior-backend-dev|senior-frontend-dev|senior-mobile-dev|senior-devops|senior-pinescript-dev",
-        "clara-claude-pr-review-lead",
-        "codex-pr-reviewer",
-        "senior-qa",
-        "project-manager"
+        "cody-code-escalation-reviewer",
+        "cody-code-escalation-reviewer",
+        "cody-code-escalation-reviewer",
+        "arthur-project-manager"
       ],
       "review_order": [
-        "clara-claude-pr-review-lead",
-        "codex-pr-reviewer"
+        "cody-code-escalation-reviewer",
+        "cody-code-escalation-reviewer"
       ],
       "required_before_merge": true,
       "harness": "Hermes"
@@ -178,8 +178,8 @@
       "name": "dual_pr_review_security_escalation",
       "path": [
         "clara-claude-pr-review-lead|codex-pr-reviewer",
-        "security-reviewer",
-        "project-manager"
+        "cody-code-escalation-reviewer",
+        "arthur-project-manager"
       ],
       "harness": "Hermes"
     },
@@ -187,8 +187,8 @@
       "name": "dual_pr_review_architecture_escalation",
       "path": [
         "clara-claude-pr-review-lead|codex-pr-reviewer",
-        "system-architect",
-        "project-manager"
+        "magnus-principal-solution-architect",
+        "arthur-project-manager"
       ],
       "harness": "Hermes"
     },
@@ -196,9 +196,9 @@
       "name": "dual_pr_review_test_gap_escalation",
       "path": [
         "clara-claude-pr-review-lead|codex-pr-reviewer",
-        "senior-qa",
-        "qa",
-        "project-manager"
+        "cody-code-escalation-reviewer",
+        "jack-backend-developer",
+        "arthur-project-manager"
       ],
       "harness": "Hermes"
     }

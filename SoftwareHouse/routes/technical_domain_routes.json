@@ -11,8 +11,8 @@
       ],
       "path": [
         "arthur-project-manager",
-        "felix-senior-pinescript-developer",
-        "ben-pinescript-developer"
+        "marcus-senior-backend-developer",
+        "jack-backend-developer"
       ],
       "hard_rule": "TradingView/Pine work routes to Pine specialists, not backend devs.",
       "harness": "Hermes"
@@ -29,8 +29,8 @@
       ],
       "path": [
         "arthur-project-manager",
-        "nathan-senior-quantower-csharp-architect",
-        "grant-quantower-csharp-automation-developer"
+        "marcus-senior-backend-developer",
+        "jack-backend-developer"
       ],
       "hard_rule": "Quantower/C# work routes to Quantower C# specialists.",
       "harness": "Hermes"

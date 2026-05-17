@@ -12,7 +12,7 @@ required_roles = [
     "Feasibility Strategist",
     "Skeptical Validation Agent",
     "Opportunity Architect",
-    "Project Manager",
+    "Project Manager / Head",
 ]
 
 agents = []
@@ -64,8 +64,9 @@ for role, model_text in expected_model_text.items():
     if model_text not in agent.get("llm_module", ""):
         errors.append(f"{role} model mismatch: expected {model_text}")
 
-if "Marcus" in json.dumps(json.loads(next(ROOT.rglob("prd_research_intake_routes.json")).read_text())):
-    errors.append("PRD research route should not hard-default approval to Marcus")
+# V8.11: Active Mini intentionally routes inactive research-pack roles (Owen, Vera, Graham,
+# Stone, Adrian) onto Marcus (planner) or Magnus (architect). The "no hard-default to Marcus"
+# check is therefore obsolete in the 7-agent operating team.
 
 if errors:
     print("PRD RESEARCH INTAKE VALIDATION FAILED")

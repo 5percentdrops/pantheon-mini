@@ -10,7 +10,7 @@ required_roles = [
     "Senior PineScript Developer",
     "Quantower C# Automation Developer",
     "Senior Quantower C# Architect",
-    "Project Manager",
+    "Project Manager / Head",
 ]
 agents = []
 for p in ROOT.rglob("organization.import.json"):

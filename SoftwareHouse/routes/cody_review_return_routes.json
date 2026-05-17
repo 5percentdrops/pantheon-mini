@@ -4,7 +4,7 @@
       "name": "maxwell_failed_to_cody",
       "trigger": "Maxwell failed two attempts",
       "path": [
-        "maxwell-opus-max-escalation-engineer",
+        "maxwell-staff-escalation-engineer",
         "arthur-project-manager",
         "cody-code-escalation-reviewer"
       ],

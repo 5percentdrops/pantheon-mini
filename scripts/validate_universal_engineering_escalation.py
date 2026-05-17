@@ -23,7 +23,11 @@ for p in ROOT.rglob("organization.import.json"):
     except Exception:
         pass
 roles = {a.get("role"): a for a in agents}
-for role in ["Project Manager", "Code Escalation Reviewer", "Principal Solution Architect"]:
+# V8.11: roles renamed for Active Mini operating team.
+# Project Manager       -> Project Manager / Head
+# Code Escalation Rev.  -> Independent Reviewer / Auditor
+# Principal Sol. Arch.  -> Principal Architect
+for role in ["Project Manager / Head", "Independent Reviewer / Auditor", "Principal Architect"]:
     if role not in roles:
         errors.append(f"missing universal role: {role}")
 for p in ROOT.rglob("universal_engineering_escalation_routes.json"):

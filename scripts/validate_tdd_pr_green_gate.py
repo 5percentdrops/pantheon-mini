@@ -26,15 +26,21 @@ for p in ROOT.rglob("organization.import.json"):
         pass
 
 roles = {a.get("role"): a for a in agents}
-for role in ["Backend Developer", "Senior Backend Developer", "PineScript Developer", "Senior PineScript Developer"]:
+# V8.11: Active Mini has 2 of these 4 roles (Jack + Marcus). PineScript roles are inactive.
+for role in ["Standard Developer / Implementer", "Senior Developer / Planner"]:
     if role not in roles:
         errors.append(f"missing role: {role}")
 
-jack = roles.get("Backend Developer", {})
+# V8.11: Jack runs red-to-green TDD; merge authority belongs to Arthur (merge gate).
+jack = roles.get("Standard Developer / Implementer", {})
 jack_text = (jack.get("description", "") + " " + jack.get("skills", "") + " " + jack.get("output", "")).lower()
-for phrase in ["green", "approved", "merge"]:
+for phrase in ["green", "tdd"]:
     if phrase not in jack_text:
         errors.append(f"Jack missing {phrase} responsibility")
+arthur = roles.get("Project Manager / Head", {})
+arthur_text = (arthur.get("description", "") + " " + arthur.get("skills", "") + " " + arthur.get("output", "")).lower()
+if "merge" not in arthur_text:
+    errors.append("Arthur missing merge gate responsibility")
 
 if errors:
     print("TDD/PR GREEN GATE VALIDATION FAILED")

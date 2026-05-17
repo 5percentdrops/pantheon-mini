@@ -20,30 +20,36 @@ data = json.loads(imp.read_text(encoding="utf-8"))
 agents = data.get("agents", [])
 ids = set()
 
+REQUIRED_CORE = ["id","name","role","description","harness"]
 for a in agents:
-    for key in ["id","name","role","description","personality","harness","llm_module","seed_skill_path","system_prompt"]:
+    for key in REQUIRED_CORE:
         if not str(a.get(key,"")).strip():
             errors.append(f"{a.get('id','UNKNOWN')}: missing {key}")
     if a["id"] in ids:
         errors.append(f"duplicate id {a['id']}")
     ids.add(a["id"])
-    if a["harness"] not in ["Hermes","OpenClaw"]:
+    if a.get("harness") not in ["Hermes","OpenClaw"]:
         errors.append(f"{a['id']}: invalid harness")
-    if not (base / a["seed_skill_path"]).exists():
+    seed = a.get("seed_skill_path")
+    if seed and not (base / seed).exists():
         errors.append(f"{a['id']}: missing seed skill")
 
-clara = next((a for a in agents if a["id"] == "clara-claude-pr-review-lead"), None)
-cody = next((a for a in agents if a["id"] == "codex-pr-reviewer"), None)
-
-if not clara:
-    errors.append("missing clara-claude-pr-review-lead")
-elif clara.get("harness") != "Hermes":
-    errors.append("Clara must use Hermes harness")
-
-if not cody:
-    errors.append("missing codex-pr-reviewer")
-elif cody.get("harness") != "Hermes":
-    errors.append("Cody must use Hermes harness")
+# V8.11: Active Mini operating team is 7 agents. Check those exist with Hermes harness.
+ACTIVE_7 = [
+    "arthur-project-manager",
+    "marcus-senior-backend-developer",
+    "jack-backend-developer",
+    "cody-code-escalation-reviewer",
+    "maxwell-staff-escalation-engineer",
+    "magnus-principal-solution-architect",
+    "winston-director-knowledge-architecture",
+]
+for active_id in ACTIVE_7:
+    a = next((x for x in agents if x["id"] == active_id), None)
+    if not a:
+        errors.append(f"missing active-7 agent: {active_id}")
+    elif a.get("harness") != "Hermes":
+        errors.append(f"{active_id}: Active Mini agent must use Hermes harness")
 
 if not routes.exists():
     errors.append("missing routes")

@@ -27,7 +27,7 @@ for name in ["Marcus","Maxwell","Cody","Magnus"]:
 route_files=list(ROOT.rglob("arthur_mediated_return_routes.json"))
 if route_files:
     text=json.dumps(json.loads(route_files[0].read_text(encoding="utf-8")))
-    for token in ["arthur-project-manager","jack-backend-developer","marcus-senior-backend-developer","maxwell-opus-max-escalation-engineer","cody-code-escalation-reviewer","magnus-principal-solution-architect"]:
+    for token in ["arthur-project-manager","jack-backend-developer","marcus-senior-backend-developer","maxwell-staff-escalation-engineer","cody-code-escalation-reviewer","magnus-principal-solution-architect"]:
         if token not in text:
             errors.append(f"route missing {token}")
 else:

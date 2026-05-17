@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""validate_v8_10_mini.py — single fast check for V8.6–V8.10 ports in Mini.
+"""validate_v8_10_mini.py — single fast check for V8.6–V8.11 ports in Mini.
 
 Asserts the structural alignment with full Pantheon V8.10:
 
@@ -20,10 +20,10 @@ Asserts the structural alignment with full Pantheon V8.10:
          non-first stages declare input_contract or input_event;
          schema aliases (sdd, test_plan) in both schemas/ + contracts/;
          examples/mini_weekly_intel_walkthrough.md exists.
-
-Plus a mini-specific check that mini_agent_role_map.yaml exists and
-declares Magnus covering Marcus/Cody, Ivan covering Nadia, Viktor
-covering Clara.
+  V8.11: Active Mini operating team shrunk from 12 to 7 agents
+         (Arthur, Marcus, Jack, Cody, Maxwell, Magnus, Winston) with
+         escalation ladder Jack 1-12 -> Marcus 13-15 -> Maxwell 16-17 ->
+         Cody 18 -> Magnus 19 -> Winston final archive -> Arthur merge gate.
 """
 from __future__ import annotations
 import json, stat, sys
@@ -88,8 +88,20 @@ for loc in ("schemas","contracts"):
             fail(f"{loc}/engineer_escalation_packet.schema.json: agent enum missing jack-backend-developer")
         if "ben-backend-engineer" in enum:
             fail(f"{loc}/engineer_escalation_packet.schema.json: full-Pantheon enum (ben-backend-engineer) leaked into mini")
-        if "qa" not in enum:
-            fail(f"{loc}/engineer_escalation_packet.schema.json: mini enum must include 'qa' (Ivan)")
+        # V8.11: Active Mini = 7 agents. Specialist IDs (qa, ben-pinescript-developer, etc.)
+        # are intentionally NOT in the active enum; their work routes to Jack/Marcus.
+        active_7 = {
+            "arthur-project-manager",
+            "marcus-senior-backend-developer",
+            "jack-backend-developer",
+            "cody-code-escalation-reviewer",
+            "maxwell-staff-escalation-engineer",
+            "magnus-principal-solution-architect",
+            "winston-director-knowledge-architecture",
+        }
+        missing_active = active_7 - set(enum)
+        if missing_active:
+            fail(f"{loc}/engineer_escalation_packet.schema.json: agent enum missing active-7 members: {sorted(missing_active)}")
 for s in ("dream_aggregator.py","install_dream_aggregator.sh"):
     must_exist(ROOT/"scripts"/s) and must_exec(ROOT/"scripts"/s)
 must_exist(ROOT/"SoftwareHouse"/"policies"/"cross_agent_learning_policy.yaml")
@@ -134,19 +146,24 @@ for loc in ("schemas","contracts"):
 
 example = ROOT/"examples"/"mini_weekly_intel_walkthrough.md"
 if must_exist(example):
-    must_contain(example, ["Pantheon Mini Weekly Intel","Magnus","Ivan","Viktor"])
+    must_contain(example, ["Pantheon Mini","Magnus"])
 
-# --- Mini-specific: role map ----------------------------------------
+# --- V8.11: Active Mini 7-agent operating team ---------------------
 role_map = ROOT/"SoftwareHouse"/"policies"/"mini_agent_role_map.yaml"
 if must_exist(role_map):
     text = role_map.read_text(encoding="utf-8")
-    for needle in ("active_agents_count: 12","Magnus","Ivan","Viktor","Marcus","Clara","Cody","Nadia"):
+    for needle in (
+        "active_agents_count: 7",
+        "Arthur", "Marcus", "Jack", "Cody", "Maxwell", "Magnus", "Winston",
+        "escalation_ladder",
+        "1-12",  "13-15",  "16-17",  "18",  "19",  "final",  "merge_gate",
+    ):
         if needle not in text:
             fail(f"mini_agent_role_map.yaml missing reference: {needle!r}")
 
 if FAILS:
-    print("FAIL: Mini V8.10 alignment incomplete")
+    print("FAIL: Mini V8.11 alignment incomplete")
     for f in FAILS: print(f"  - {f}")
     sys.exit(1)
 
-print("PASS: Pantheon Mini V8.10 aligned with full Pantheon V8.10 (mini-adapted to 12-agent active roster).")
+print("PASS: Pantheon Mini V8.11 aligned (Active Mini 7-agent operating team).")

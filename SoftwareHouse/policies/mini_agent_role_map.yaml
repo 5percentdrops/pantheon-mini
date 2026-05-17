@@ -1,59 +1,97 @@
 policy:
-  id: mini_agent_role_map_v8_10
+  id: mini_agent_role_map_v8_11
   purpose: |
-    Pantheon Mini intentionally runs with 12 active agents instead
-    of Pantheon's full 33. Several Pantheon roles are filled by different
-    agents in Mini. This file is the source of truth for that mapping —
-    pipelines, routes, and validators consult it instead of hardcoding
-    agent IDs they assume will be present.
-  active_agents_count: 12
-  inactive_placeholders_count: 21
+    Pantheon Mini runs with the Active Mini operating team — 7 agents.
+    Every Pantheon role is filled by one of these 7. This file is the
+    source of truth for the mapping. Pipelines, routes, and validators
+    consult it instead of hardcoding agent IDs they assume will be present.
+
+  active_agents_count: 7
+  inactive_placeholders_count: 26
+
+  active_mini_team:
+    # name      role                                attempts        agent_id
+    - arthur:   Project Manager / Head            # merge gate     # arthur-project-manager
+    - marcus:   Senior Developer / Planner        # 13-15          # marcus-senior-backend-developer
+    - jack:     Standard Developer / Implementer  # 1-12           # jack-backend-developer
+    - cody:     Independent Reviewer / Auditor    # 18             # cody-code-escalation-reviewer
+    - maxwell:  Staff Escalation Engineer         # 16-17          # maxwell-staff-escalation-engineer
+    - magnus:   Principal Architect               # 19             # magnus-principal-solution-architect
+    - winston:  Knowledge Archivist               # final archive  # winston-director-knowledge-architecture
+
+  escalation_ladder:
+    # Attempt window  ->  Agent
+    "1-12":     jack-backend-developer
+    "13-15":    marcus-senior-backend-developer
+    "16-17":    maxwell-staff-escalation-engineer
+    "18":       cody-code-escalation-reviewer
+    "19":       magnus-principal-solution-architect
+    "final":    winston-director-knowledge-architecture
+    merge_gate: arthur-project-manager
+
   role_map:
-    # Pantheon role            ->   Mini active agent that fills it
-    project_manager:                arthur-project-manager           # GPT? → sonnet-4.6 in mini
-    head_of_engineering:            magnus-principal-solution-architect
-    sdd_architect:                  magnus-principal-solution-architect   # Marcus inactive in Mini
-    tdd_planner:                    magnus-principal-solution-architect   # Marcus inactive
-    mid_pipeline_qa_reviewer:       qa                                   # Ivan (Nadia inactive in Mini)
-    first_line_pr_reviewer:         senior-devops                        # Viktor (Clara inactive in Mini)
-    second_line_pr_reviewer:        magnus-principal-solution-architect  # Cody inactive in Mini
+    # Pantheon role            ->   Active Mini agent that fills it
+    project_manager:                arthur-project-manager
+    head_of_engineering:            arthur-project-manager
+    merge_gate:                     arthur-project-manager
+    intake_router:                  arthur-project-manager
+
+    sdd_architect:                  marcus-senior-backend-developer
+    tdd_planner:                    marcus-senior-backend-developer
+    feature_ticket_author:          marcus-senior-backend-developer
+    red_test_designer:              marcus-senior-backend-developer
+    final_sanity_reviewer:          marcus-senior-backend-developer
+    pr_description_owner:           marcus-senior-backend-developer
+
+    implementer:                    jack-backend-developer
+    tdd_executor:                   jack-backend-developer
+    mid_pipeline_qa_reviewer:       jack-backend-developer   # Jack runs his own task-level red/green
+    first_line_pr_reviewer:         cody-code-escalation-reviewer
+    second_line_pr_reviewer:        cody-code-escalation-reviewer
+    independent_auditor:            cody-code-escalation-reviewer
+    forensic_auditor:               cody-code-escalation-reviewer
+
     staff_escalation:               maxwell-staff-escalation-engineer
+    deep_fix_engineer:              maxwell-staff-escalation-engineer
+    cross_file_logic_rot_owner:     maxwell-staff-escalation-engineer
+
     architecture_escalation:        magnus-principal-solution-architect
+    approach_diagnostician:         magnus-principal-solution-architect
+    structural_pathway_owner:       magnus-principal-solution-architect
+    termination_authority:          magnus-principal-solution-architect
+
     knowledge_archivist:            winston-director-knowledge-architecture
+    final_archive_owner:            winston-director-knowledge-architecture
+    error_memory_archivist:         winston-director-knowledge-architecture
+
+  # Single-engineer fan-out — Active Mini has only one implementer (Jack).
+  # Specialist fan-out (frontend-dev, mobile-dev, devops-dev, qa, pinescript-dev,
+  # quantower-dev) is intentionally collapsed onto Jack. Full Pantheon retains specialists.
   engineer_pool_fan_out:
     - jack-backend-developer
-    - ben-pinescript-developer
-    - qa                                # Ivan
-    - devops-dev                        # Theo
-    - frontend-dev                      # Leo
-    - mobile-dev                        # Ellie
-    - grant-quantower-csharp-automation-developer
+
   active_with_models:
-    - arthur-project-manager:              anthropic/claude-sonnet-4.6
-    - magnus-principal-solution-architect: google/gemini-3.1-pro
-    - maxwell-staff-escalation-engineer:   anthropic/claude-opus-4.7
+    - arthur-project-manager:                  anthropic/claude-sonnet-4.6
+    - marcus-senior-backend-developer:         anthropic/claude-opus-4.7      # OPS 4.7 Extra High under Hermes
+    - jack-backend-developer:                  deepseek/deepseek-v4-pro
+    - cody-code-escalation-reviewer:           openai/gpt-5.5                 # latest Codex Reviewer under Hermes
+    - maxwell-staff-escalation-engineer:       anthropic/claude-opus-4.7      # reasoning_effort: max
+    - magnus-principal-solution-architect:     google/gemini-3.1-pro
     - winston-director-knowledge-architecture: anthropic/claude-3.5-haiku
-    - senior-devops:                       anthropic/claude-opus-4.7
-    - jack-backend-developer:              deepseek/deepseek-v4-pro
-    - ben-pinescript-developer:            deepseek/deepseek-v4-pro
-    - qa:                                  deepseek/deepseek-v4-pro
-    - devops-dev:                          deepseek/deepseek-v4-pro
-    - frontend-dev:                        deepseek/deepseek-v4-pro
-    - mobile-dev:                          deepseek/deepseek-v4-pro
-    - grant-quantower-csharp-automation-developer: deepseek/deepseek-v4-pro
+
   upgrade_to_pantheon_parity:
     description: |
-      To match Pantheon V8.10 exactly, activate these inactive agents by
-      assigning them models and re-running bootstrap_hermes_homes.sh:
-    - marcus-senior-backend-developer   (suggested: anthropic/claude-opus-4.7)
-    - clara-claude-pr-review-lead       (suggested: anthropic/claude-opus-4.7)
-    - cody-code-escalation-reviewer     (suggested: openai/gpt-5.5)
-    - senior-qa  (Nadia)                (suggested: anthropic/claude-opus-4.7 xhigh)
-    - plus 17 specialists for full 33-agent coverage
+      To match Pantheon V8.10 exactly, activate 26 inactive specialists by
+      assigning them models and re-running bootstrap_hermes_homes.sh. They
+      remain in paperclip/agents.json so schemas validate, but Active Mini
+      routes their work to Jack (implementer) or Marcus (planner) per the
+      generalist substitution above.
+
   rationale: |
-    Mini exists for fast local iteration on smaller projects. Full
-    Pantheon role coverage requires the 33-agent roster + the higher
-    per-day token budget that implies. Mini compromises by re-using
-    Magnus across multiple senior roles — works because Magnus is a
-    Principal Architect with gemini-3.1-pro, capable of SDD, TDD
-    planning, and code review in mini-scale workloads.
+    The Active Mini operating team is the smallest viable lane that still
+    supports the V8.10 escalation pattern. One implementer (Jack), one
+    planner (Marcus), one staff fixer (Maxwell), one independent auditor
+    (Cody), one principal architect (Magnus), one archivist (Winston),
+    one merge gate (Arthur). The attempt budget is the source of truth:
+    Jack 1-12 -> Marcus 13-15 -> Maxwell 16-17 -> Cody 18 -> Magnus 19 ->
+    Winston archives -> Arthur merges (or Magnus terminates to manual review).

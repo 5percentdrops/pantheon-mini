@@ -28,7 +28,7 @@
       "path": [
         "maxwell-staff-escalation-engineer",
         "router-project-manager",
-        "cody-code-reviewer",
+        "cody-code-escalation-reviewer",
         "router-project-manager",
         "standard-agent"
       ]
@@ -39,7 +39,7 @@
       "path": [
         "standard-agent",
         "router-project-manager",
-        "magnus-principal-engineer"
+        "magnus-principal-solution-architect"
       ]
     }
   ]

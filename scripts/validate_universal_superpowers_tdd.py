@@ -31,7 +31,7 @@ for p in ROOT.rglob("organization.import.json"):
         pass
 
 required_seniors = [
-    "Senior Backend Developer",
+    "Senior Developer / Planner",
     "Senior Frontend Developer",
     "Senior Mobile Developer",
     "Senior PineScript Developer",

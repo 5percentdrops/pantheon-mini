@@ -24,10 +24,10 @@ for p in ROOT.rglob("organization.import.json"):
     except Exception:
         pass
 
-if not any(a.get("id") == "maxwell-opus-max-escalation-engineer" for a in agents):
-    errors.append("missing Maxwell Opus Max Escalation Engineer")
+if not any(a.get("id") == "maxwell-staff-escalation-engineer" for a in agents):
+    errors.append("missing Maxwell Staff Escalation Engineer")
 
-maxwell = next((a for a in agents if a.get("id") == "maxwell-opus-max-escalation-engineer"), {})
+maxwell = next((a for a in agents if a.get("id") == "maxwell-staff-escalation-engineer"), {})
 if "Opus 4.7 Max" not in maxwell.get("llm_module", "") and "OPS / Opus 4.7 Max" not in maxwell.get("llm_module", ""):
     errors.append("Maxwell model assignment missing Opus 4.7 Max")
 
@@ -35,7 +35,7 @@ route_files = list(ROOT.rglob("opus_max_escalation_routes.json"))
 if route_files:
     text = json.dumps(json.loads(route_files[0].read_text(encoding="utf-8")))
     for required in [
-        "maxwell-opus-max-escalation-engineer",
+        "maxwell-staff-escalation-engineer",
         "cody-code-escalation-reviewer",
         "magnus-principal-solution-architect"
     ]:

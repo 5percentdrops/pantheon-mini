@@ -4,11 +4,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 errors = []
 required = {
- "Project Manager":"OPS 4.7",
- "Backend Developer":"OPS 4.7 High",
- "Senior Backend Developer":"OPS 4.7 Extra High",
- "Code Escalation Reviewer":"GPT-5.5",
- "Principal Solution Architect":"Gemini Pro"
+ "Project Manager / Head":"Sonnet 4.6",
+ "Standard Developer / Implementer":"DeepSeek",
+ "Senior Developer / Planner":"OPS 4.7 Extra High",
+ "Independent Reviewer / Auditor":"GPT-5.5",
+ "Principal Architect":"Gemini Pro"
 }
 agents=[]
 for p in ROOT.rglob("organization.import.json"):

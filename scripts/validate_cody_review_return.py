@@ -26,7 +26,7 @@ for p in ROOT.rglob("organization.import.json"):
         pass
 
 roles = {a.get("role"): a for a in agents}
-cody = roles.get("Code Escalation Reviewer", {})
+cody = roles.get("Independent Reviewer / Auditor", {})
 if "security" not in (cody.get("description", "") + cody.get("skills", "")).lower():
     errors.append("Cody missing security review scope")
 if "bug" not in (cody.get("description", "") + cody.get("skills", "")).lower():

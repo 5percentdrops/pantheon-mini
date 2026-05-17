@@ -13,7 +13,7 @@
     "winston": "winston-director-knowledge-architecture"
   },
   "aliases": {
-    "codex-pr-reviewer": "magnus-principal-solution-architect",
+    "cody-code-escalation-reviewer": "magnus-principal-solution-architect",
     "paperclip-ceo": "arthur-project-manager",
     "arthur-core": "arthur-project-manager",
     "arthur-watcher": "arthur-project-manager",
@@ -71,7 +71,7 @@
     {
       "task_type": "claude_pr_review",
       "pattern": "review_gate",
-      "agent": "senior-devops",
+      "agent": "marcus-senior-backend-developer",
       "contract": "merge_review.schema.json",
       "output_contract": "merge_review.schema.json"
     },
@@ -143,7 +143,7 @@
       "red_team": "cody.red_team_review",
       "ci_triage": "cody.ci_triage_review"
     },
-    "senior-devops": {
+    "marcus-senior-backend-developer": {
       "claude_pr_review": "clara.review_pr"
     }
   }

@@ -17,7 +17,7 @@
       "path": [
         "marcus-senior-backend-developer",
         "arthur-project-manager",
-        "maxwell-opus-max-escalation-engineer",
+        "maxwell-staff-escalation-engineer",
         "jack-backend-developer"
       ],
       "hard_rule": "Maxwell solution attempts return to Jack.",
@@ -27,7 +27,7 @@
       "name": "maxwell_2_failed_to_cody",
       "trigger": "Maxwell fails 2 solution attempts",
       "path": [
-        "maxwell-opus-max-escalation-engineer",
+        "maxwell-staff-escalation-engineer",
         "arthur-project-manager",
         "cody-code-escalation-reviewer",
         "jack-backend-developer"

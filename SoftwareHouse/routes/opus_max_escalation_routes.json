@@ -6,7 +6,7 @@
       "path": [
         "relevant-senior-engineer",
         "arthur-project-manager",
-        "maxwell-opus-max-escalation-engineer",
+        "maxwell-staff-escalation-engineer",
         "relevant-standard-engineer"
       ],
       "hard_rule": "Maxwell gets 2 attempts before Cody.",
@@ -21,7 +21,7 @@
       "trigger": "Maxwell Solution Attempt 1 failed",
       "path": [
         "relevant-standard-engineer",
-        "maxwell-opus-max-escalation-engineer",
+        "maxwell-staff-escalation-engineer",
         "relevant-standard-engineer"
       ],
       "hard_rule": "Maxwell may produce Solution Attempt 2.",
@@ -31,7 +31,7 @@
       "name": "maxwell_two_attempts_failed_to_cody",
       "trigger": "Maxwell failed 2 attempts",
       "path": [
-        "maxwell-opus-max-escalation-engineer",
+        "maxwell-staff-escalation-engineer",
         "arthur-project-manager",
         "cody-code-escalation-reviewer"
       ],

@@ -5,7 +5,7 @@
       "trigger": "user submits raw idea",
       "path": [
         "arthur-project-manager",
-        "owen-research-pack-agent"
+        "marcus-senior-backend-developer"
       ],
       "hard_rule": "Owen builds research base only.",
       "harness": "Hermes"
@@ -14,8 +14,8 @@
       "name": "research_to_bottleneck",
       "trigger": "Owen completes Research Pack",
       "path": [
-        "owen-research-pack-agent",
-        "vera-api-bottleneck-intelligence-agent"
+        "marcus-senior-backend-developer",
+        "marcus-senior-backend-developer"
       ],
       "hard_rule": "Vera maps APIs/data/source bottlenecks before feasibility.",
       "harness": "Hermes"
@@ -24,8 +24,8 @@
       "name": "bottleneck_to_feasibility",
       "trigger": "Vera completes API & Bottleneck Report",
       "path": [
-        "vera-api-bottleneck-intelligence-agent",
-        "graham-feasibility-strategist"
+        "marcus-senior-backend-developer",
+        "magnus-principal-solution-architect"
       ],
       "hard_rule": "Graham must use Vera's bottleneck findings.",
       "harness": "Hermes"
@@ -34,8 +34,8 @@
       "name": "feasibility_to_skeptical_validation",
       "trigger": "Graham completes Feasibility Report",
       "path": [
-        "graham-feasibility-strategist",
-        "stone-skeptical-validation-agent"
+        "magnus-principal-solution-architect",
+        "cody-code-escalation-reviewer"
       ],
       "hard_rule": "Stone attacks Graham's assumptions.",
       "harness": "Hermes"
@@ -44,9 +44,9 @@
       "name": "skeptical_revision_loop",
       "trigger": "Stone finds serious holes",
       "path": [
-        "stone-skeptical-validation-agent",
-        "graham-feasibility-strategist",
-        "stone-skeptical-validation-agent"
+        "cody-code-escalation-reviewer",
+        "magnus-principal-solution-architect",
+        "cody-code-escalation-reviewer"
       ],
       "hard_rule": "Graham must revise and Stone may re-check.",
       "harness": "Hermes"
@@ -55,8 +55,8 @@
       "name": "validated_feasibility_to_opportunity",
       "trigger": "Stone passes or Graham revises adequately",
       "path": [
-        "stone-skeptical-validation-agent",
-        "adrian-opportunity-architect"
+        "cody-code-escalation-reviewer",
+        "magnus-principal-solution-architect"
       ],
       "hard_rule": "Adrian only finds upside inside validated feasibility.",
       "harness": "Hermes"
@@ -65,7 +65,7 @@
       "name": "prd_package_to_user_approval",
       "trigger": "Adrian completes Opportunity Report",
       "path": [
-        "adrian-opportunity-architect",
+        "magnus-principal-solution-architect",
         "arthur-project-manager",
         "user"
       ],

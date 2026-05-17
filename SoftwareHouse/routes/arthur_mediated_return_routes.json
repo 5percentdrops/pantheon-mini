@@ -16,7 +16,7 @@
       "name": "maxwell_attempt_through_arthur",
       "trigger": "Maxwell provides solution attempt",
       "path": [
-        "maxwell-opus-max-escalation-engineer",
+        "maxwell-staff-escalation-engineer",
         "arthur-project-manager",
         "jack-backend-developer"
       ],

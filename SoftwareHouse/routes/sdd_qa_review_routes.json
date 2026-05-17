@@ -5,7 +5,7 @@
       "trigger": "Marcus emits SDD (sdd_architecture stage complete)",
       "path": [
         "magnus-principal-solution-architect",
-        "qa",
+        "jack-backend-developer",
         "tdd_block_or_return"
       ],
       "hard_rule": "No SDD goes to tdd_block without Nadia QA signoff.",
@@ -24,7 +24,7 @@
       "name": "nadia_sdd_signoff_to_tdd_block",
       "trigger": "Nadia approves SDD against PRD intent",
       "path": [
-        "qa",
+        "jack-backend-developer",
         "magnus-principal-solution-architect"
       ],
       "hard_rule": "Nadia signoff is required and recorded in sdd_qa_signoff.schema.json.",
@@ -34,7 +34,7 @@
       "name": "nadia_sdd_return_to_marcus",
       "trigger": "Nadia rejects SDD with cited PRD clauses",
       "path": [
-        "qa",
+        "jack-backend-developer",
         "magnus-principal-solution-architect"
       ],
       "hard_rule": "Returns must include specific PRD clause references; vague rejection is not allowed.",

@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "engineer_escalation_packet.schema.json",
   "title": "Engineer Escalation Packet (V8.8)",
-  "description": "Rigid handoff payload an engineer (Jack, Ben, Ivan, Theo, Leo, Ellie, Grant) must emit when their attempt budget is exhausted. Marcus's runtime REJECTS non-conforming payloads, forcing the engineer into structured-failure mode instead of dumping raw conversational text that wastes Opus 4.7 input tokens on parsing.",
+  "description": "Rigid handoff payload an engineer must emit when their attempt budget is exhausted. In Active Mini (V8.11) the implementer (Jack) emits on attempt 13; Marcus's runtime REJECTS non-conforming payloads, forcing the engineer into structured-failure mode instead of dumping raw conversational text that wastes Opus 4.7 input tokens on parsing.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -28,13 +28,13 @@
     "agent": {
       "type": "string",
       "enum": [
+        "arthur-project-manager",
+        "marcus-senior-backend-developer",
         "jack-backend-developer",
-        "ben-pinescript-developer",
-        "qa",
-        "devops-dev",
-        "frontend-dev",
-        "mobile-dev",
-        "grant-quantower-csharp-automation-developer"
+        "cody-code-escalation-reviewer",
+        "maxwell-staff-escalation-engineer",
+        "magnus-principal-solution-architect",
+        "winston-director-knowledge-architecture"
       ]
     },
     "attempt_count": {

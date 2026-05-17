@@ -29,14 +29,14 @@ for name,(field,value) in checks.items():
     a=by_name.get(name,{})
     if a.get(field)!=value:
         errors.append(f"{name} missing {field}={value}")
-if by_name.get("Cody",{}).get("role")!="Senior Code Quality & Defect Review Engineer":
+if by_name.get("Cody",{}).get("role")!="Independent Reviewer / Auditor":
     errors.append("Cody title not finalized")
 if by_name.get("Maxwell",{}).get("role")!="Staff Escalation Engineer":
     errors.append("Maxwell title not finalized")
 routes=list(ROOT.rglob("final_engineer_escalation_routes.json"))
 if routes:
     text=json.dumps(json.loads(routes[0].read_text(encoding="utf-8")))
-    for token in ["jack-backend-developer","marcus-senior-backend-developer","maxwell-opus-max-escalation-engineer","cody-code-escalation-reviewer","magnus-principal-solution-architect"]:
+    for token in ["jack-backend-developer","marcus-senior-backend-developer","maxwell-staff-escalation-engineer","cody-code-escalation-reviewer","magnus-principal-solution-architect"]:
         if token not in text:
             errors.append(f"route missing {token}")
 else:

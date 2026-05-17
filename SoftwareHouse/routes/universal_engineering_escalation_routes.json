@@ -34,14 +34,14 @@
     {
       "name": "frontend_lane_escalation",
       "path": [
-        "leo-frontend-developer",
-        "sonia-senior-frontend-developer",
+        "jack-backend-developer",
+        "marcus-senior-backend-developer",
         "arthur-project-manager",
         "cody-code-escalation-reviewer",
         "magnus-principal-solution-architect",
         "arthur-project-manager",
-        "sonia-senior-frontend-developer",
-        "leo-frontend-developer"
+        "marcus-senior-backend-developer",
+        "jack-backend-developer"
       ],
       "hard_rule": "Leo escalates to Sonia; Sonia escalates to Arthur; Arthur dispatches to Cody/Magnus.",
       "harness": "Hermes"
@@ -49,14 +49,14 @@
     {
       "name": "mobile_lane_escalation",
       "path": [
-        "ellie-mobile-developer",
-        "dominic-senior-mobile-developer",
+        "jack-backend-developer",
+        "marcus-senior-backend-developer",
         "arthur-project-manager",
         "cody-code-escalation-reviewer",
         "magnus-principal-solution-architect",
         "arthur-project-manager",
-        "dominic-senior-mobile-developer",
-        "ellie-mobile-developer"
+        "marcus-senior-backend-developer",
+        "jack-backend-developer"
       ],
       "hard_rule": "Ellie escalates to Dominic; Dominic escalates to Arthur; Arthur dispatches to Cody/Magnus.",
       "harness": "Hermes"
@@ -64,14 +64,14 @@
     {
       "name": "pinescript_lane_escalation",
       "path": [
-        "ben-pinescript-developer",
-        "felix-senior-pinescript-developer",
+        "jack-backend-developer",
+        "marcus-senior-backend-developer",
         "arthur-project-manager",
         "cody-code-escalation-reviewer",
         "magnus-principal-solution-architect",
         "arthur-project-manager",
-        "felix-senior-pinescript-developer",
-        "ben-pinescript-developer"
+        "marcus-senior-backend-developer",
+        "jack-backend-developer"
       ],
       "hard_rule": "Ben escalates to Felix; Felix escalates to Arthur; Arthur dispatches to Cody/Magnus.",
       "harness": "Hermes"
@@ -79,14 +79,14 @@
     {
       "name": "quantower_csharp_lane_escalation",
       "path": [
-        "grant-quantower-csharp-automation-developer",
-        "nathan-senior-quantower-csharp-architect",
+        "jack-backend-developer",
+        "marcus-senior-backend-developer",
         "arthur-project-manager",
         "cody-code-escalation-reviewer",
         "magnus-principal-solution-architect",
         "arthur-project-manager",
-        "nathan-senior-quantower-csharp-architect",
-        "grant-quantower-csharp-automation-developer"
+        "marcus-senior-backend-developer",
+        "jack-backend-developer"
       ],
       "hard_rule": "Grant escalates to Nathan; Nathan escalates to Arthur; Arthur dispatches to Cody/Magnus.",
       "harness": "Hermes"
@@ -94,14 +94,14 @@
     {
       "name": "devops_lane_escalation",
       "path": [
-        "theo-devops-developer",
-        "viktor-senior-devops-engineer",
+        "jack-backend-developer",
+        "marcus-senior-backend-developer",
         "arthur-project-manager",
         "cody-code-escalation-reviewer",
         "magnus-principal-solution-architect",
         "arthur-project-manager",
-        "viktor-senior-devops-engineer",
-        "theo-devops-developer"
+        "marcus-senior-backend-developer",
+        "jack-backend-developer"
       ],
       "hard_rule": "Theo escalates to Viktor; Viktor escalates to Arthur; Arthur dispatches to Cody/Magnus.",
       "harness": "Hermes"
@@ -109,14 +109,14 @@
     {
       "name": "qa_lane_escalation",
       "path": [
-        "ivan-qa-engineer",
-        "nadia-senior-qa",
+        "jack-backend-developer",
+        "cody-code-escalation-reviewer",
         "arthur-project-manager",
         "cody-code-escalation-reviewer",
         "magnus-principal-solution-architect",
         "arthur-project-manager",
-        "nadia-senior-qa",
-        "ivan-qa-engineer"
+        "cody-code-escalation-reviewer",
+        "jack-backend-developer"
       ],
       "hard_rule": "Ivan escalates to Nadia; Nadia escalates to Arthur; Arthur dispatches to Cody/Magnus.",
       "harness": "Hermes"
@@ -127,7 +127,7 @@
     "standard-engineer",
     "relevant-senior-engineer",
     "arthur-project-manager",
-    "maxwell-opus-max-escalation-engineer",
+    "maxwell-staff-escalation-engineer",
     "relevant-standard-engineer",
     "arthur-project-manager",
     "cody-code-escalation-reviewer",

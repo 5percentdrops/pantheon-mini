@@ -35,11 +35,11 @@ for p in ROOT.rglob("organization.import.json"):
         pass
 roles = {a.get("role"): a for a in agents}
 
-for role in ["Project Manager", "Senior Backend Developer", "Backend Developer"]:
+for role in ["Project Manager / Head", "Senior Developer / Planner", "Standard Developer / Implementer"]:
     if role not in roles:
         errors.append(f"missing role: {role}")
 
-marcus = roles.get("Senior Backend Developer", {})
+marcus = roles.get("Senior Developer / Planner", {})
 for required_text in ["SDD", "feature", "TDD"]:
     if required_text.lower() not in (marcus.get("description", "") + marcus.get("skills", "")).lower():
         errors.append(f"Marcus missing responsibility: {required_text}")
