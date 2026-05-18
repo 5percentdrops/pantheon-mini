@@ -69,56 +69,41 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
    you      route        plan         build       merge       archive
 ```
 
-**The 7 agents and how the work flows:**
+**Meet the 7 agents:**
 
 ```mermaid
-flowchart TD
-    You(["You"])
-    Arthur1["Arthur<br/>routes the work<br/>(merge gate later)"]
-    Marcus1["Marcus<br/>writes the plan<br/>SDD, tickets, red tests"]
-    Jack["Jack<br/>writes the code<br/>attempts 1 to 12"]
-    Marcus2["Marcus<br/>tactical fix<br/>attempts 13 to 15"]
-    Maxwell["Maxwell<br/>deep fix<br/>attempts 16 to 17"]
-    Cody["Cody<br/>forensic audit<br/>attempt 18"]
-    Magnus["Magnus<br/>architecture review<br/>attempt 19"]
-    Arthur2["Arthur<br/>merge gate"]
-    Winston["Winston<br/>archive and lessons"]
-    Done(["Shipped"])
+flowchart TB
+    Arthur["<b>Arthur</b><br/>Project Manager<br/>Receives the PRD and routes the work. Owns the merge gate."]
+    Marcus["<b>Marcus</b><br/>Senior Developer<br/>Turns the PRD into an SDD, feature tickets, and red TDD tests."]
+    Jack["<b>Jack</b><br/>Standard Developer<br/>Writes the code, red to green."]
+    Cody["<b>Cody</b><br/>Reviewer<br/>Audits the work for bugs, security issues, and regressions."]
+    Maxwell["<b>Maxwell</b><br/>Escalation Engineer<br/>Handles cross-file deep fixes when the senior is stuck."]
+    Magnus["<b>Magnus</b><br/>Principal Architect<br/>Re-thinks the approach when nothing else works."]
+    Winston["<b>Winston</b><br/>Knowledge Archivist<br/>Files PRDs, SDDs, tickets, and lessons learned."]
 
-    You      -- PRD --> Arthur1
-    Arthur1  -- approved packet --> Marcus1
-    Marcus1  -- assignment --> Jack
-    Jack     -- green PR --> Arthur2
-    Jack     -. blocker at attempt 13 .-> Marcus2
-    Marcus2  -. all 3 fail .-> Maxwell
-    Maxwell  -. both fail .-> Cody
-    Cody     -. fails or approach issue .-> Magnus
-    Marcus2  -- WORKED --> Arthur2
-    Maxwell  -- WORKED --> Arthur2
-    Cody     -- WORKED --> Arthur2
-    Magnus   -- new route --> Marcus1
-    Magnus   -. terminate .-> Done
-    Arthur2  --> Winston
-    Winston  --> Done
+    Arthur  ~~~ Marcus
+    Marcus  ~~~ Jack
+    Jack    ~~~ Cody
+    Cody    ~~~ Maxwell
+    Maxwell ~~~ Magnus
+    Magnus  ~~~ Winston
 
-    classDef user      fill:#f5f5f5,stroke:#666,stroke-width:2px,color:#222
-    classDef arthur    fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
-    classDef marcus    fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
-    classDef jack      fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-    classDef esc       fill:#ffedd5,stroke:#ea580c,stroke-width:2px,color:#7c2d12
-    classDef winston   fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
-    classDef done      fill:#bbf7d0,stroke:#15803d,stroke-width:3px,color:#14532d
+    classDef pm       fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    classDef senior   fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
+    classDef dev      fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    classDef review   fill:#ffedd5,stroke:#ea580c,stroke-width:2px,color:#7c2d12
+    classDef arch     fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
+    classDef archive  fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
 
-    class You user
-    class Arthur1,Arthur2 arthur
-    class Marcus1,Marcus2 marcus
-    class Jack jack
-    class Maxwell,Cody,Magnus esc
-    class Winston winston
-    class Done done
+    class Arthur pm
+    class Marcus,Maxwell senior
+    class Jack dev
+    class Cody review
+    class Magnus arch
+    class Winston archive
 ```
 
-**Solid arrows** = happy path · **Dotted arrows** = escalation triggers · Every senior return routes through Arthur (never direct to Jack) · Magnus is the only tier with kill authority.
+A small studio. PRD goes to Arthur. Arthur passes it to Marcus who plans it. Jack builds it. Cody audits when needed. Maxwell and Magnus only step in if Jack genuinely can't get unstuck. Winston files everything for next time.
 
 | # | Role | Agent | Attempts | Model |
 |--:|---|---|---|---|
