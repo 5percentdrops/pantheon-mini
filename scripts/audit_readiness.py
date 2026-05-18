@@ -16,7 +16,7 @@ Plus cross-checks:
 """
 import json, pathlib, re, sys
 
-ROOT = pathlib.Path(__file__).resolve().parent
+ROOT = pathlib.Path(__file__).resolve().parents[1]
 HOME = pathlib.Path.home()
 
 agents = json.load(open(ROOT / "SoftwareHouse" / "paperclip" / "agents.json"))["agents"]

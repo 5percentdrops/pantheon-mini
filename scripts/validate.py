@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Pantheon Mini V8.10 validator chain.
+"""Pantheon Mini V8.11 validator chain.
 
-Runs the original V7 mini validators + the V8.6–V8.10 patch validators
-adapted to mini's 12-active-agent roster. The pre-V8.10 single-file
-`validate.py` is preserved as `validate_org_sanity.py` and runs as
-one link of this chain.
+Runs the original V7 mini validators + the V8.6–V8.11 patch validators
+adapted to mini's 7-active-agent Active Mini operating team. The
+pre-V8.10 single-file `validate.py` is preserved as `validate_org_sanity.py`
+and runs as one link of this chain.
 """
 import subprocess, sys
 from pathlib import Path

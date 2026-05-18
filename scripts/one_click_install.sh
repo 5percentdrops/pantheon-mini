@@ -75,7 +75,7 @@ fi
 echo "  workspace ready"
 echo
 
-# Step 2: V7 validators + V8.10 mini validator
+# Step 2: V7 validators + V8.6-V8.11 patch validators
 echo "==> Step 2/8: Run validators"
 python3 scripts/validate.py
 echo

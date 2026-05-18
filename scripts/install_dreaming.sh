@@ -43,13 +43,13 @@ fi
 shopt -s nullglob
 homes=("$HOME"/.hermes-mini-*)
 if (( ${#homes[@]} == 0 )); then
-  echo "No ~/.hermes-mini-mini-* homes found. Run bootstrap_hermes_homes.sh first." >&2
+  echo "No ~/.hermes-mini-* homes found. Run bootstrap (Step 5 of one_click_install.sh) first." >&2
   exit 1
 fi
 
 count=0
 for home in "${homes[@]}"; do
-  slug="${home##*/.hermes-}"
+  slug="${home##*/.hermes-mini-}"
   if [[ -n "$ONLY" ]] && [[ ",$ONLY," != *",$slug,"* ]]; then
     continue
   fi
