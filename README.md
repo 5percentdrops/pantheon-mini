@@ -62,23 +62,70 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
 ## 🏛 The Active Mini operating team
 
-7 agents. One job each. One direction of flow.
+**At a glance:** PRD goes in, working code comes out.
 
 ```
    PRD  ──►  Arthur  ──►  Marcus  ──►  Jack  ──►  Arthur  ──►  Winston
    you      route        plan         build       merge       archive
 ```
 
-That's it. PRD goes in, working code comes out, lessons learned get filed for next time.
-
-**When Jack gets stuck:** attempts 1-12 are his own. After 12, the escalation ladder fires:
+**The 7 agents and who hands off to whom:**
 
 ```
-   Jack 12   →   Marcus 13-15   →   Maxwell 16-17   →   Cody 18   →   Magnus 19
-   (self)        (tactical)         (deep fix)          (audit)       (architect / kill)
+                            👤  YOU
+                              │  PRD
+                              ▼
+                  ┌─────────────────────────┐
+                  │  🎯  Arthur              │  Project Manager / Head
+                  │  openai/gpt-5-mini      │  routing · merge gate · 3-line RTK
+                  └────────────┬────────────┘
+                               │  approved PRD packet
+                               ▼
+                  ┌─────────────────────────┐
+                  │  📋  Marcus              │  Senior Developer / Planner
+                  │  anthropic/opus-4.7 ⚡   │  PRD → SDD → tickets → red TDD
+                  └────────────┬────────────┘
+                               │  assignment packet
+                               ▼
+                  ┌─────────────────────────┐
+                  │  🔨  Jack                │  Standard Developer / Implementer
+                  │  deepseek/v4-pro         │  red → green TDD (attempts 1-12)
+                  └────────────┬────────────┘
+                               │  green PR  |  blocker packet (attempt 13+)
+                               ▼
+        ┌─────────── stuck after attempt 12? escalation ladder ───────────┐
+        ▼                                                                  │
+  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+  │ 📋 Marcus     │  │ 🔥 Maxwell    │  │ 🔍 Cody       │  │ 🏗 Magnus     │  │
+  │ 13-15         │  │ 16-17         │  │ 18            │  │ 19            │  │
+  │ tactical fix  │  │ deep fix      │  │ forensic audit│  │ approach /    │  │
+  │ opus-4.7 ⚡   │  │ opus-4.7 🔥   │  │ gpt-5.5       │  │ kill verdict  │  │
+  │               │  │               │  │               │  │ gemini-3.1    │  │
+  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  │
+         │                  │                  │                  │           │
+         └──────────────────┴────────┬─────────┴──────────────────┘           │
+                                     ▼                                         │
+                       all senior returns route through Arthur ────────────────┘
+                                     ▼
+                         🔁 Jack re-tests → WORKED ? continue : FAIL → next tier
+                                     ▼
+                       ┌─────────────────────────┐
+                       │  ✅ Arthur (merge gate)  │
+                       └────────────┬────────────┘
+                                    ▼
+                       ┌─────────────────────────┐
+                       │  📚 Winston              │  Knowledge Archivist
+                       │  anthropic/haiku-3.5    │  archive + lessons_learned
+                       └─────────────────────────┘
+                                    ▼
+                              📁 SHIPPED
 ```
 
-Every senior return routes back through Arthur. Magnus is the only tier with kill authority.
+**Iron rules baked into the layout:**
+- Arthur is the ONLY merge gate. No agent merges except Arthur.
+- Senior solutions ALWAYS return through Arthur to Jack — never direct.
+- Each tier has a fixed attempt budget. No tier can borrow attempts from another.
+- Magnus is the only tier with kill authority (approach-level termination at attempt 19).
 
 | # | Role | Agent | Attempts | Model |
 |--:|---|---|---|---|
