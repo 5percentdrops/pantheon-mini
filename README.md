@@ -69,73 +69,56 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
    you      route        plan         build       merge       archive
 ```
 
-**The 7 agents, top to bottom:**
+**The 7 agents and how the work flows:**
 
-```
-              ┌────────┐
-              │ Arthur │
-              │ routes │
-              └───┬────┘
-                  │
-                  ▼
-              ┌────────┐
-              │ Marcus │
-              │ plans  │
-              └───┬────┘
-                  │
-                  ▼
-              ┌────────┐
-              │  Jack  │
-              │ builds │
-              └───┬────┘
-                  │
-                  ▼  stuck after 12?
-                  │
-              ┌────────┐
-              │ Marcus │
-              │ 13-15  │
-              │tactical│
-              └───┬────┘
-                  │
-                  ▼
-              ┌────────┐
-              │Maxwell │
-              │ 16-17  │
-              │deep fix│
-              └───┬────┘
-                  │
-                  ▼
-              ┌────────┐
-              │  Cody  │
-              │   18   │
-              │  audit │
-              └───┬────┘
-                  │
-                  ▼
-              ┌────────┐
-              │ Magnus │
-              │   19   │
-              │ archt  │
-              └───┬────┘
-                  │
-                  ▼  returns through Arthur
-                  │
-              ┌────────┐
-              │ Arthur │
-              │ merges │
-              └───┬────┘
-                  │
-                  ▼
-              ┌────────┐
-              │Winston │
-              │archives│
-              └───┬────┘
-                  │
-                  ▼
-               shipped
+```mermaid
+flowchart TD
+    You([👤 You])
+    Arthur1[🎯 Arthur<br/><sub>routes · 3-line RTK</sub>]
+    Marcus1[📋 Marcus<br/><sub>PRD → SDD → tickets → red TDD</sub>]
+    Jack[🔨 Jack<br/><sub>red → green<br/>attempts 1-12</sub>]
+    Marcus2[Marcus<br/><sub>13-15 · tactical</sub>]
+    Maxwell[Maxwell<br/><sub>16-17 · deep fix</sub>]
+    Cody[Cody<br/><sub>18 · forensic audit</sub>]
+    Magnus[Magnus<br/><sub>19 · architect / kill</sub>]
+    Arthur2[🎯 Arthur<br/><sub>merge gate</sub>]
+    Winston[📚 Winston<br/><sub>archive + lessons</sub>]
+    Done([📦 Shipped])
+
+    You      -- PRD --> Arthur1
+    Arthur1  -- approved packet --> Marcus1
+    Marcus1  -- assignment --> Jack
+    Jack     -- green PR --> Arthur2
+    Jack     -. blocker @ attempt 13 .-> Marcus2
+    Marcus2  -. all 3 fail .-> Maxwell
+    Maxwell  -. both fail .-> Cody
+    Cody     -. fails or approach-level .-> Magnus
+    Marcus2  -- WORKED --> Arthur2
+    Maxwell  -- WORKED --> Arthur2
+    Cody     -- WORKED --> Arthur2
+    Magnus   -- new route --> Marcus1
+    Magnus   -. terminate .-> Done
+    Arthur2  --> Winston
+    Winston  --> Done
+
+    classDef user      fill:#f5f5f5,stroke:#666,stroke-width:2px,color:#222
+    classDef arthur    fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    classDef marcus    fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
+    classDef jack      fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    classDef esc       fill:#ffedd5,stroke:#ea580c,stroke-width:2px,color:#7c2d12
+    classDef winston   fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
+    classDef done      fill:#bbf7d0,stroke:#15803d,stroke-width:3px,color:#14532d
+
+    class You user
+    class Arthur1,Arthur2 arthur
+    class Marcus1,Marcus2 marcus
+    class Jack jack
+    class Maxwell,Cody,Magnus esc
+    class Winston winston
+    class Done done
 ```
 
-Models for each agent live in the table below. Magnus is the only tier with kill authority. Every senior solution returns through Arthur — never direct to Jack.
+**Solid arrows** = happy path · **Dotted arrows** = escalation triggers · Every senior return routes through Arthur (never direct to Jack) · Magnus is the only tier with kill authority.
 
 | # | Role | Agent | Attempts | Model |
 |--:|---|---|---|---|
