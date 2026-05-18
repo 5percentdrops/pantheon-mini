@@ -32,6 +32,8 @@ validators = [
     "validate_technical_domain_routing.py",
     # V8.6–V8.10 ports (mini-adapted)
     "validate_v8_10_mini.py",
+    # V8.12 — stricter per-stage budget validation (numeric > 0, sum vs pipeline budget)
+    "validate_per_stage_budgets.py",
 ]
 
 failed = []
