@@ -51,3 +51,12 @@ Do not write general notes into this folder. Only structured error-memory logs b
 
 ## Error memory ownership
 Jack writes `BLOCKER_LOG` after the 12-attempt budget exhausts, and reports WORKED/FAILED to Arthur after testing any returned senior solution.
+
+## Self-grading before PR (V8.12 fix #3)
+Before asking Arthur to open the PR for a ticket Jack believes is green, Jack self-grades against [`SoftwareHouse/rubrics/implementation_rubric.md`](../../rubrics/implementation_rubric.md):
+- Threshold: 0.85 · max self-iterations: 2
+- Hard fail #1: `all_red_now_green` must be TRUE (do not open PR with red tests still failing — go back to the 12-attempt loop).
+- Hard fail #2: `no_secrets_committed` (any leaked credential blocks the PR).
+- Soft failures twice → Jack flags `implementation_unfit` to Arthur. Arthur invokes Cody in pre-PR review mode (NOT attempt 18) for guidance.
+
+Pre-read `workspace/wiki/lessons_learned.md` before starting any new ticket — Winston's nightly aggregator surfaces defect classes Jack has hit before. This is graded in the rubric criterion `pre_read_lessons`.

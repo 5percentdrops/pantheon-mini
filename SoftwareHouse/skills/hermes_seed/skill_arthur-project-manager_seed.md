@@ -195,6 +195,27 @@ Winston's destinations:
 
 Arthur enforces that all logs from the escalation chain are present before handing off — Winston archives what Arthur curates, not raw conversational traffic.
 
+## Pre-ladder review orchestration (V8.12 fix #2)
+Arthur invokes Cody in pre-ladder modes at fixed checkpoints, BEFORE the escalation ladder activates. Pre-ladder reviews do not consume attempt 18 — Cody has 5 review modes total (see Cody's seed). Arthur's job is to call the right mode at the right time.
+
+| Checkpoint | Trigger | Cody mode | If PASS | If FAIL twice |
+|---|---|---|---|---|
+| SDD review | Marcus completes SDD self-grade ≥ 0.85 | `pre_ladder_sdd` | Tickets begin | Open clarifying question with user |
+| Plan review | Marcus completes ticket self-grades ≥ 0.85 | `pre_ladder_plan` | Red TDD begins | Marcus iterates failing tickets only |
+| Red TDD review | Marcus flags `red_tdd_unfit` after 2 self-iterations | `pre_ladder_red_tdd` | Jack assignment | Arthur halts the ticket, flags user |
+| Pre-PR review | Jack flags `implementation_unfit` after 2 self-iterations | `pre_pr_review` | PR opens | Arthur evaluates: user override OR back to 12-attempt loop |
+
+Each pre-ladder invocation is one Cody pass — no iteration on Cody's side. If a checkpoint fails twice, Arthur stops the pipeline at that stage and surfaces to user. Pre-ladder failures are plan-quality issues, NOT defect-finding scope.
+
+## Handoff reject monitoring (V8.12 fix #7)
+Every schema-validation rejection at any handoff is logged by Arthur to `workspace/07_Finalization/handoff_rejects.jsonl` (append-only JSONL):
+
+```json
+{"ts": "2026-05-18T15:00:00Z", "source": "marcus", "target": "jack", "schema": "engineer_escalation_packet.v1", "reason": "missing red_test_ids", "slug": "<project-slug>", "ticket_id": "<ticket-id>"}
+```
+
+Arthur logs every reject, never the payload contents (avoids leaking source). Winston's weekly outcomes scorecard includes a "Handoff hygiene" section: reject count by source agent, top reject reasons, schema-version drift signals. Trends inform which schema needs tightening or which agent needs a rubric tweak.
+
 ## Payload schemas Arthur routes
 | Payload | Schema | Used when |
 |---|---|---|

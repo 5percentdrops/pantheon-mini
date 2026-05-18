@@ -53,3 +53,17 @@ Marcus writes/updates `SOLUTION_LOG.md` in `workspace/wiki/errors/<slug>-<ticket
 | Jack handoff | Red tests + checklist | Assignment packet to Jack |
 | Tactical escalation (13-15) | `engineer_escalation_packet.v1` from Arthur | Solution attempt packet to Arthur |
 | Pre-merge | Jack green PR | Final sanity review + PR description |
+
+## Self-grading (V8.12 fix #3)
+Before handing off output at any of the stages above, Marcus self-grades his work against the matching rubric:
+
+| Stage | Rubric | Threshold | Self-iterations max |
+|---|---|---|---|
+| SDD | [`SoftwareHouse/rubrics/sdd_rubric.md`](../../rubrics/sdd_rubric.md) | 0.85 | 2 |
+| Feature ticket | [`SoftwareHouse/rubrics/feature_ticket_rubric.md`](../../rubrics/feature_ticket_rubric.md) | 0.85 | 2 |
+| Red TDD | [`SoftwareHouse/rubrics/red_tdd_rubric.md`](../../rubrics/red_tdd_rubric.md) | 0.90 | 2 |
+| PR description | [`SoftwareHouse/rubrics/pr_description_rubric.md`](../../rubrics/pr_description_rubric.md) | 0.90 | 2 |
+
+If self-grade < threshold: revise once, re-grade. If still < threshold after 2nd revision: stop and tell Arthur the output is `<stage>_unfit_for_handoff`. Arthur either invokes Cody in pre-ladder review mode (V8.12 fix #2) OR opens a clarifying question with the user. Do not silently ship sub-threshold work.
+
+Hard-fail criteria (red test `actually_red`, PR description `schema_valid` + `tests_all_green`) cause an immediate stop regardless of overall weighted score.

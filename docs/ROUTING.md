@@ -85,6 +85,40 @@ Raw conversational text routed between agents will be rejected at schema validat
 
 ---
 
+## Pre-ladder reviews (V8.12)
+
+Cody has 5 review modes — only 1 consumes attempt-18 budget. The other 4 catch plan/test/PR errors BEFORE the escalation ladder activates.
+
+| Mode | When | Input | Budget |
+|---|---|---|---|
+| `pre_ladder_sdd` | Marcus self-graded SDD ≥ 0.85 | PRD + SDD + sdd_rubric.md | none |
+| `pre_ladder_plan` | Marcus self-graded all tickets ≥ 0.85 | SDD + tickets + feature_ticket_rubric.md | none |
+| `pre_ladder_red_tdd` | Marcus flagged `red_tdd_unfit` after 2 self-iterations | Tickets + red tests + red_tdd_rubric.md | none |
+| `pre_pr_review` | Jack flagged `implementation_unfit` after 2 self-iterations | Jack's diff + implementation_rubric.md | none |
+| `forensic_audit` | Attempt 18 after Maxwell exhaustion | Full escalation chain | consumes attempt 18 |
+
+Pre-ladder reviews are 1 pass, no iteration loop on Cody's side. Failure twice → Arthur surfaces to user (does not auto-escalate to Magnus — pre-ladder failures are plan-quality issues, not defects).
+
+## Self-grading rubrics (V8.12)
+
+Every stage agent self-grades against a rubric BEFORE handoff. Rubrics live in [`SoftwareHouse/rubrics/`](../SoftwareHouse/rubrics/):
+
+| Stage | Owner | Rubric | Threshold |
+|---|---|---|---|
+| SDD | Marcus | `sdd_rubric.md` | 0.85 |
+| Feature ticket | Marcus | `feature_ticket_rubric.md` | 0.85 |
+| Red TDD | Marcus | `red_tdd_rubric.md` | 0.90 |
+| Implementation | Jack | `implementation_rubric.md` | 0.85 |
+| PR description | Marcus | `pr_description_rubric.md` | 0.90 |
+
+Each rubric: weighted criteria, pass threshold, max 2 self-iterations. Hard-fail criteria (e.g. `actually_red`, `all_red_now_green`, `schema_valid`, `no_secrets_committed`) cause immediate stop regardless of overall score.
+
+## Handoff reject monitoring (V8.12)
+
+Arthur logs every schema-validation rejection to `workspace/07_Finalization/handoff_rejects.jsonl` (append-only). Winston aggregates weekly into the outcomes scorecard's Handoff Hygiene section: reject count by source agent, by schema, top 3 reject reasons. Trends drive rubric tweaks and seed updates.
+
+---
+
 ## Fan-out — technical domain routing
 
 V8.11 Mini ports full Pantheon's domain-based fan-out architecture. The 7-agent Active Mini operating team is the **default lane** (backend → Marcus → Jack). Every other specialist senior + standard pair is **dormant but architecturally integrated** — when activated, Arthur classifies the PRD by implementation domain and routes to the matching pair.

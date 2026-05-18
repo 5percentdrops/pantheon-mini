@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/5percentdrops/pantheon-mini/SoftwareHouse/schemas/stage_outcome_rubric.schema.json",
+  "title": "Stage Outcome Rubric (V8.12 self-grading)",
+  "description": "Structured rubric for an agent's self-grading or Cody's pre-ladder review. Every stage agent grades own output against the matching rubric BEFORE handoff; Cody re-grades the same rubric at SDD-review and plan-review checkpoints.",
+  "type": "object",
+  "required": ["stage", "owner", "criteria", "pass_threshold", "max_self_iterations"],
+  "additionalProperties": false,
+  "properties": {
+    "stage": {
+      "type": "string",
+      "enum": ["sdd", "feature_ticket", "red_tdd", "implementation", "pr_description"],
+      "description": "Pipeline stage this rubric applies to."
+    },
+    "owner": {
+      "type": "string",
+      "enum": [
+        "marcus-senior-backend-developer",
+        "jack-backend-developer",
+        "cody-code-escalation-reviewer"
+      ],
+      "description": "Agent that produces the output graded by this rubric."
+    },
+    "criteria": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "weight", "question", "fail_signal"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z_]+$"},
+          "weight": {"type": "number", "minimum": 0.05, "maximum": 1.0},
+          "question": {"type": "string", "minLength": 12},
+          "fail_signal": {"type": "string", "minLength": 8, "description": "Concrete observation that would fail this criterion."}
+        }
+      }
+    },
+    "pass_threshold": {
+      "type": "number",
+      "minimum": 0.5,
+      "maximum": 1.0,
+      "description": "Weighted score required to hand off. Below threshold: self-iterate (up to max_self_iterations) or escalate."
+    },
+    "max_self_iterations": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3,
+      "description": "Max self-grade + revise cycles before Arthur is told and Cody takes over."
+    }
+  }
+}

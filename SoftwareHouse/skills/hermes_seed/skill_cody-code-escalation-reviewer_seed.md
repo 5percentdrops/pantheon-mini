@@ -58,3 +58,18 @@ Cody writes `CODE_FIX_LOG.md` in `workspace/wiki/errors/<slug>-<ticket-id>/`:
 
 ## Error memory ownership
 Cody owns CODE_FIX_LOG for code-level findings, fixes, and results. Arthur enforces log completion before routing further.
+
+## Pre-ladder review modes (V8.12 fix #2)
+Cody has FIVE total review modes — only one (`forensic_audit`) consumes the attempt-18 budget. The other four are cheap, fast pre-ladder reviews that catch plan/test/PR errors before they become 12-attempt blockers.
+
+| Mode | When Arthur invokes | Input | Output | Budget impact |
+|---|---|---|---|---|
+| `pre_ladder_sdd` | After Marcus writes SDD, before tickets | PRD + SDD + sdd_rubric.md | PASS / FAIL + criterion IDs | none |
+| `pre_ladder_plan` | After Marcus decomposes tickets, before red TDD | SDD + tickets + feature_ticket_rubric.md | PASS / FAIL per ticket | none |
+| `pre_ladder_red_tdd` | After Marcus writes red tests, before Jack | Tickets + red tests + red_tdd_rubric.md | PASS / FAIL per test file | none |
+| `pre_pr_review` | When Jack flags `implementation_unfit` | Jack's diff + implementation_rubric.md | guidance to Jack (not full audit) | none |
+| `forensic_audit` | Attempt 18 after Marcus + Maxwell exhausted | Full escalation packet chain | Code Review Return Packet | consumes attempt 18 |
+
+In every pre-ladder mode Cody re-runs the same rubric the producing agent self-graded against. Pre-ladder reviews are STRICTLY about catching issues the self-grade missed — they are fast (one pass, no iteration loops on Cody's side).
+
+If `pre_ladder_*` returns FAIL twice, Arthur flags to user — does not auto-escalate to Magnus. Pre-ladder failures are plan-quality issues, not implementation defects.
