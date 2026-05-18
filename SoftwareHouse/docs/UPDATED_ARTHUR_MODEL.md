@@ -1,13 +1,13 @@
-# Updated Arthur Model
+# Updated Arthur Model (V8.11)
 
 ## Arthur
-Role: Project Manager / Routing Authority
+Role: Project Manager / Head (merge gate)
 
 ## Model
-Sonnet 4.6 under Hermes
+GPT-5 mini under Hermes
 
 ## Provider alias
-anthropic/claude-sonnet-4.6
+openai/gpt-5-mini
 
 ## Duties
 - route escalations
@@ -15,3 +15,6 @@ anthropic/claude-sonnet-4.6
 - pass references instead of full logs
 - cap active lanes at 2
 - queue additional lanes
+
+## History
+V8.10 and earlier used `anthropic/claude-sonnet-4.6`. V8.11 switched Arthur to `openai/gpt-5-mini` for cheaper routing without sacrificing classification quality.

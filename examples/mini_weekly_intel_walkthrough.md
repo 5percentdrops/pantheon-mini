@@ -32,11 +32,11 @@ SLA:     workspace/06_Project_Repos/mini_intel/ weekly.
 | # | Stage | Mini agent | Pantheon equivalent | Model | Cap (V8.10) | Projected wall |
 |---|---|---|---|---|---|---|
 | 1 | Context pack | **Winston** | Winston | Haiku 3.5 | 4 000 | 45 s |
-| 2 | PRD intake / routing | **Arthur** | Arthur | Sonnet 4.6 | 2 000 | 25 s |
+| 2 | PRD intake / routing | **Arthur** | Arthur | GPT-5 mini | 2 000 | 25 s |
 | 3 | SDD architecture + feature ticket + red tests | **Marcus** | Marcus | Opus 4.7 XHigh | 12 000 | 2 min |
 | 4 | Implementation (attempts 1-12) | **Jack** | Jack + specialist pool | DeepSeek V4 Pro | 16 000 | 6–10 min |
 | 5 | Final sanity review + PR description | **Marcus** | Marcus | Opus 4.7 XHigh | 4 000 | 45 s |
-| 6 | Merge gate | **Arthur** | Arthur | Sonnet 4.6 | 2 000 | 20 s |
+| 6 | Merge gate | **Arthur** | Arthur | GPT-5 mini | 2 000 | 20 s |
 | 7 | Final archive | **Winston** | Winston | Haiku 3.5 | 2 000 | 30 s |
 
 **If Jack burns 12 attempts** → ladder kicks in:

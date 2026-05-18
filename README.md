@@ -62,34 +62,23 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
 ## 🏛 The Active Mini operating team
 
-7 named agents. Every Pantheon role maps onto one of them.
+7 agents. One job each. One direction of flow.
 
 ```
-                          👤 YOU (Board / Final Approval)
-                                      ↓
-                       🎯 Arthur — Project Manager / Head  (merge gate, GPT-5 mini)
-                                      ↓
-                          📋 Marcus — Senior Developer / Planner  (Opus 4.7 XHigh)
-                          (SDD · feature tickets · red tests · PR description)
-                                      ↓
-                          🔨 Jack — Standard Developer / Implementer  (DeepSeek V4 Pro)
-                                  attempts 1-12 (red-to-green TDD)
-                                      ↓
-                          (Jack stuck after attempt 12 → escalation ladder)
-                                      ↓
-                ┌──────────────┬──────────────┬───────────────┐
-                ↓              ↓              ↓               ↓
-            Marcus 13-15   Maxwell 16-17   Cody 18         Magnus 19
-            (tactical)     (deep fix)     (audit)        (architect)
-                ↓              ↓              ↓               ↓
-                └──────────────┴──────────────┴───────────────┘
-                                      ↓
-                          🔁 Solution returned through Arthur → Jack tests
-                                      ↓
-                          ✅ Arthur — merge gate
-                                      ↓
-                          📚 Winston — final archive (Haiku 3.5)
+   PRD  ──►  Arthur  ──►  Marcus  ──►  Jack  ──►  Arthur  ──►  Winston
+   you      route        plan         build       merge       archive
 ```
+
+That's it. PRD goes in, working code comes out, lessons learned get filed for next time.
+
+**When Jack gets stuck:** attempts 1-12 are his own. After 12, the escalation ladder fires:
+
+```
+   Jack 12   →   Marcus 13-15   →   Maxwell 16-17   →   Cody 18   →   Magnus 19
+   (self)        (tactical)         (deep fix)          (audit)       (architect / kill)
+```
+
+Every senior return routes back through Arthur. Magnus is the only tier with kill authority.
 
 | # | Role | Agent | Attempts | Model |
 |--:|---|---|---|---|
