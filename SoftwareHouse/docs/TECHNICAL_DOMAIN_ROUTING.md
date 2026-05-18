@@ -1,3 +1,8 @@
+> ⚠️ **FULL PANTHEON REFERENCE — not authoritative for Pantheon Mini V8.11.**
+> In Mini, Arthur routes nearly every approved PRD to Marcus (single senior planner).
+> Specialist senior routes (Felix, Nathan, Sonia, Dominic, Viktor, etc.) stay dormant
+> until the user activates them. See [`../../docs/ROUTING.md`](../../docs/ROUTING.md) for Mini's authoritative routing.
+
 # Technical Domain Routing
 
 ## Purpose

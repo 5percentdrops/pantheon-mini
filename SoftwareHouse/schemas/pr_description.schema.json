@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/5percentdrops/pantheon-mini/SoftwareHouse/schemas/pr_description.schema.json",
+  "title": "PR Description",
+  "description": "Schema for the PR description Marcus produces at pre-merge sanity review (Pantheon Mini V8.11). Arthur owns the merge gate; Marcus owns the description.",
+  "type": "object",
+  "required": [
+    "project_slug",
+    "ticket_id",
+    "summary",
+    "what_changed",
+    "why",
+    "tests",
+    "merge_gate"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "project_slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+      "description": "Lowercase hyphen-separated slug. Must match workspace/01_PRDs/<slug>.md."
+    },
+    "ticket_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+-[0-9]{3,}$",
+      "description": "Feature ticket ID, e.g. binance-funding-001."
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 160,
+      "description": "One-sentence summary that fits in the PR title."
+    },
+    "what_changed": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 4
+      },
+      "description": "Bullet list of concrete code changes. Files touched, modules added, behavior altered."
+    },
+    "why": {
+      "type": "string",
+      "minLength": 16,
+      "description": "Link back to the PRD goal. Why this change exists; what user-facing or system outcome it enables."
+    },
+    "tests": {
+      "type": "object",
+      "required": ["red_tests", "all_green"],
+      "additionalProperties": false,
+      "properties": {
+        "red_tests": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "IDs / paths of red tests Marcus wrote that are now green."
+        },
+        "all_green": {
+          "type": "boolean",
+          "description": "True only if every test in the test plan passes. Arthur rejects merge if false."
+        },
+        "additional_tests_added": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Optional: tests Jack added beyond Marcus's red plan."
+        }
+      }
+    },
+    "escalation_chain": {
+      "type": "object",
+      "description": "Optional. Present only if any senior tier (Marcus 13-15 / Maxwell 16-17 / Cody 18 / Magnus 19) was activated during this ticket.",
+      "additionalProperties": false,
+      "properties": {
+        "marcus_attempts_used": {"type": "integer", "minimum": 0, "maximum": 3},
+        "maxwell_attempts_used": {"type": "integer", "minimum": 0, "maximum": 2},
+        "cody_review_ran": {"type": "boolean"},
+        "magnus_review_ran": {"type": "boolean"},
+        "log_refs": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Paths to SOLUTION_LOG / CODE_FIX_LOG / APPROACH_SOLUTION_LOG entries in workspace/wiki/errors/."
+        }
+      }
+    },
+    "rollback_plan": {
+      "type": "string",
+      "description": "Optional but required for risky merges. One sentence on how to revert."
+    },
+    "merge_gate": {
+      "type": "object",
+      "required": ["all_green", "rtk_squashed", "lane_within_cap"],
+      "additionalProperties": false,
+      "properties": {
+        "all_green": {
+          "type": "boolean",
+          "description": "Mirrors tests.all_green. Arthur checks this field at merge."
+        },
+        "rtk_squashed": {
+          "type": "boolean",
+          "description": "True if description body fits Arthur's 3-line routing summary."
+        },
+        "lane_within_cap": {
+          "type": "boolean",
+          "description": "True if merging this PR does not exceed Arthur's max_active_lanes=2."
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,9 @@
+> ⚠️ **FULL PANTHEON REFERENCE — not authoritative for Pantheon Mini V8.11.**
+> This document describes the full Pantheon 33-agent model map. Mini's authoritative
+> sources are [`docs/ROUTING.md`](ROUTING.md), [`SoftwareHouse/policies/mini_agent_role_map.yaml`](../SoftwareHouse/policies/mini_agent_role_map.yaml),
+> and the per-agent seeds in [`SoftwareHouse/skills/hermes_seed/`](../SoftwareHouse/skills/hermes_seed/).
+> Kept here for upgrade-path reference and for the lanes Mini does not yet activate.
+
 # Standard Developer DeepSeek Assignment
 
 ## Final decision

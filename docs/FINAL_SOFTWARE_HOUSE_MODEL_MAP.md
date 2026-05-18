@@ -1,3 +1,8 @@
+> ⚠️ **FULL PANTHEON REFERENCE — not authoritative for Pantheon Mini V8.11.**
+> Mini's authoritative model assignments live in [`SoftwareHouse/policies/mini_agent_role_map.yaml`](../SoftwareHouse/policies/mini_agent_role_map.yaml#active_with_models).
+> Notably Arthur uses `openai/gpt-5-mini` in Mini V8.11, not OPS 4.7 (legacy value below).
+> Kept here for upgrade-path reference and the lanes Mini does not yet activate.
+
 # Final Software House Model Map
 
 ## Backend escalation chain

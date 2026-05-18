@@ -56,11 +56,13 @@ You              Arthur                       Marcus           Jack
  │                  │  read workspace/01_PRDs/   │                │
  │                  │  approve + scope + route   │                │
  │                  │ ────────────────────────►  │                │
- │                  │                            │  write SDD     │
+ │                  │                            │  (a) PRD → SDD │
  │                  │                            │  → 02_SDDs/    │
- │                  │                            │  feature ticket│
+ │                  │                            │  (b) SDD →     │
+ │                  │                            │  feature tickets│
  │                  │                            │  → 03_/        │
- │                  │                            │  red tests     │
+ │                  │                            │  (c) tickets → │
+ │                  │                            │  red-state TDD │
  │                  │                            │  → 04_/        │
  │                  │                            │  hand to Jack  │
  │                  │                            │ ────────────►  │
@@ -71,7 +73,29 @@ You              Arthur                       Marcus           Jack
  │  ◄─── deliverable ── via 07_Finalization                       │
 ```
 
-Arthur converts the PRD into an *approved PRD packet* (PRD + your notes + scope decisions) and hands it to Marcus. From there the workflow follows [`ROUTING.md`](ROUTING.md).
+Arthur converts the PRD into an *approved PRD packet* (PRD + your notes + scope decisions) and assigns it to the appropriate senior. In V8.11 that's almost always **Marcus** — the single Senior Developer / Planner. Specialist seniors stay dormant unless you activate them.
+
+### The 3 Marcus conversions (PRD → red TDD)
+
+The senior developer owns these three handoffs end-to-end before Jack writes a line of code:
+
+| Step | Conversion | Artifact | Path |
+|---|---|---|---|
+| (a) | **PRD → SDD** | Software Design Document (architecture, modules, data shapes, integrations, edge cases) | `workspace/02_SDDs/<slug>.md` |
+| (b) | **SDD → feature tickets** | Discrete tickets, one feature each, with clear "done" condition | `workspace/03_Feature_Tickets/<slug>/<ticket-id>.md` |
+| (c) | **Feature tickets → red-state TDD** | Failing tests Jack must turn green, per task block | `workspace/04_TDD_Red_Tests/<slug>/<ticket-id>/` |
+
+No coding starts until the red tests exist. Marcus is the plan owner — if Jack is stuck (attempt 13), Marcus is first escalation because Marcus wrote the plan. From there the workflow follows [`ROUTING.md`](ROUTING.md).
+
+### Models in the PRD flow
+
+| Agent | Job | Model |
+|---|---|---|
+| Arthur | Intake + routing + merge gate | `openai/gpt-5-mini` ("GPT-5 mini under Hermes") |
+| Marcus | PRD → SDD → tickets → red TDD | `anthropic/claude-opus-4.7` (reasoning_effort: xhigh) |
+| Jack | Red-to-green implementation | `deepseek/deepseek-v4-pro` |
+
+Authoritative model assignments live in [`SoftwareHouse/policies/mini_agent_role_map.yaml`](../SoftwareHouse/policies/mini_agent_role_map.yaml#active_with_models).
 
 If Arthur needs clarification, he opens the question with you BEFORE routing to Marcus. PRD revisions restart from step 1 (move the updated file back into `workspace/01_PRDs/`).
 
