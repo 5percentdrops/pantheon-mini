@@ -69,37 +69,35 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
    you      route        plan         build       merge       archive
 ```
 
-**The 7 agents and how the work moves between them:**
+**The 7 agents, by phase:**
 
 ```
-              YOU
-               │  PRD
-               ▼
-            Arthur          routing · merge gate
-               │
-               ▼
-            Marcus          PRD → SDD → tickets → red TDD
-               │
-               ▼
-             Jack           implements (attempts 1-12)
-               │
-               ▼  stuck after 12?
+HAPPY PATH
 
-       Marcus → Maxwell → Cody → Magnus
-       13-15    16-17     18     19
+  ┌────────┐    ┌────────┐    ┌────────┐
+  │ Arthur │ ──►│ Marcus │ ──►│  Jack  │
+  │ routes │    │ plans  │    │ builds │
+  └────────┘    └────────┘    └────────┘
 
-               │  any senior solution returns through Arthur
-               ▼
-            Arthur          merge gate
-               │
-               ▼
-           Winston          archive + lessons_learned
-               │
-               ▼
-            shipped
+
+JACK STUCK  (attempts 13-19, in order)
+
+  ┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐
+  │ Marcus │ ──►│Maxwell │ ──►│  Cody  │ ──►│ Magnus │
+  │ 13-15  │    │ 16-17  │    │   18   │    │   19   │
+  │tactical│    │deep fix│    │  audit │    │architct│
+  └────────┘    └────────┘    └────────┘    └────────┘
+
+
+CLOSING
+
+  ┌────────┐    ┌────────┐
+  │ Arthur │ ──►│Winston │
+  │ merges │    │archives│
+  └────────┘    └────────┘
 ```
 
-Models for each agent are in the table below. Magnus is the only tier with kill authority at attempt 19.
+Models for each agent live in the table below. Magnus is the only tier with kill authority. Every senior solution returns through Arthur — never direct to Jack.
 
 | # | Role | Agent | Attempts | Model |
 |--:|---|---|---|---|
