@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 errors = []
 required = {
- "Project Manager / Head":"Sonnet 4.6",
+ "Project Manager / Head":"GPT-5 mini",
  "Standard Developer / Implementer":"DeepSeek",
  "Senior Developer / Planner":"OPS 4.7 Extra High",
  "Independent Reviewer / Auditor":"GPT-5.5",

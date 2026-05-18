@@ -71,7 +71,7 @@ policy:
     - jack-backend-developer
 
   active_with_models:
-    - arthur-project-manager:                  anthropic/claude-sonnet-4.6
+    - arthur-project-manager:                  openai/gpt-5-mini
     - marcus-senior-backend-developer:         anthropic/claude-opus-4.7      # OPS 4.7 Extra High under Hermes
     - jack-backend-developer:                  deepseek/deepseek-v4-pro
     - cody-code-escalation-reviewer:           openai/gpt-5.5                 # latest Codex Reviewer under Hermes

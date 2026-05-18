@@ -46,7 +46,7 @@ echo "==================================================================="
 echo " Paperclip = company/control plane"
 echo " Hermes    = per-agent harness (7 ~/.hermes-mini-<slug>/ homes)"
 echo " Adapter   = hermes_local (npm: hermes-paperclip-adapter)"
-echo " Arthur    = Project Manager / Head (anthropic/claude-sonnet-4.6)"
+echo " Arthur    = Project Manager / Head (openai/gpt-5-mini)"
 echo " Namespace = ~/.hermes-mini-*  (coexists with full Pantheon)"
 echo "==================================================================="
 echo

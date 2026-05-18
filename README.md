@@ -48,7 +48,7 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 | Active agents | 33 | **7** |
 | Inactive placeholders | 0 (all live) | 26 (activate when needed) |
 | Escalation model | per-role | **attempt-numbered ladder** (1-12, 13-15, 16-17, 18, 19, archive, merge) |
-| Arthur model | GPT-5 mini | **Sonnet 4.6** |
+| Arthur model | GPT-5 mini | **GPT-5 mini** |
 | Implementer | Jack/Ben/Theo/Leo/Ellie/Grant (specialist fan-out) | **Jack alone** (DeepSeek) |
 | Senior planner | Marcus | **Marcus** (also covers SDD/feature/red-test) |
 | Reviewer/auditor | Clara → Cody | **Cody alone** (GPT-5.5, attempt 18) |
@@ -67,7 +67,7 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 ```
                           👤 YOU (Board / Final Approval)
                                       ↓
-                       🎯 Arthur — Project Manager / Head  (merge gate, Sonnet 4.6)
+                       🎯 Arthur — Project Manager / Head  (merge gate, GPT-5 mini)
                                       ↓
                           📋 Marcus — Senior Developer / Planner  (Opus 4.7 XHigh)
                           (SDD · feature tickets · red tests · PR description)
@@ -93,7 +93,7 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
 | # | Role | Agent | Attempts | Model |
 |--:|---|---|---|---|
-| 1 | 🎯 **Project Manager / Head** | Arthur | merge gate | Sonnet 4.6 |
+| 1 | 🎯 **Project Manager / Head** | Arthur | merge gate | GPT-5 mini |
 | 2 | 📋 **Senior Developer / Planner** | Marcus | 13-15 | Opus 4.7 XHigh |
 | 3 | 🔨 **Standard Developer / Implementer** | Jack | 1-12 | DeepSeek V4 Pro |
 | 4 | 🔍 **Independent Reviewer / Auditor** | Cody | 18 | GPT-5.5 |
@@ -103,6 +103,10 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
 **Ladder is the source of truth:**
 Jack 1-12 → Marcus 13-15 → Maxwell 16-17 → Cody 18 → Magnus 19 → Winston archives → Arthur merges (or Magnus terminates to manual review).
+
+### 🏗 Magnus — Principal Architect (attempt 19)
+
+When Marcus's tactical fixes (13-15), Maxwell's deep fixes (16-17), and Cody's forensic audit (18) all fail, Arthur routes the blocker to **Magnus**. Magnus runs on **Gemini 3.1 Pro under Hermes** and is approach-focused, not code-focused — he never patches a file directly. Instead he produces a *Principal Approach Review*: 2-4 alternative structural pathways, an `APPROACH_SOLUTION_LOG` entry, and either a revised route Arthur can hand back to a senior, or a termination-to-manual-review verdict. Magnus is the only ladder tier with authority to kill the task.
 
 **26 placeholder agents** stay dormant until you assign them a model — see [`SoftwareHouse/policies/mini_agent_role_map.yaml`](SoftwareHouse/policies/mini_agent_role_map.yaml) for the upgrade-to-full-Pantheon path.
 

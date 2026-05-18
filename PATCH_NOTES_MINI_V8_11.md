@@ -24,7 +24,7 @@ Winston archive → Arthur merge gate
 
 | # | Agent ID | Name | Role | Attempts | Model |
 |--:|---|---|---|---|---|
-| 1 | `arthur-project-manager` | Arthur | Project Manager / Head | merge gate | Sonnet 4.6 |
+| 1 | `arthur-project-manager` | Arthur | Project Manager / Head | merge gate | GPT-5 mini |
 | 2 | `marcus-senior-backend-developer` | Marcus | Senior Developer / Planner | 13-15 | Opus 4.7 XHigh |
 | 3 | `jack-backend-developer` | Jack | Standard Developer / Implementer | 1-12 | DeepSeek V4 Pro |
 | 4 | `cody-code-escalation-reviewer` | Cody | Independent Reviewer / Auditor | 18 | GPT-5.5 |

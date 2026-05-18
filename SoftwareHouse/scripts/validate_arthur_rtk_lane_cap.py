@@ -25,8 +25,8 @@ for p in ROOT.rglob("organization.import.json"):
     except Exception:
         pass
 arthur = next((a for a in agents if a.get("name") == "Arthur" or a.get("id") == "arthur-project-manager"), {})
-if "Sonnet 4.6" not in arthur.get("llm_module", ""):
-    errors.append("Arthur not set to Sonnet 4.6")
+if "GPT-5 mini" not in arthur.get("llm_module", ""):
+    errors.append("Arthur not set to GPT-5 mini")
 if not arthur.get("rtk_squash_required"):
     errors.append("Arthur missing RTK squash flag")
 if arthur.get("max_active_lanes") != 2:
