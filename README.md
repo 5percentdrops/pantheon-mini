@@ -69,32 +69,70 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
    you      route        plan         build       merge       archive
 ```
 
-**The 7 agents, by phase:**
+**The 7 agents, top to bottom:**
 
 ```
-HAPPY PATH
-
-  ┌────────┐    ┌────────┐    ┌────────┐
-  │ Arthur │ ──►│ Marcus │ ──►│  Jack  │
-  │ routes │    │ plans  │    │ builds │
-  └────────┘    └────────┘    └────────┘
-
-
-JACK STUCK  (attempts 13-19, in order)
-
-  ┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐
-  │ Marcus │ ──►│Maxwell │ ──►│  Cody  │ ──►│ Magnus │
-  │ 13-15  │    │ 16-17  │    │   18   │    │   19   │
-  │tactical│    │deep fix│    │  audit │    │architct│
-  └────────┘    └────────┘    └────────┘    └────────┘
-
-
-CLOSING
-
-  ┌────────┐    ┌────────┐
-  │ Arthur │ ──►│Winston │
-  │ merges │    │archives│
-  └────────┘    └────────┘
+              ┌────────┐
+              │ Arthur │
+              │ routes │
+              └───┬────┘
+                  │
+                  ▼
+              ┌────────┐
+              │ Marcus │
+              │ plans  │
+              └───┬────┘
+                  │
+                  ▼
+              ┌────────┐
+              │  Jack  │
+              │ builds │
+              └───┬────┘
+                  │
+                  ▼  stuck after 12?
+                  │
+              ┌────────┐
+              │ Marcus │
+              │ 13-15  │
+              │tactical│
+              └───┬────┘
+                  │
+                  ▼
+              ┌────────┐
+              │Maxwell │
+              │ 16-17  │
+              │deep fix│
+              └───┬────┘
+                  │
+                  ▼
+              ┌────────┐
+              │  Cody  │
+              │   18   │
+              │  audit │
+              └───┬────┘
+                  │
+                  ▼
+              ┌────────┐
+              │ Magnus │
+              │   19   │
+              │ archt  │
+              └───┬────┘
+                  │
+                  ▼  returns through Arthur
+                  │
+              ┌────────┐
+              │ Arthur │
+              │ merges │
+              └───┬────┘
+                  │
+                  ▼
+              ┌────────┐
+              │Winston │
+              │archives│
+              └───┬────┘
+                  │
+                  ▼
+               shipped
 ```
 
 Models for each agent live in the table below. Magnus is the only tier with kill authority. Every senior solution returns through Arthur — never direct to Jack.
