@@ -8,9 +8,9 @@
 # Hermes's env inheritance). Optionally writes per-agent
 # ~/.hermes-mini-<slug>/.env for isolation.
 #
-# Providers needed by V8.11 Mini (direct provider APIs, no router):
-#   Anthropic  -> Marcus (Opus 4.7 xHigh), Maxwell (Opus 4.7 Max), Winston (Haiku 3.5)
-#   OpenAI     -> Arthur (GPT-5 mini), Cody (GPT-5.5)
+# Providers needed by V8.14 Mini (direct provider APIs, no router):
+#   Anthropic  -> Marcus, Maxwell, Winston, Edgar, Tobias (Opus 4.7 / Haiku 3.5)
+#   OpenAI     -> Arthur (GPT-5 mini), Cody (GPT-5.5), Reid (GPT-5.5 Codex)
 #   DeepSeek   -> Jack (DeepSeek V4 Pro)
 #   Gemini     -> Magnus (Gemini 3.1 Pro)
 #
@@ -53,8 +53,8 @@ SHARED_ENV="${HERMES_SHARED_ENV:-$HOME/.hermes/.env}"
 # Per-provider declarations (V8.11 Mini — 7 active agents on DIRECT provider APIs).
 # Format: VAR_NAME|PROMPT|AGENTS_COVERED|GET_KEY_URL
 PROVIDERS=(
-    "ANTHROPIC_API_KEY|Anthropic API key — REQUIRED (3 agents: Marcus Opus 4.7 xHigh, Maxwell Opus 4.7 Max, Winston Claude 3.5 Haiku)|3|https://console.anthropic.com/settings/keys"
-    "OPENAI_API_KEY|OpenAI API key — REQUIRED (2 agents: Arthur GPT-5 mini, Cody GPT-5.5)|2|https://platform.openai.com/api-keys"
+    "ANTHROPIC_API_KEY|Anthropic API key — REQUIRED (5 agents: Marcus Opus 4.7 xHigh, Maxwell Opus 4.7 Max, Winston Claude 3.5 Haiku, Edgar Opus 4.7, Tobias Opus 4.7)|5|https://console.anthropic.com/settings/keys"
+    "OPENAI_API_KEY|OpenAI API key — REQUIRED (3 agents: Arthur GPT-5 mini, Cody GPT-5.5, Reid GPT-5.5 Codex)|3|https://platform.openai.com/api-keys"
     "DEEPSEEK_API_KEY|DeepSeek API key — REQUIRED (1 agent: Jack DeepSeek V4 Pro)|1|https://platform.deepseek.com/api_keys"
     "GEMINI_API_KEY|Google Gemini API key — REQUIRED (1 agent: Magnus Gemini 3.1 Pro)|1|https://aistudio.google.com/app/apikey"
     "GH_TOKEN|GitHub Personal Access Token — optional (used by Jack/Marcus for PR + commit ops)|0|https://github.com/settings/tokens"

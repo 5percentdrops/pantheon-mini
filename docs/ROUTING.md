@@ -13,7 +13,11 @@ Jack 1-12 → Marcus 13-15 → Maxwell 16-17 → Cody 18 → Magnus 19 → Winst
 
 | Agent | Receives FROM | What | Sends TO | What |
 |---|---|---|---|---|
-| **Arthur** | user | PRD + scope + research notes | Marcus | approved PRD packet (PRD + user notes + scope) |
+| **Arthur** | user | PRD + scope + research notes | Edgar | PRD for feasibility pass 1 (V8.14) |
+| **Edgar** (V8.14) | Arthur | PRD | Arthur | Feasibility Review Packet #1 |
+| **Reid** (V8.14) | Arthur | PRD + Edgar packet | Arthur | Feasibility Review Packet #2 (leak-check on Edgar) |
+| **Tobias** (V8.14) | Arthur | PRD + Edgar + Reid packets | Arthur | Feasibility Review Packet #3 (consolidated + pie-in-sky callouts) |
+| **Arthur** | user (approval) | ship / trim / iterate / reject decision | Marcus (if approved) | approved PRD packet (PRD + user notes + scope) |
 | **Marcus** | Arthur | approved PRD | Jack | SDD + feature ticket + red tests + checklist |
 | **Jack** | Marcus | assignment packet (SDD + ticket + checklist) | Marcus (on success) **or** Arthur (blocker @ attempt 13) | green PR **or** `engineer_escalation_packet.v1` |
 | **Marcus** | Arthur (Jack-blocker route) | escalation packet | Arthur | tactical fix proposal (attempts 13-15), max 3 |

@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/5percentdrops/pantheon-mini/SoftwareHouse/schemas/feasibility_review_packet.schema.json",
+  "title": "Feasibility Review Packet (V8.14)",
+  "description": "One of three packets produced during the 3-pass PRD intake loop. Edgar produces Packet #1 (technical feasibility), Reid produces Packet #2 (code-perspective leaks against Edgar), Tobias produces Packet #3 (consolidated, with edgar_vs_reid arbitration and pie-in-sky callouts). Arthur aggregates all three for the user approval gate.",
+  "type": "object",
+  "required": ["reviewer", "pass", "project_slug", "recommendation", "confidence"],
+  "additionalProperties": false,
+  "properties": {
+    "reviewer": {
+      "type": "string",
+      "enum": ["edgar-feasibility-analyst", "reid-leak-investigator", "tobias-pragmatist"]
+    },
+    "pass": {
+      "type": "integer",
+      "enum": [1, 2, 3],
+      "description": "Pass 1 = Edgar, Pass 2 = Reid, Pass 3 = Tobias."
+    },
+    "project_slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$"
+    },
+    "edgar_packet_ref": {
+      "type": "string",
+      "description": "Path/ID of Edgar's Packet #1. Required when reviewer is Reid or Tobias."
+    },
+    "reid_packet_ref": {
+      "type": "string",
+      "description": "Path/ID of Reid's Packet #2. Required when reviewer is Tobias."
+    },
+    "section_verdicts": {
+      "type": "array",
+      "description": "Edgar only. Section-by-section feasibility verdicts.",
+      "items": {
+        "type": "object",
+        "required": ["section", "verdict"],
+        "additionalProperties": false,
+        "properties": {
+          "section": {"type": "string"},
+          "verdict": {
+            "type": "string",
+            "enum": ["realistic", "questionable", "hallucinated", "out_of_scope"]
+          },
+          "quoted_claim": {"type": "string"},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "flagged_claims": {
+      "type": "array",
+      "description": "Edgar only. Specific PRD text Edgar wants flagged.",
+      "items": {
+        "type": "object",
+        "required": ["quoted_claim", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "quoted_claim": {"type": "string"},
+          "reason": {"type": "string"}
+        }
+      }
+    },
+    "prerequisite_questions": {
+      "type": "array",
+      "description": "Edgar only. Questions the user must answer before Marcus can SDD.",
+      "items": {"type": "string"}
+    },
+    "edgar_section_responses": {
+      "type": "array",
+      "description": "Reid only. Reid's response to each of Edgar's section_verdicts.",
+      "items": {
+        "type": "object",
+        "required": ["section", "response", "rationale"],
+        "additionalProperties": false,
+        "properties": {
+          "section": {"type": "string"},
+          "response": {
+            "type": "string",
+            "enum": ["agree", "over_strict", "under_strict", "redundant"]
+          },
+          "rationale": {"type": "string"},
+          "suggested_tool_or_library": {"type": "string"}
+        }
+      }
+    },
+    "missed_leaks": {
+      "type": "array",
+      "description": "Reid only. Leaks Reid spotted that Edgar didn't flag.",
+      "items": {
+        "type": "object",
+        "required": ["quoted_claim", "code_perspective_concern"],
+        "additionalProperties": false,
+        "properties": {
+          "quoted_claim": {"type": "string"},
+          "code_perspective_concern": {"type": "string"}
+        }
+      }
+    },
+    "edgar_vs_reid_arbitrations": {
+      "type": "array",
+      "description": "Tobias only. Resolutions of Edgar-vs-Reid disagreements.",
+      "items": {
+        "type": "object",
+        "required": ["section", "tobias_verdict", "rationale"],
+        "additionalProperties": false,
+        "properties": {
+          "section": {"type": "string"},
+          "edgar_said": {"type": "string"},
+          "reid_said": {"type": "string"},
+          "tobias_verdict": {"type": "string"},
+          "rationale": {"type": "string"}
+        }
+      }
+    },
+    "top_3_risks": {
+      "type": "array",
+      "description": "Tobias only.",
+      "maxItems": 3,
+      "items": {"type": "string"}
+    },
+    "top_3_leaks": {
+      "type": "array",
+      "description": "Tobias only.",
+      "maxItems": 3,
+      "items": {"type": "string"}
+    },
+    "top_3_pie_in_sky": {
+      "type": "array",
+      "description": "Tobias only. User's own pie-in-sky asks.",
+      "maxItems": 3,
+      "items": {"type": "string"}
+    },
+    "recommended_trims": {
+      "type": "array",
+      "description": "Tobias only. Populated when recommendation == ship_with_trims.",
+      "items": {"type": "string"}
+    },
+    "user_questions": {
+      "type": "array",
+      "description": "Tobias only. Populated when recommendation == iterate.",
+      "items": {"type": "string"}
+    },
+    "rejection_reason": {
+      "type": "string",
+      "description": "Tobias only. Populated when recommendation == reject."
+    },
+    "recommendation": {
+      "type": "string",
+      "enum": [
+        "proceed_to_reid",
+        "clarify_first",
+        "proceed_to_tobias",
+        "kick_back_to_edgar",
+        "ship_as_is",
+        "ship_with_trims",
+        "iterate",
+        "reject",
+        "reject_early"
+      ],
+      "description": "Edgar uses proceed_to_reid / clarify_first / reject_early. Reid uses proceed_to_tobias / kick_back_to_edgar / reject_early. Tobias uses ship_as_is / ship_with_trims / iterate / reject."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    }
+  }
+}

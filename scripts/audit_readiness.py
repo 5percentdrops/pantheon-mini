@@ -32,7 +32,7 @@ PROCEDURE_MARKERS = [
     r"\battempt\s+1[2-9]\b",  # specific attempt references
     r"\bworkspace/\d{2}_",    # workspace/01_PRDs etc — workflow paths
 ]
-HANDOFF_DESTINATIONS = ["Arthur", "Marcus", "Jack", "Cody", "Maxwell", "Magnus", "Winston"]
+HANDOFF_DESTINATIONS = ["Arthur", "Marcus", "Jack", "Cody", "Maxwell", "Magnus", "Winston", "Edgar", "Reid", "Tobias"]
 SCHEMA_REGEX = re.compile(r"([a-z_]+_packet|[a-z_]+\.schema\.json)")
 
 def has_procedure(text):
@@ -96,8 +96,9 @@ for a in active_agents:
 
     # Q2: knows HOW to execute
     proc_ok, proc_hits = has_procedure(seed_text)
-    has_attempt_budget = bool(a.get("attempt_budget")) or bool(a.get("review_pass_budget")) or bool(a.get("solution_attempt_budget")) or name == "Arthur" or name == "Winston"
-    has_escalation_rule = bool(a.get("escalation_rule")) or name == "Arthur" or name == "Winston"
+    intake_agents = {"Arthur", "Winston", "Edgar", "Reid", "Tobias"}  # one-pass / orchestrator agents — bounded by pipeline, not by attempt_budget field
+    has_attempt_budget = bool(a.get("attempt_budget")) or bool(a.get("review_pass_budget")) or bool(a.get("solution_attempt_budget")) or name in intake_agents
+    has_escalation_rule = bool(a.get("escalation_rule")) or name in intake_agents
     q2_pass = proc_ok and has_attempt_budget and has_escalation_rule
     print(f"  Q2 how-to       : procedure markers={proc_hits}/5 budget={'Y' if has_attempt_budget else 'N'} escalation_rule={'Y' if has_escalation_rule else 'N'} -> {'PASS' if q2_pass else 'FAIL'}")
     if not q2_pass:
@@ -108,7 +109,10 @@ for a in active_agents:
     # Q3: knows handoff destinations + payloads
     dests = routing_destinations_in(seed_text, name)
     expected_dests = {"Winston": {"Arthur"},
-                      "Arthur": {"Marcus", "Jack", "Cody", "Maxwell", "Magnus", "Winston"},
+                      "Arthur": {"Marcus", "Jack", "Cody", "Maxwell", "Magnus", "Winston", "Edgar", "Reid", "Tobias"},
+                      "Edgar": {"Arthur"},
+                      "Reid": {"Arthur"},
+                      "Tobias": {"Arthur"},
                       "Marcus": {"Arthur", "Jack"},
                       "Jack": {"Arthur"},
                       "Cody": {"Arthur", "Jack"},
@@ -168,15 +172,20 @@ for doc in ["docs/ROUTING.md", "docs/PRD_INTAKE.md", "SoftwareHouse/policies/min
         issues.append(f"doc missing: {doc}")
 
 # agents.json escalation enum check (engineer_escalation_packet)
+# Note: this enum only contains BUILD-tier IDs that participate in the engineering
+# escalation ladder. V8.14 intake agents (Edgar, Reid, Tobias) are EXCLUDED — they
+# never produce or receive an engineer_escalation_packet.
 print()
 ep = ROOT / "SoftwareHouse" / "schemas" / "engineer_escalation_packet.schema.json"
 if ep.exists():
     ep_data = json.loads(ep.read_text(encoding="utf-8"))
     text = json.dumps(ep_data)
-    enum_ok = all(aid in text for aid in ACTIVE_IDS)
-    print(f"  engineer_escalation_packet enum contains all 7 active IDs: {'Y' if enum_ok else 'N'}")
+    INTAKE_ROLES = {"feasibility_analyst_first", "feasibility_analyst_second", "feasibility_analyst_third"}
+    build_tier_ids = {a["id"] for a in agents if a.get("active_mini_role") and a.get("active_mini_role") not in INTAKE_ROLES}
+    enum_ok = all(aid in text for aid in build_tier_ids)
+    print(f"  engineer_escalation_packet enum contains all {len(build_tier_ids)} build-tier IDs: {'Y' if enum_ok else 'N'}")
     if not enum_ok:
-        issues.append("engineer_escalation_packet.schema.json enum doesn't contain all 7 active IDs")
+        issues.append(f"engineer_escalation_packet.schema.json enum doesn't contain all {len(build_tier_ids)} build-tier IDs")
 
 # role_map.yaml ladder check
 print()

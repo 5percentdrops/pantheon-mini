@@ -40,6 +40,7 @@ For every artifact bundle Arthur hands off after a merge (or Magnus termination 
 | Tickets / TDD plans | `SoftwareHouse/wiki/tickets/` |
 | Error / Solution logs | `SoftwareHouse/wiki/errors/` |
 | Codebase wrappers | `SoftwareHouse/wiki/codebase/` |
+| Rejected PRDs (V8.14) | `SoftwareHouse/wiki/prds/_rejected/` |
 
 ## Error / Solution Log structure
 When Winston archives an error chain, structured Markdown uses these headers:
@@ -52,6 +53,18 @@ When Winston archives an error chain, structured Markdown uses these headers:
 
 ## Cross-agent learning (nightly)
 At 04:00 UTC Winston scans every `~/.hermes-mini-*` home, dedups by sha256, and writes `workspace/wiki/lessons_learned.md`. Jack pre-reads this file before starting any new TDD cycle.
+
+## Rejected PRD archival (V8.14)
+When Arthur rejects a PRD after the 3-pass feasibility loop (user verdict = `reject`, or Tobias verdict = `reject_early`), the PRD does NOT get thrown out. Winston archives it under `SoftwareHouse/wiki/prds/_rejected/<slug>/` with:
+
+- The original PRD text
+- All 3 Feasibility Review Packets (Edgar, Reid, Tobias)
+- The user's stated rejection reason (or Tobias's `rejection_reason` if Tobias rejected on the team's behalf)
+- A one-paragraph "lesson" extracted from the rejection — added to `workspace/wiki/lessons_learned.md` with key `prd_rejected:<pattern>`
+
+The point of archiving rejections is to surface the *patterns* of PRD that get rejected, so future similar PRDs are pre-flagged by Tobias on pass 3 before tokens are spent.
+
+Schema: same `winston_artifact_archive.schema.json`. Rejected PRDs use `artifact_type: rejected_prd` and include all 3 feasibility packets in the bundle.
 
 ## Sunday redundant-work scan
 On Sundays, Winston scans recent task chains to flag agents doing duplicate work. Output is advisory only — Winston does not act on it himself.

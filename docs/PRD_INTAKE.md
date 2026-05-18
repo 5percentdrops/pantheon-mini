@@ -8,9 +8,56 @@ How you (the user) hand a PRD to Arthur, and what happens next.
 
 1. Write your PRD as Markdown.
 2. Save it to `workspace/01_PRDs/<project-slug>.md`.
-3. Open a Paperclip session with Arthur. Reference the file path. Arthur takes it from there.
+3. Open a Paperclip session with Arthur. Reference the file path.
+4. Arthur runs the 3-pass feasibility loop (Edgar → Reid → Tobias). Takes a few minutes.
+5. You approve, ship-with-trims, iterate, or reject the consolidated report.
+6. If approved, Marcus picks it up and the build pipeline kicks in.
 
 That's it. No web form. No webhook. No cron polling (yet — see [Future: cron auto-poll](#future-cron-auto-poll)).
+
+---
+
+## The 3-pass feasibility loop (V8.14 — mandatory on every PRD)
+
+Before Marcus ever sees the PRD, three independent reviewers check it. The point is to catch hallucinations, redundancies, and pie-in-sky asks BEFORE any token gets spent on an SDD.
+
+```
+Your PRD
+   ↓
+Arthur intakes
+   ↓
+Edgar    ── feasibility + hallucination check       (Opus 4.7)
+   ↓
+Reid     ── code-perspective leak check on Edgar    (GPT-5.5 Codex)
+   ↓
+Tobias   ── consolidation + your-pie-in-sky check   (Opus 4.7)
+   ↓
+Arthur compiles → consolidated feasibility report → presents to YOU
+   ↓
+YOU decide
+   │
+   ├── ship_as_is        → Arthur routes to Marcus
+   ├── ship_with_trims   → trims applied → Arthur routes trimmed PRD to Marcus
+   ├── iterate           → you patch PRD, drop as <slug>-v2.md, loop runs again
+   └── reject            → Winston archives PRD + 3 packets to wiki/prds/_rejected/
+                           plus a one-paragraph lesson into lessons_learned.md
+```
+
+### Who looks for what
+
+| Reviewer | Model | Looking for |
+|---|---|---|
+| **Edgar** | Opus 4.7 (xhigh) | Hallucinations, technical infeasibility, scope creep, prerequisite questions |
+| **Reid** | GPT-5.5 Codex | Edgar's blind spots, redundancies (existing libraries/tools that already solve it), Claude-bias counter-perspective |
+| **Tobias** | Opus 4.7 (xhigh) | Your pie-in-sky asks, scope you'd regret, Edgar-vs-Reid arbitration; produces the consolidated report |
+
+### Rules
+
+- **All 3 passes always run.** No skip flag, no shortcut for "trivial" PRDs.
+- **Edgar ↔ Reid ping-pong is bounded.** Reid may kick back to Edgar once; after that Tobias consolidates regardless.
+- **Tobias is the final team voice.** Arthur does not second-guess Tobias's arbitrations — Arthur only frames the report for you.
+- **You are the final word.** The 3 passes are advisory. You can ship_as_is even if Tobias recommended iterate.
+- **Rejected PRDs are archived, not deleted.** Winston files them under `SoftwareHouse/wiki/prds/_rejected/<slug>/` with all 3 packets + your rejection reason. The pattern feeds back into future Tobias passes.
 
 ---
 

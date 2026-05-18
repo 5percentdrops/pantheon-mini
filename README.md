@@ -2,7 +2,7 @@
 
 # 🏛 Pantheon Mini
 
-### **7 AI agents. One small studio. One escalation ladder by attempt number.**
+### **10 AI agents. One small studio. One escalation ladder by attempt number.**
 
 *The minimal viable software house. Ships PRs without the 33-agent overhead.*
 
@@ -14,7 +14,7 @@
 [![Stars](https://img.shields.io/github/stars/5percentdrops/pantheon-mini?style=social)](https://github.com/5percentdrops/pantheon-mini/stargazers)
 
 ```
-You write the PRD.   Pantheon Mini ships the PR.   With 7 agents, not 33.
+You write the PRD.   Pantheon Mini ships the PR.   With 10 agents, not 33.
 ```
 
 </div>
@@ -27,7 +27,7 @@ You write the PRD.   Pantheon Mini ships the PR.   With 7 agents, not 33.
 git clone https://github.com/5percentdrops/pantheon-mini.git && cd pantheon-mini && bash scripts/one_click_install.sh -y --setup-keys
 ```
 
-7 AI agents wake up. Each has a name, a model, a memory, a job, and a fixed slot on the escalation ladder. Coexists with full Pantheon on the same host — `~/.hermes-mini-*` namespace.
+10 AI agents wake up. Each has a name, a model, a memory, a job, and a fixed slot on the escalation ladder. Coexists with full Pantheon on the same host — `~/.hermes-mini-*` namespace.
 
 ---
 
@@ -35,7 +35,7 @@ git clone https://github.com/5percentdrops/pantheon-mini.git && cd pantheon-mini
 
 **Problem with full Pantheon:** 33 agents = 33 LLM connections = real token spend. Overkill for solo projects, prototypes, weekend builds.
 
-**Mini's deal:** Same Paperclip+Hermes architecture, same V8.10–V8.13 hardening, same `SOUL.md`/`MEMORY.md`/skills loop — but only **7 active agents** on an attempt-numbered escalation ladder. Specialist work (frontend, mobile, devops, qa, pinescript, quantower) is intentionally collapsed onto Jack (implementer) or Marcus (planner). The 26 inactive Pantheon roles are placeholders for schema parity only.
+**Mini's deal:** Same Paperclip+Hermes architecture, same V8.10–V8.14 hardening, same `SOUL.md`/`MEMORY.md`/skills loop — but only **10 active agents** (7 build + 3 PRD-intake feasibility reviewers). Specialist work (frontend, mobile, devops, qa, pinescript, quantower) is intentionally collapsed onto Jack (implementer) or Marcus (planner). The 23 inactive Pantheon roles are placeholders for schema parity only.
 
 Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
@@ -45,8 +45,9 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
 | | Full Pantheon | **Pantheon Mini** |
 |---|---|---|
-| Active agents | 33 | **7** |
-| Inactive placeholders | 0 (all live) | 26 (activate when needed) |
+| Active agents | 33 | **10** |
+| Inactive placeholders | 0 (all live) | 23 (activate when needed) |
+| PRD intake | advisory pipeline (Owen/Vera/Graham/Stone/Adrian) | **3-pass feasibility (Edgar/Reid/Tobias)** |
 | Escalation model | per-role | **attempt-numbered ladder** (1-12, 13-15, 16-17, 18, 19, archive, merge) |
 | Arthur model | GPT-5 mini | **GPT-5 mini** |
 | Implementer | Jack/Ben/Theo/Leo/Ellie/Grant (specialist fan-out) | **Jack alone** (DeepSeek) |
@@ -75,16 +76,25 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 flowchart TD
     You(["You<br/>PRD"])
     Arthur["Arthur<br/>Project Manager"]
+    Edgar["Edgar<br/>Feasibility (1st pass)"]
+    Reid["Reid<br/>Leak Investigator (2nd pass, Codex)"]
+    Tobias["Tobias<br/>Pragmatist (3rd pass)"]
+    Approve{{"You approve?"}}
     Marcus["Marcus<br/>Senior Developer<br/>(plans the work)"]
     Jack["Jack<br/>Standard Developer<br/>(writes the code)"]
     Cody["Cody<br/>Reviewer<br/>(audits the work)"]
     Maxwell["Maxwell<br/>Escalation Engineer<br/>(deep fixes, on call)"]
     Magnus["Magnus<br/>Principal Architect<br/>(re-thinks approach, on call)"]
-    Winston["Winston<br/>Knowledge Archivist<br/>(files lessons)"]
+    Winston["Winston<br/>Knowledge Archivist<br/>(files lessons + rejected PRDs)"]
     Shipped(["Shipped"])
 
     You --> Arthur
-    Arthur --> Marcus
+    Arthur --> Edgar
+    Edgar --> Reid
+    Reid --> Tobias
+    Tobias --> Approve
+    Approve -- yes --> Marcus
+    Approve -- no --> Winston
     Marcus --> Jack
     Jack --> Cody
     Cody --> Arthur
@@ -94,17 +104,21 @@ flowchart TD
     Arthur -.- Maxwell
     Arthur -.- Magnus
 
-    classDef io       fill:#f5f5f5,stroke:#666,stroke-width:2px,color:#222
-    classDef pm       fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
-    classDef senior   fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
-    classDef dev      fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-    classDef review   fill:#ffedd5,stroke:#ea580c,stroke-width:2px,color:#7c2d12
-    classDef arch     fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
-    classDef archive  fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
-    classDef done     fill:#bbf7d0,stroke:#15803d,stroke-width:3px,color:#14532d
+    classDef io        fill:#f5f5f5,stroke:#666,stroke-width:2px,color:#222
+    classDef pm        fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    classDef senior    fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
+    classDef dev       fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    classDef review    fill:#ffedd5,stroke:#ea580c,stroke-width:2px,color:#7c2d12
+    classDef arch      fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
+    classDef archive   fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
+    classDef feasib    fill:#fae8ff,stroke:#a21caf,stroke-width:2px,color:#581c87
+    classDef gate      fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+    classDef done      fill:#bbf7d0,stroke:#15803d,stroke-width:3px,color:#14532d
 
     class You io
     class Arthur pm
+    class Edgar,Reid,Tobias feasib
+    class Approve gate
     class Marcus senior
     class Jack dev
     class Cody review
@@ -114,17 +128,20 @@ flowchart TD
     class Shipped done
 ```
 
-PRD enters at the top. Arthur routes it to Marcus who plans, Jack who codes, Cody who audits. Arthur merges and hands off to Winston for archiving. Maxwell and Magnus are on-call specialists Arthur calls in only when something gets genuinely stuck (dotted lines).
+**The flow:** PRD enters at top. Arthur runs it through a 3-pass feasibility loop (Edgar → Reid → Tobias) before anyone writes code. You see the consolidated report and approve, trim, iterate, or reject. If approved, Marcus plans, Jack codes, Cody audits, Arthur merges, Winston archives. Maxwell and Magnus are on-call when Jack is genuinely stuck. Rejected PRDs also go to Winston so we learn what we kill.
 
-| # | Role | Agent | Attempts | Model |
+| # | Role | Agent | Phase | Model |
 |--:|---|---|---|---|
-| 1 | 🎯 **Project Manager / Head** | Arthur | merge gate | GPT-5 mini |
-| 2 | 📋 **Senior Developer / Planner** | Marcus | 13-15 | Opus 4.7 XHigh |
-| 3 | 🔨 **Standard Developer / Implementer** | Jack | 1-12 | DeepSeek V4 Pro |
-| 4 | 🔍 **Independent Reviewer / Auditor** | Cody | 18 | GPT-5.5 |
-| 5 | 🔥 **Staff Escalation Engineer** | Maxwell | 16-17 | Opus 4.7 Max |
-| 6 | 🏗 **Principal Architect** | Magnus | 19 | Gemini 3.1 Pro |
-| 7 | 📚 **Knowledge Archivist** | Winston | final archive | Haiku 3.5 |
+| 1 | 🎯 **Project Manager / Head** | Arthur | intake · merge gate | GPT-5 mini |
+| 2 | 🔎 **Feasibility Analyst** (1st pass) | Edgar | PRD intake | Opus 4.7 XHigh |
+| 3 | 🕵 **Leak Investigator** (2nd pass) | Reid  | PRD intake | GPT-5.5 Codex |
+| 4 | ⚖ **Pragmatist** (3rd pass) | Tobias | PRD intake | Opus 4.7 XHigh |
+| 5 | 📋 **Senior Developer / Planner** | Marcus | plan · attempts 13-15 | Opus 4.7 XHigh |
+| 6 | 🔨 **Standard Developer / Implementer** | Jack | build · attempts 1-12 | DeepSeek V4 Pro |
+| 7 | 🔍 **Independent Reviewer / Auditor** | Cody | audit · attempt 18 | GPT-5.5 |
+| 8 | 🔥 **Staff Escalation Engineer** | Maxwell | attempts 16-17 | Opus 4.7 Max |
+| 9 | 🏗 **Principal Architect** | Magnus | attempt 19 | Gemini 3.1 Pro |
+| 10 | 📚 **Knowledge Archivist** | Winston | final archive + rejected PRDs | Haiku 3.5 |
 
 **Ladder is the source of truth:**
 Jack 1-12 → Marcus 13-15 → Maxwell 16-17 → Cody 18 → Magnus 19 → Winston archives → Arthur merges (or Magnus terminates to manual review).
@@ -265,7 +282,7 @@ cat workspace/07_Finalization/metrics_dashboard.md  # after first cron tick
 ## ❓ FAQ
 
 **Q: Why use Mini instead of full Pantheon?**
-3x cheaper. 7 agents instead of 33. Same V8.10 architecture + same patches + V8.11 attempt-numbered ladder. Use Mini for prototypes, full for production.
+3x cheaper. 10 agents instead of 33. Same V8.10 architecture + V8.11 attempt-numbered ladder + V8.14 3-pass feasibility intake. Use Mini for prototypes, full for production.
 
 **Q: Can I run Mini and full Pantheon on the same machine?**
 Yes. Mini uses `~/.hermes-mini-*`, full uses `~/.hermes-*`. Zero collision.

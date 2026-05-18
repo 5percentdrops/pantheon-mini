@@ -1,0 +1,58 @@
+pipeline:
+  id: feasibility_intake_v8_14
+  pattern: pipeline
+  dispatch_events:
+    - prd_dropped
+  hard_gates:
+    - all_three_passes_required
+    - user_approval_required_before_marcus
+    - rejected_prds_archived_by_winston
+  output_budget:
+    pipeline_total_max_tokens: 24000
+    enforcement: truncate_with_warning_then_escalate
+  input_contract: prd.schema.json
+  stages:
+    - id: edgar_first_pass
+      agent: edgar-feasibility-analyst
+      input_contract: prd.schema.json
+      output_contract: feasibility_review_packet.schema.json
+      required: true
+      max_output_tokens: 6000
+
+    - id: reid_second_pass
+      agent: reid-leak-investigator
+      input_contract: feasibility_review_packet.schema.json
+      output_contract: feasibility_review_packet.schema.json
+      required: true
+      max_output_tokens: 6000
+
+    - id: tobias_third_pass
+      agent: tobias-pragmatist
+      input_contract: feasibility_review_packet.schema.json
+      output_contract: feasibility_review_packet.schema.json
+      required: true
+      max_output_tokens: 8000
+
+    - id: arthur_consolidation
+      agent: arthur-project-manager
+      input_contract: feasibility_review_packet.schema.json
+      output_contract: feasibility_review_packet.schema.json
+      required: true
+      max_output_tokens: 3000
+
+    - id: user_approval_gate
+      producer: user
+      required: true
+      outcomes:
+        - ship_as_is        # Arthur routes to Marcus
+        - ship_with_trims   # User accepts trims, Arthur routes trimmed PRD to Marcus
+        - iterate           # User revises PRD, loop runs again
+        - reject            # Winston archives, Arthur closes the lane
+      max_output_bytes: 2000
+
+    - id: winston_archive_on_reject
+      agent: winston-director-knowledge-architecture
+      input_contract: feasibility_review_packet.schema.json
+      output_contract: winston_artifact_archive.schema.json
+      required_when: user_approval_gate.outcome == reject
+      max_output_tokens: 2000
