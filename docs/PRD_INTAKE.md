@@ -2,6 +2,8 @@
 
 How you (the user) hand a PRD to Arthur, and what happens next.
 
+> **V8.16 — executable intake procedure:** Arthur's intake stages are encoded as procedure cards under [`../SoftwareHouse/skills/role_responsibilities/arthur/`](../SoftwareHouse/skills/role_responsibilities/arthur/). The lock stage is [`01_prd_scope_lock.md`](../SoftwareHouse/skills/role_responsibilities/arthur/01_prd_scope_lock.md), classifier is [`08_prd_classifier.md`](../SoftwareHouse/skills/role_responsibilities/arthur/08_prd_classifier.md), compliance attachment is [`11_compliance_attachment.md`](../SoftwareHouse/skills/role_responsibilities/arthur/11_compliance_attachment.md), multi-domain split is [`10_multi_domain_split.md`](../SoftwareHouse/skills/role_responsibilities/arthur/10_multi_domain_split.md). Arthur's seed Skill Router resolves which card to load at each step.
+
 ---
 
 ## TL;DR

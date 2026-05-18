@@ -1,5 +1,7 @@
 # Pantheon Mini Role List
 
+> Full real-world → agent-execution responsibility mapping lives in [`../ROLES.md`](../ROLES.md). Per-responsibility procedure cards (V8.16) live under [`../SoftwareHouse/skills/role_responsibilities/`](../SoftwareHouse/skills/role_responsibilities/) with one `INDEX.md` per agent.
+
 Use these clear role names.
 
 | Agent | Role |

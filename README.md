@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OS](https://img.shields.io/badge/OS-Linux%20%7C%20macOS%20%7C%20WSL-brightgreen)](README_INSTALL.md)
 [![Models](https://img.shields.io/badge/Models-GPT--5%20mini%20%7C%20Opus%204.7%20%7C%20Gemini%203.1%20Pro%20%7C%20DeepSeek%20V4%20Pro%20%7C%20GPT--5.5%20%7C%20Haiku%203.5-blue)](#-the-active-mini-operating-team)
-[![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.15-orange)](https://github.com/5percentdrops/pantheon)
+[![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.16-orange)](https://github.com/5percentdrops/pantheon)
 [![Install](https://img.shields.io/badge/Install-One%20Click-orange)](#-quick-start)
 [![Stars](https://img.shields.io/github/stars/5percentdrops/pantheon-mini?style=social)](https://github.com/5percentdrops/pantheon-mini/stargazers)
 
@@ -154,16 +154,20 @@ When Marcus's tactical fixes (13-15), Maxwell's deep fixes (16-17), and Cody's f
 
 ---
 
-## 🧠 What's inside (V8.15)
+## 🧠 What's inside (V8.16)
 
 ### 🪞 Each agent has a soul
 ```
 ~/.hermes-mini-magnus/
-  ├── SOUL.md       ← who they are
-  ├── MEMORY.md     ← what they've learned (grows forever)
-  ├── USER.md       ← who they report to
-  ├── skills/       ← skills they wrote themselves
-  └── sessions/     ← FTS5-searchable session history
+  ├── SOUL.md                       ← who they are
+  ├── MEMORY.md                     ← what they've learned (grows forever)
+  ├── USER.md                       ← who they report to
+  ├── skills/
+  │   ├── seed.md                   ← job manual (canonical seed) + Skill Router
+  │   └── responsibilities/         ← 67 executable procedure cards (V8.16)
+  │       ├── INDEX.md              ← pipeline trigger → skill_id router
+  │       └── *.md                  ← one card per responsibility
+  └── sessions/                     ← FTS5-searchable session history
 ```
 
 ### 🪜 Attempt-numbered escalation ladder
@@ -202,7 +206,26 @@ Every PRD passes through Edgar (Opus 4.7) → Reid (GPT-5.5 Codex) → Tobias (O
 ### 🪡 Diff-aware iterate cycles (V8.15)
 When you revise a PRD (`<slug>-v2.md`), Arthur runs `scripts/diff_prd_versions.py` to detect changed sections. Edgar + Reid re-review only the changed sections (carrying forward unchanged-section verdicts); Tobias always re-runs full for cross-section safety. Forced-full fallback if change_ratio > 0.5 or structural drift. ~55-60% token savings on typical 1-section revisions.
 
-**Patches archive (V8.5 → V8.15):** [`V8.10`](PATCH_NOTES_MINI_V8_10.md) · [`V8.11`](PATCH_NOTES_MINI_V8_11.md) · [`V8.12`](PATCH_NOTES_MINI_V8_12.md) · [`V8.13`](PATCH_NOTES_MINI_V8_13.md) · [`V8.14`](PATCH_NOTES_MINI_V8_14.md) · [`V8.15`](PATCH_NOTES_MINI_V8_15.md)
+### 🎴 Per-responsibility executable skills (V8.16)
+Each active-mini agent (Arthur, Magnus, Marcus, Jack, Cody) now ships with a directory of **executable procedure cards** — one skill file per real-world responsibility, totaling **67 skills**. Each skill is a self-contained card: typed frontmatter (`skill_id`, `inputs`, `outputs`, `gates`, `escalation`), procedure steps, schemas, and hard rules.
+
+Layout under [`SoftwareHouse/skills/role_responsibilities/`](SoftwareHouse/skills/role_responsibilities/):
+```
+role_responsibilities/
+├── arthur/   13 skills (scope lock, master status, dispatch, escalation ladder, merge gate)
+├── magnus/   10 skills (synthesis, route proposal, kill authority, architecture sign-off)
+├── marcus/   13 skills (SDD, contracts, tickets, red TDD, tactical fix, sanity review)
+├── jack/     12 skills (intake, implementation loop, test discipline, escalation packet)
+└── cody/     19 skills (6 review modes, classification gate, hard-fail triggers)
+```
+
+**Wired into install:** `scripts/seed_active_homes.py` reads each agent's `responsibility_skills_dir` from `SoftwareHouse/paperclip/agents.json` and copies the skill tree into `~/.hermes-mini-<slug>/skills/responsibilities/` at install time. `scripts/validate_responsibility_skills.py` is invoked by `one_click_install.sh` to confirm every skill has valid frontmatter and matching `owner_agent`.
+
+**Skill Router in every seed:** each `skills/hermes_seed/skill_<agent>_seed.md` now ends with a Skill Router table mapping pipeline trigger → skill_id, so the agent loads the right procedure card when entering any stage. The seed is the job manual; responsibility skills are the per-stage procedure.
+
+Anchored by [`ROLES.md`](ROLES.md) — every responsibility in the real-world column has a matching skill on the agent-execution side. Top-level overview: [`SoftwareHouse/skills/role_responsibilities/README.md`](SoftwareHouse/skills/role_responsibilities/README.md). Per-agent stage→skill index in each `agent/INDEX.md`.
+
+**Patches archive (V8.5 → V8.16):** [`V8.10`](PATCH_NOTES_MINI_V8_10.md) · [`V8.11`](PATCH_NOTES_MINI_V8_11.md) · [`V8.12`](PATCH_NOTES_MINI_V8_12.md) · [`V8.13`](PATCH_NOTES_MINI_V8_13.md) · [`V8.14`](PATCH_NOTES_MINI_V8_14.md) · [`V8.15`](PATCH_NOTES_MINI_V8_15.md) · [`V8.16`](PATCH_NOTES_MINI_V8_16.md)
 
 ---
 

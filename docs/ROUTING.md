@@ -2,6 +2,8 @@
 
 Single source of truth for inter-agent handoffs in the 7-agent Active Mini operating team. Pairs with [`SoftwareHouse/policies/mini_agent_role_map.yaml`](../SoftwareHouse/policies/mini_agent_role_map.yaml) and the attempt-numbered escalation ladder.
 
+> **V8.16 — per-responsibility skills layer:** every agent action below has a matching executable procedure card under [`../SoftwareHouse/skills/role_responsibilities/<agent>/`](../SoftwareHouse/skills/role_responsibilities/) carrying typed inputs/outputs, hard rules, and escalation. The Handoff Matrix shows WHAT moves between agents; the responsibility skills show HOW each agent executes their stage. See each agent's `INDEX.md` for the trigger → skill router. Anchored by [`../ROLES.md`](../ROLES.md).
+
 **Ladder (attempt budget):**
 Jack 1-12 → Marcus 13-15 → Maxwell 16-17 → Cody 18 → Magnus 19 → Winston archives → Arthur merges (or Magnus terminates to manual review).
 
