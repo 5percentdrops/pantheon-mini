@@ -730,7 +730,8 @@
       "max_active_lanes": 2,
       "winston_archival_route_required": true,
       "merge_gate_owner": true,
-      "active_mini_role": "merge_gate"
+      "active_mini_role": "merge_gate",
+      "toolsets": ["file", "web", "mcp"]
     },
     {
       "id": "jack-backend-developer",
@@ -761,6 +762,7 @@
       "error_memory_logging_role": "Writes BLOCKER_LOG after 12 failed self-fix attempts; records WORKED/FAILED result after testing returned solutions.",
       "active_mini_role": "implementer",
       "active_mini_attempts": "1-12",
+      "toolsets": ["terminal", "file", "web", "code_execution", "mcp"],
       "model": "deepseek/deepseek-v4-pro",
       "standard_developer_model": "DeepSeek V4 Pro under Hermes",
       "deepseek_v4_pro_enabled": true,
@@ -797,7 +799,8 @@
       "reasoning_effort": "xhigh",
       "senior_developer_model": "Opus 4.7 XHigh under Hermes",
       "active_mini_role": "planner",
-      "active_mini_attempts": "13-15"
+      "active_mini_attempts": "13-15",
+      "toolsets": ["file", "web", "mcp"]
     },
     {
       "id": "cody-code-escalation-reviewer",
@@ -822,7 +825,8 @@
       "model_tier": "specialist",
       "reviewer_model": "GPT-5.5 / latest Codex Reviewer under Hermes",
       "active_mini_role": "auditor",
-      "active_mini_attempts": "18"
+      "active_mini_attempts": "18",
+      "toolsets": ["file", "web", "code_execution", "mcp"]
     },
     {
       "id": "magnus-principal-solution-architect",
@@ -848,7 +852,8 @@
       "principal_engineer_model": "Gemini Pro 3.1 under Hermes",
       "active_mini_role": "architect",
       "active_mini_attempts": "19",
-      "termination_authority": true
+      "termination_authority": true,
+      "toolsets": ["file", "web", "mcp"]
     },
     {
       "id": "grant-quantower-csharp-automation-developer",
@@ -964,7 +969,8 @@
       "reasoning_effort": "max",
       "escalation_developer_model": "Opus 4.7 Max under Hermes",
       "active_mini_role": "escalation",
-      "active_mini_attempts": "16-17"
+      "active_mini_attempts": "16-17",
+      "toolsets": ["file", "web", "code_execution", "mcp"]
     },
     {
       "id": "winston-director-knowledge-architecture",
@@ -993,7 +999,8 @@
       "skills": "Markdown archiving, Obsidian/wiki organization, Context Mode indexing prep, error/solution log structuring, codebase-to-md wrapping, final-artifact archival, worked/failed solution logging",
       "output": "Structured Markdown artifacts saved into SoftwareHouse/wiki/*",
       "active_mini_role": "archivist",
-      "active_mini_attempts": "final"
+      "active_mini_attempts": "final",
+      "toolsets": ["file", "mcp"]
     }
   ]
 }

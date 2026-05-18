@@ -141,6 +141,9 @@ PYEOF
     echo "==> Step 5b/8: Seed each active home with its distinctive skill (skills/seed.md)"
     python3 scripts/seed_active_homes.py
     echo
+    echo "==> Step 5b'/8: Apply per-agent tool scoping (V8.12 #1)"
+    python3 scripts/configure_toolsets.py
+    echo
 else
     echo "==> Step 5/8: Skipped (--no-bootstrap)"
     echo
