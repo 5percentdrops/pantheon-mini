@@ -112,7 +112,7 @@ When Marcus's tactical fixes (13-15), Maxwell's deep fixes (16-17), and Cody's f
 
 ---
 
-## 🧠 What's inside (same as full Pantheon V8.10)
+## 🧠 What's inside (V8.11)
 
 ### 🪞 Each agent has a soul
 ```
@@ -124,41 +124,28 @@ When Marcus's tactical fixes (13-15), Maxwell's deep fixes (16-17), and Cody's f
   └── sessions/     ← FTS5-searchable session history
 ```
 
-### 🌙 Nightly Dreaming (V8.6)
-Each agent dreams at 03:00 UTC: sha256 dedup skills, consolidate MEMORY.md, `SOUL.md` immutable.
+### 🪜 Attempt-numbered escalation ladder
+The defining V8.11 change. Mini drops the "12 active, several specialist seniors" model. The 7-agent Active Mini operating team owns every Pantheon role and routes by **attempt number**, not role family. Jack 1-12 → Marcus 13-15 → Maxwell 16-17 → Cody 18 → Magnus 19 → Winston archives → Arthur merges (or Magnus terminates). See [`docs/ROUTING.md`](docs/ROUTING.md).
 
-### 📐 Rubric-graded reviews (V8.7)
-Cody grades implementations against `outcome.schema.json` rubrics on attempt 18. Auto-iterate with Jack before Magnus sees the work on attempt 19.
+### 🔒 Rigid handoff contracts
+Every cross-agent handoff is a typed schema, not conversational text. Engineer → Marcus blockers use `engineer_escalation_packet.v1` (RTK trace, red test IDs, blocked-on enum = 7 active IDs). Senior → Arthur returns use `arthur_rtk_routing_packet`. Cody → Arthur reviews use `code_review_return_packet`. Magnus → Arthur approach reviews use `magnus_approach_review_packet`. Mis-routed handoffs fail at schema validation. Every pipeline declares `output_budget`; every stage declares `max_output_tokens` / `max_output_bytes` and an `input_contract`.
 
-### ⚡ Fan-out (V8.7)
-Mini's fan-out collapses onto Jack (single-implementer pool). Full Pantheon retains the multi-engineer specialist fan-out.
+### 📐 Rubric-graded reviews
+Cody grades implementations against `outcome.schema.json` rubrics on attempt 18 and auto-iterates with Jack before Magnus sees the work on attempt 19. Maxwell's escalation fixes (16-17) don't auto-merge — Cody re-grades against the same rubric. Max 2 iterations → Magnus.
 
-### 💰 Per-host budget watcher (V8.7)
-Arthur cron `*/15` sums per-agent tokens, alerts WARN @ 80% / CRIT @ 95% — to `workspace/07_Finalization/budget_alerts.jsonl` + Arthur's MEMORY on CRIT.
+### 💰 Per-host budget watcher
+Arthur cron `*/15` sums per-agent tokens, alerts WARN @ 80% / CRIT @ 95% to `workspace/07_Finalization/budget_alerts.jsonl` + Arthur's MEMORY on CRIT. Pairs with Arthur's lane-concurrency cap (2 max).
 
-### 📦 Rigid escalation contract (V8.8)
-Engineer → Marcus handoff is strict `engineer_escalation_packet.v1` JSON (RTK trace, red test IDs, blocked-on enum). Raw conversational text rejected. V8.11: enum is the 7 active IDs.
+### 🌐 Cross-agent learning + nightly dreaming
+Each agent dreams at 03:00 UTC: sha256 dedup skills, consolidate MEMORY.md, SOUL.md immutable. Winston scrapes every `~/.hermes-mini-*` home at 04:00 UTC, dedups by sha256, writes `workspace/wiki/lessons_learned.md` that Jack pre-reads before TDD.
 
-### 🌐 Cross-agent learning (V8.8)
-Winston scrapes every home at 04:00 UTC, dedups by sha256, writes `workspace/wiki/lessons_learned.md` that Jack pre-reads before TDD.
+### 📊 Observability + system outcomes
+`workspace/07_Finalization/metrics_dashboard.md` rolls up every alert sink. Weekly scorecard: pipeline-completion ≥90% · avg-iter ≤2 · escalation-rate ≤15% · 0 CRIT/week · ≥20% multi-agent lesson reinforcement. `escalate_to_board` lands in Arthur's MEMORY. Winston Sunday scan flags duplicate work (advisory).
 
-### 🔥 Maxwell override grading (V8.8)
-Maxwell's escalation fixes don't auto-merge. Cody re-grades against same rubric on attempt 18. Max 2 iterations → architecture review by Magnus on attempt 19.
+### ⚡ Single-implementer fan-out
+Mini's fan-out collapses onto Jack (single-implementer pool, DeepSeek V4 Pro). Full Pantheon retains the multi-engineer specialist fan-out.
 
-### 📊 Central observability dashboard (V8.9)
-`workspace/07_Finalization/metrics_dashboard.md` rolls up every alert sink. Watch list triggers on all 4 article failure modes.
-
-### 🏛 System-level Outcomes (V8.9)
-Weekly scorecard: pipeline-completion ≥90% · avg-iter ≤2 · escalation-rate ≤15% · 0 CRIT/week · ≥20% multi-agent lesson reinforcement. `escalate_to_board` lands in Arthur's MEMORY.
-
-### 🔁 Redundant-work detector (V8.9)
-Winston Sunday scan flags two agents doing the same job. Advisory only.
-
-### 📏 Per-stage output caps + bypass-proof contracts (V8.10)
-Every pipeline declares `output_budget`; every stage declares `max_output_tokens` or `max_output_bytes`; every non-first stage declares `input_contract` or `input_event`. Mis-routed handoffs fail at schema validation.
-
-### 🪜 Attempt-numbered escalation ladder (V8.11)
-Mini drops the "12 active, several specialist seniors" model. The 7-agent Active Mini operating team owns every Pantheon role and routes by attempt number, not role family.
+**Patches archive (V8.5 → V8.11):** [`PATCH_NOTES_MINI_V8_10.md`](PATCH_NOTES_MINI_V8_10.md) · [`PATCH_NOTES_MINI_V8_11.md`](PATCH_NOTES_MINI_V8_11.md)
 
 ---
 
