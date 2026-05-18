@@ -156,6 +156,47 @@ If the matching specialist lane is dormant, Arthur falls through to backend AND 
 
 ---
 
+## Commander fan-out (V8.12 #8)
+
+For tasks that parallelise across ≤20 independent items, any of Arthur / Marcus / Magnus can act as **commander** and dispatch ephemeral workers in parallel.
+
+Schemas:
+- Request: [`SoftwareHouse/schemas/commander_fanout_request.schema.json`](../SoftwareHouse/schemas/commander_fanout_request.schema.json)
+- Result:  [`SoftwareHouse/schemas/worker_result.schema.json`](../SoftwareHouse/schemas/worker_result.schema.json)
+
+Use cases:
+- **Arthur** — PRD intake research (scan N existing wikis), parallel competitor analysis, multi-source audit.
+- **Marcus** — parallel feature ticket decomposition + red TDD generation (V8.12 #6) after SDD complete.
+- **Magnus** — parallel evaluation of 2-4 architecture alternatives at attempt 19 before recommending one back to Arthur.
+
+Hard rules:
+- ≤ 20 workers per request (matches Anthropic Managed Agents cap, 2026-05-06).
+- Workers are **ephemeral** — no permanent MEMORY.md writes. Scratch in `workspace/07_Finalization/fanout/<request-id>/`.
+- Default concurrency 5; raise only when budget watcher is healthy.
+- Out-of-band with the escalation ladder — does NOT consume any tier's attempt budget.
+- Every request must declare a synthesis_spec (merge_strategy: dedup / rank / summarize / concat).
+
+## Parallel ticket decomposition (V8.12 #6)
+
+After Marcus writes the SDD, ticket generation parallelises:
+
+```
+SDD complete
+  ↓ Marcus identifies M ticket boundaries (sequential — needs full SDD)
+  ↓
+Marcus dispatches commander_fanout_request with M items (1 per ticket)
+  ↓ Workers in parallel — each writes one ticket + its red tests
+  ↓ Path isolation: each worker scoped to workspace/03_/<slug>/<ticket-id>/
+  ↓ Marcus self-grades each ticket against feature_ticket_rubric + red_tdd_rubric
+  ↓ Sub-threshold tickets iterate (max 2)
+  ↓
+All tickets ready -> Cody pre_ladder_plan review -> Jack starts
+```
+
+Speedup proportional to M (5 tickets in ~1× one-ticket time). Skip parallel mode if M ≤ 2 or budget watcher is degraded.
+
+---
+
 ## Anti-patterns (don't do)
 
 - ❌ Magnus → Jack direct route — Magnus reports to Arthur only.

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/5percentdrops/pantheon-mini/SoftwareHouse/schemas/commander_fanout_request.schema.json",
+  "title": "Commander Fan-out Request (V8.12 #8)",
+  "description": "Arthur (or a senior tier) issues a Commander Fan-out Request when a task naturally parallelises across N independent items (e.g. analyze 5 PRDs, scan 10 repos, evaluate 3 alternative routes). Each item gets dispatched to an ephemeral worker instance; results return as worker_result objects, and Arthur synthesises.",
+  "type": "object",
+  "required": ["commander", "worker_role", "task_template", "items", "synthesis_spec"],
+  "additionalProperties": false,
+  "properties": {
+    "commander": {
+      "type": "string",
+      "enum": [
+        "arthur-project-manager",
+        "marcus-senior-backend-developer",
+        "magnus-principal-solution-architect"
+      ],
+      "description": "Which agent is acting as commander. Most commonly Arthur for intake/research fan-outs; Marcus for parallel ticket decomposition (V8.12 #6); Magnus when evaluating 2-4 alternative architectural pathways at attempt 19."
+    },
+    "worker_role": {
+      "type": "string",
+      "description": "The agent role the workers run as. Ephemeral instances inherit the named role's seed + toolsets but write to a scoped temp scratch dir, never to the permanent home's MEMORY.md."
+    },
+    "task_template": {
+      "type": "string",
+      "minLength": 24,
+      "description": "Prompt template each worker receives, with {item} placeholder where the per-worker payload is interpolated."
+    },
+    "items": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "required": ["id", "payload"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+          "payload": {"description": "Arbitrary worker input — typically a file path, URL, ticket ID, or short text blob."}
+        }
+      },
+      "description": "Up to 20 parallel items. Cap matches Anthropic's Managed Agents 20-parallel-agent limit announced at Code with Claude 2026-05-06."
+    },
+    "synthesis_spec": {
+      "type": "object",
+      "required": ["output_contract", "merge_strategy"],
+      "additionalProperties": false,
+      "properties": {
+        "output_contract": {"type": "string", "description": "Schema file the synthesised output must conform to."},
+        "merge_strategy": {
+          "type": "string",
+          "enum": ["dedup", "rank", "summarize", "concat"],
+          "description": "How the commander reduces N worker outputs to 1 final artifact."
+        },
+        "max_output_tokens": {"type": "integer", "minimum": 1, "description": "Cap on the synthesised output (separate from per-worker caps)."}
+      }
+    },
+    "concurrency_cap": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20,
+      "default": 5,
+      "description": "Max worker instances running in parallel. Default 5; raise for high-throughput dispatches, lower if budget-watcher is near CRIT."
+    },
+    "deadline_seconds": {
+      "type": "integer",
+      "minimum": 10,
+      "maximum": 3600,
+      "description": "Wall-clock budget; workers exceeding it are killed and reported as `timeout`."
+    },
+    "scope": {
+      "type": "object",
+      "description": "Lane / project scoping so the commander fan-out is auditable against the project the work belongs to.",
+      "additionalProperties": false,
+      "properties": {
+        "project_slug": {"type": "string"},
+        "ticket_id": {"type": "string"},
+        "purpose": {"type": "string", "enum": ["research", "analysis", "decomposition", "alternative_routes", "audit"]}
+      }
+    }
+  }
+}

@@ -18,6 +18,38 @@ On receipt of an approved PRD packet from Arthur, Marcus performs the full plan 
 
 Marcus never skips a stage. No coding starts until the red tests exist.
 
+### Parallel ticket decomposition (V8.12 #6)
+Stages 2 and 3 of the pipeline (SDD → feature tickets, feature tickets → red TDD) parallelise naturally across tickets — each ticket is independent of the others. Marcus can act as a **commander** (see Arthur's seed for the Commander Fan-out pattern) and dispatch N parallel worker instances, one per ticket:
+
+```
+SDD complete
+  ↓
+Marcus identifies M ticket boundaries (still sequential — depends on full SDD scope)
+  ↓
+Marcus dispatches commander_fanout_request:
+  worker_role: marcus (ephemeral instances)
+  items: [{id: ticket-001, payload: SDD_section_1}, {id: ticket-002, ...}, ...]
+  task_template: "Write ticket file + red tests for {item} per the SDD"
+  synthesis_spec: {output_contract: feature_ticket.schema.json, merge_strategy: concat}
+  ↓
+Workers run in parallel (concurrency_cap default: 5)
+  Each writes its ticket to workspace/03_Feature_Tickets/<slug>/<ticket-id>.md
+  Each writes its red tests to workspace/04_TDD_Red_Tests/<slug>/<ticket-id>/
+  ↓
+Marcus self-grades each ticket against feature_ticket_rubric.md + red_tdd_rubric.md
+  ↓
+Failed self-grades iterate (max 2 per ticket); persistent failures flagged to Arthur
+```
+
+Path isolation prevents clobbering: each worker writes only inside its `<ticket-id>` subdir. No two workers share a file path.
+
+If the SDD has > 5 tickets, parallel decomposition cuts SDD-to-Jack-handoff time roughly proportionally (5 tickets in ~1× one-ticket time instead of 5×).
+
+When NOT to parallelise:
+- SDD has 1-2 tickets — overhead exceeds gain.
+- Budget watcher is at WARN or CRIT.
+- Tickets reference each other (one cites another's output) — run sequentially.
+
 ## Escalation routine (attempts 13-15)
 Jack owns attempts 1-12 (self-fix). When Jack exhausts 12 attempts and sends a blocker packet, Arthur routes it to Marcus:
 

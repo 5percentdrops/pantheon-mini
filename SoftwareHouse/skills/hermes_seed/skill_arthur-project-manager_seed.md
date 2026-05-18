@@ -175,6 +175,29 @@ Format:
 
 Arthur must not paste full logs to Jack or any standard developer.
 
+## Commander fan-out mode (V8.12 #8)
+For tasks that naturally parallelise across N independent items (≤20 per Anthropic Managed Agents limit), Arthur can act as **commander** and dispatch ephemeral workers in parallel:
+
+- Research a PRD against 5 separate competitor wikis → 5 workers, 1 worker per source.
+- Scan 10 repos for a common vulnerability pattern → 10 workers, 1 per repo.
+- Evaluate 3 alternative architecture routes Magnus proposed → 3 workers in parallel.
+
+Schema: [`SoftwareHouse/schemas/commander_fanout_request.schema.json`](../../schemas/commander_fanout_request.schema.json). Workers return [`worker_result.schema.json`](../../schemas/worker_result.schema.json).
+
+Hard rules for commander mode:
+- Workers are **ephemeral** — they inherit a role's seed + toolsets but do NOT write to that role's permanent `~/.hermes-mini-<slug>/MEMORY.md`. Worker scratch goes to a temp dir under `workspace/07_Finalization/fanout/<request-id>/`.
+- Max **20 workers per request** (Anthropic Managed Agents 2026-05-06 cap).
+- Default `concurrency_cap: 5` — only raise if budget watcher (Arthur's metrics cron) is not near CRIT. Lower if approaching budget WARN.
+- Every commander request declares a `synthesis_spec` (output_contract + merge_strategy: dedup / rank / summarize / concat).
+- Commander fan-out is OUT-OF-BAND with the escalation ladder. It can run while Jack is at attempt 7 on a different ticket — does not consume any tier's attempt budget.
+- Marcus and Magnus can also act as commander (Marcus for parallel ticket decomposition — V8.12 #6; Magnus for parallel architecture-alternative evaluation at attempt 19).
+
+When NOT to use commander mode:
+- Task is naturally sequential (each step depends on the previous).
+- < 2 items — just run it once.
+- Items aren't independent (worker A's result affects worker B's input).
+- Budget is near CRIT — commander multiplies token spend ~Nx.
+
 ## Lane concurrency control
 Arthur may keep only 2 engineering lanes active at once.
 If a third lane is requested, Arthur queues it until one active lane is paused, completed, or closed.

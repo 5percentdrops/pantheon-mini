@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/5percentdrops/pantheon-mini/SoftwareHouse/schemas/worker_result.schema.json",
+  "title": "Commander Fan-out Worker Result (V8.12 #8)",
+  "description": "Each ephemeral worker spawned by a Commander Fan-out Request returns this. Commander synthesises N of these into the final artifact.",
+  "type": "object",
+  "required": ["worker_id", "item_id", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "worker_id": {"type": "string", "description": "Unique ID of the spawned worker instance."},
+    "item_id": {"type": "string", "description": "Matches the `id` in the commander_fanout_request items array."},
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "failed", "timeout"]
+    },
+    "output": {
+      "description": "Worker's output payload. Type defined by the commander's task_template; commonly markdown or structured JSON."
+    },
+    "tokens_used": {"type": "integer", "minimum": 0},
+    "duration_ms": {"type": "integer", "minimum": 0},
+    "error": {"type": "string", "description": "Populated when status != success. One-line root cause."}
+  }
+}
