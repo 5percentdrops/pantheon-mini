@@ -138,11 +138,14 @@ for a in agents:
 print(f"bootstrap: {created} mini homes created/updated under ~/.hermes-mini-*")
 PYEOF
     echo
-    echo "==> Step 5b/8: Seed each active home with its distinctive skill (skills/seed.md)"
+    echo "==> Step 5b/8: Seed each active home with its distinctive skill + per-responsibility skill tree"
     python3 scripts/seed_active_homes.py
     echo
     echo "==> Step 5b'/8: Apply per-agent tool scoping (V8.12 #1)"
     python3 scripts/configure_toolsets.py
+    echo
+    echo "==> Step 5b''/8: Validate per-responsibility skill frontmatter (V8.16)"
+    python3 scripts/validate_responsibility_skills.py
     echo
 else
     echo "==> Step 5/8: Skipped (--no-bootstrap)"

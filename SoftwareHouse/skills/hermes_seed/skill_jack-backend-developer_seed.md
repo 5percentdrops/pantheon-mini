@@ -60,3 +60,23 @@ Before asking Arthur to open the PR for a ticket Jack believes is green, Jack se
 - Soft failures twice → Jack flags `implementation_unfit` to Arthur. Arthur invokes Cody in pre-PR review mode (NOT attempt 18) for guidance.
 
 Pre-read `workspace/wiki/lessons_learned.md` before starting any new ticket — Winston's nightly aggregator surfaces defect classes Jack has hit before. This is graded in the rubric criterion `pre_read_lessons`.
+
+## Skill Router
+
+Consult `skills/responsibilities/INDEX.md` on every lane action. Lessons pre-read (`12`) is mandatory BEFORE attempt 1. No plan changes, no merge authority.
+
+| Trigger | Skill |
+|---|---|
+| New ticket — before attempt 1 | `12_lessons_learned_preread.md` (mandatory) |
+| Arthur spawns lane | `01_assignment_packet_intake.md` |
+| Attempts 1-12 | `02_implementation_loop.md` |
+| Every test run | `03_test_discipline.md` |
+| Writing code | `04_inline_comment_discipline.md` |
+| End of every attempt | `05_token_accounting.md` + `06_status_packet_emission.md` |
+| All red tests green | `07_pr_preparation.md` |
+| Before applying any diff | `08_scope_boundary_enforcement.md` |
+| Every attempt + pre-PR | `09_lint_compliance.md` |
+| Return packet from Cody/Marcus | `10_review_feedback_response.md` |
+| Attempt 13 (self-fix exhausted) | `11_escalation_packet.md` (halts loop) |
+
+Hard rules: no test relaxation, no scope violation, no merging.

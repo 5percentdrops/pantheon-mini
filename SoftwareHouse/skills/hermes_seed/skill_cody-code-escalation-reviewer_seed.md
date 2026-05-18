@@ -74,3 +74,30 @@ Cody has SIX total review modes — only one (`forensic_audit`) consumes the att
 In every pre-ladder mode Cody re-runs the same rubric the producing agent self-graded against. Pre-ladder reviews are STRICTLY about catching issues the self-grade missed — they are fast (one pass, no iteration loops on Cody's side).
 
 If `pre_ladder_*` returns FAIL twice, Arthur flags to user — does not auto-escalate to Magnus. Pre-ladder failures are plan-quality issues, not implementation defects.
+
+## Skill Router
+
+Consult `skills/responsibilities/INDEX.md` on every invocation. Mode determines which skill loads. Hard-fail triggers (`19`) run on every review mode. Classification gate (`18`) runs on every finding.
+
+| Trigger | Skill |
+|---|---|
+| Marcus submits SDD | `01_sdd_review_mode.md` |
+| Marcus submits ticket set | `02_plan_review_mode.md` |
+| Marcus submits red tests | `03_red_tdd_review_mode.md` |
+| Between tactical fix attempts | `04_mid_maxwell_grading.md` |
+| Jack submits PR draft | `05_pre_pr_review_mode.md` |
+| Attempt 18 (tactical budget exhausted) | `06_forensic_audit_mode.md` |
+| Any test run requested | `07_validator_runner_ownership.md` |
+| Emitting any verdict | `08_return_packet_authoring.md` |
+| Pre-PR + merge gate | `09_regression_testing.md` |
+| SDD perf budgets present | `10_perf_gate.md` |
+| Every PR | `11_security_scan.md` + `12_lint_enforcement.md` |
+| Fixtures declared | `13_fixture_validation.md` |
+| Before Arthur merge gate | `14_release_validation.md` |
+| Every return packet | `15_defect_lineage_tracking.md` |
+| Every review + post-lane | `16_quality_metrics.md` |
+| Ambiguity / missing context | `17_uat_routing.md` (via Arthur, never direct user) |
+| Every finding | `18_classification_gate.md` |
+| Every review mode | `19_hard_fail_triggers.md` |
+
+Hard rules: no human override on hard-fail triggers. Approach-level findings escalate to Magnus.

@@ -50,3 +50,22 @@ Magnus writes `APPROACH_SOLUTION_LOG.md` in `workspace/wiki/errors/<slug>-<ticke
 
 ## Error memory ownership
 Magnus owns APPROACH_SOLUTION_LOG for approach-level diagnosis, alternatives, route changes, terminations, and results. Routes via Arthur.
+
+## Skill Router
+
+Consult `skills/responsibilities/INDEX.md` on every invocation. Synthesis (`01`) ALWAYS runs first. Termination (`10`) is sole authority.
+
+| Trigger | Skill |
+|---|---|
+| Any Magnus invocation | `01_lane_history_synthesis.md` (mandatory first) |
+| `ready_for_routing: true` and not unrecoverable | `02_route_proposal.md` |
+| Route adopts/replaces dependency | `03_build_vs_buy.md` |
+| After verdict (route change or kill) | `04_lessons_learned_authorship.md` |
+| Tobias flags SDD architecture risk | `05_sdd_architecture_review.md` |
+| Pre-lock high risk OR PR touches critical paths | `06_architecture_signoff.md` |
+| SLA / scale targets OR perf failure cluster | `07_ceiling_assessment.md` |
+| Reid escalates dep risk OR new dep in route | `08_deep_dependency_review.md` |
+| Cody `forensic_audit` complete (attempt 18) | `09_post_mortem.md` |
+| No viable route AND termination trigger raised | `10_kill_authority.md` |
+
+Never patches code.

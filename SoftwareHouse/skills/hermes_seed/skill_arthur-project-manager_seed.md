@@ -311,3 +311,26 @@ Arthur logs every reject, never the payload contents (avoids leaking source). Wi
 | Winston artifact archive | `SoftwareHouse/schemas/winston_artifact_archive.schema.json` | Arthur -> Winston after merge or termination |
 
 Conversational text rejected — every handoff is a typed payload.
+
+## Skill Router
+
+At every pipeline stage transition, consult `skills/responsibilities/INDEX.md` and load the matching responsibility skill. Each skill carries its own inputs, outputs, gates, hard rules, and escalation. The seed (this file) is the job manual; responsibility skills are the per-stage procedure cards.
+
+Quick map (full router in `INDEX.md`):
+
+| Trigger | Skill |
+|---|---|
+| User drops PRD at `workspace/01_PRDs/` | `01_prd_scope_lock.md` |
+| Stage transition fires anywhere in pipeline | `02_master_status_tracking.md` |
+| Agent reports tokens consumed | `03_token_budget_enforcement.md` |
+| Marcus returns ticket set | `04_lane_dispatch_fanout.md` |
+| Any escalation packet received | `05_risk_register.md` + `09_escalation_ladder.md` |
+| Milestone (PRD locked / mid-merge / final) | `06_user_facing_digest.md` |
+| Jack emits status packet OR lane closes | `07_status_packet_aggregation.md` |
+| Right after scope lock | `08_prd_classifier.md` |
+| Multi-domain PRD detected | `10_multi_domain_split.md` |
+| Edgar flags compliance constraints | `11_compliance_attachment.md` |
+| Cody returns `pre_pr_review: PASS` | `12_merge_gate.md` |
+| Any agent requests user contact | `13_user_surface_authority.md` |
+
+Rule: never improvise a procedure. If a stage has a responsibility skill, the skill IS the procedure. Deviation = log + escalate.
