@@ -69,41 +69,52 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
    you      route        plan         build       merge       archive
 ```
 
-**Meet the 7 agents:**
+**The team:**
 
 ```mermaid
-flowchart TB
-    Arthur["<b>Arthur</b><br/>Project Manager<br/>Receives the PRD and routes the work. Owns the merge gate."]
-    Marcus["<b>Marcus</b><br/>Senior Developer<br/>Turns the PRD into an SDD, feature tickets, and red TDD tests."]
-    Jack["<b>Jack</b><br/>Standard Developer<br/>Writes the code, red to green."]
-    Cody["<b>Cody</b><br/>Reviewer<br/>Audits the work for bugs, security issues, and regressions."]
-    Maxwell["<b>Maxwell</b><br/>Escalation Engineer<br/>Handles cross-file deep fixes when the senior is stuck."]
-    Magnus["<b>Magnus</b><br/>Principal Architect<br/>Re-thinks the approach when nothing else works."]
-    Winston["<b>Winston</b><br/>Knowledge Archivist<br/>Files PRDs, SDDs, tickets, and lessons learned."]
+flowchart TD
+    You(["You<br/>PRD"])
+    Arthur["Arthur<br/>Project Manager"]
+    Marcus["Marcus<br/>Senior Developer<br/>(plans the work)"]
+    Jack["Jack<br/>Standard Developer<br/>(writes the code)"]
+    Cody["Cody<br/>Reviewer<br/>(audits the work)"]
+    Maxwell["Maxwell<br/>Escalation Engineer<br/>(deep fixes, on call)"]
+    Magnus["Magnus<br/>Principal Architect<br/>(re-thinks approach, on call)"]
+    Winston["Winston<br/>Knowledge Archivist<br/>(files lessons)"]
+    Shipped(["Shipped"])
 
-    Arthur  ~~~ Marcus
-    Marcus  ~~~ Jack
-    Jack    ~~~ Cody
-    Cody    ~~~ Maxwell
-    Maxwell ~~~ Magnus
-    Magnus  ~~~ Winston
+    You --> Arthur
+    Arthur --> Marcus
+    Marcus --> Jack
+    Jack --> Cody
+    Cody --> Arthur
+    Arthur --> Winston
+    Winston --> Shipped
 
+    Arthur -.- Maxwell
+    Arthur -.- Magnus
+
+    classDef io       fill:#f5f5f5,stroke:#666,stroke-width:2px,color:#222
     classDef pm       fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
     classDef senior   fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
     classDef dev      fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
     classDef review   fill:#ffedd5,stroke:#ea580c,stroke-width:2px,color:#7c2d12
     classDef arch     fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
     classDef archive  fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
+    classDef done     fill:#bbf7d0,stroke:#15803d,stroke-width:3px,color:#14532d
 
+    class You io
     class Arthur pm
-    class Marcus,Maxwell senior
+    class Marcus senior
     class Jack dev
     class Cody review
+    class Maxwell senior
     class Magnus arch
     class Winston archive
+    class Shipped done
 ```
 
-A small studio. PRD goes to Arthur. Arthur passes it to Marcus who plans it. Jack builds it. Cody audits when needed. Maxwell and Magnus only step in if Jack genuinely can't get unstuck. Winston files everything for next time.
+PRD enters at the top. Arthur routes it to Marcus who plans, Jack who codes, Cody who audits. Arthur merges and hands off to Winston for archiving. Maxwell and Magnus are on-call specialists Arthur calls in only when something gets genuinely stuck (dotted lines).
 
 | # | Role | Agent | Attempts | Model |
 |--:|---|---|---|---|
