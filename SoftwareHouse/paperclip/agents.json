@@ -970,6 +970,7 @@
       "harness": "Hermes",
       "model": "anthropic/claude-3.5-haiku",
       "llm_module": "Claude 3.5 Haiku under Hermes",
+      "seed_skill_path": "skills/hermes_seed/skill_winston-director-knowledge-architecture_seed.md",
       "responsibility": "Final archive of the Active Mini lane. Receives artifacts from Arthur, converts text/logs to structured Markdown, archives them into the local Wiki for Context Mode indexing.",
       "description": "Archives final artifacts, error memory, worked/failed solution logs, and knowledge records. Knowledge Archivist of the Active Mini operating team. Receives every final/route-critical artifact from Arthur after merge-gate clears (or after Magnus terminates a lane). Stores PRDs, SDDs, tickets, TDD loops, error logs, worked/failed solution logs, code review return packets, approach solution logs, and codebase wrappers. Does not analyze or load codebases; calls universal_wiki_wrapper.",
       "tools": [

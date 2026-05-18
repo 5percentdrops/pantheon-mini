@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# one_click_install.sh — Pantheon Mini V8.10
+# one_click_install.sh — Pantheon Mini V8.11
 #
-# Workspace + V7 baseline validators + V8.5–V8.10 ports adapted to Mini's
+# Workspace + V7 baseline validators + V8.5–V8.11 ports adapted to Mini's
 # Active Mini 7-agent operating team. Uses ~/.hermes-mini-<slug>/ namespace so it
 # coexists with a full Pantheon install (~/.hermes-<slug>/) on the same
 # host.
@@ -41,7 +41,7 @@ for arg in "$@"; do
 done
 
 echo "==================================================================="
-echo " Pantheon Mini V8.10 — Full Installer"
+echo " Pantheon Mini V8.11 — Full Installer"
 echo "==================================================================="
 echo " Paperclip = company/control plane"
 echo " Hermes    = per-agent harness (7 ~/.hermes-mini-<slug>/ homes)"
@@ -89,7 +89,7 @@ fi
 echo "==> Step 3/8: (mini skips agentcompanies/v1 conversion — V7 baseline kept)"
 echo
 
-# Step 5: bootstrap 12 per-agent Hermes homes (V8.5, adapted to mini namespace)
+# Step 5: bootstrap 7 per-agent Hermes homes (V8.5 -> V8.11, adapted to mini namespace)
 if [ "$SKIP_BOOTSTRAP" = "0" ]; then
     echo "==> Step 5/8: Bootstrap 7 per-agent Hermes homes (Active Mini operating team) (~/.hermes-mini-<slug>)"
     python3 - <<'PYEOF'
@@ -137,6 +137,9 @@ for a in agents:
     created += 1
 print(f"bootstrap: {created} mini homes created/updated under ~/.hermes-mini-*")
 PYEOF
+    echo
+    echo "==> Step 5b/8: Seed each active home with its distinctive skill (skills/seed.md)"
+    python3 scripts/seed_active_homes.py
     echo
 else
     echo "==> Step 5/8: Skipped (--no-bootstrap)"
