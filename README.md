@@ -69,63 +69,37 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
    you      route        plan         build       merge       archive
 ```
 
-**The 7 agents and who hands off to whom:**
+**The 7 agents and how the work moves between them:**
 
 ```
-                            👤  YOU
-                              │  PRD
-                              ▼
-                  ┌─────────────────────────┐
-                  │  🎯  Arthur              │  Project Manager / Head
-                  │  openai/gpt-5-mini      │  routing · merge gate · 3-line RTK
-                  └────────────┬────────────┘
-                               │  approved PRD packet
-                               ▼
-                  ┌─────────────────────────┐
-                  │  📋  Marcus              │  Senior Developer / Planner
-                  │  anthropic/opus-4.7 ⚡   │  PRD → SDD → tickets → red TDD
-                  └────────────┬────────────┘
-                               │  assignment packet
-                               ▼
-                  ┌─────────────────────────┐
-                  │  🔨  Jack                │  Standard Developer / Implementer
-                  │  deepseek/v4-pro         │  red → green TDD (attempts 1-12)
-                  └────────────┬────────────┘
-                               │  green PR  |  blocker packet (attempt 13+)
-                               ▼
-        ┌─────────── stuck after attempt 12? escalation ladder ───────────┐
-        ▼                                                                  │
-  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-  │ 📋 Marcus     │  │ 🔥 Maxwell    │  │ 🔍 Cody       │  │ 🏗 Magnus     │  │
-  │ 13-15         │  │ 16-17         │  │ 18            │  │ 19            │  │
-  │ tactical fix  │  │ deep fix      │  │ forensic audit│  │ approach /    │  │
-  │ opus-4.7 ⚡   │  │ opus-4.7 🔥   │  │ gpt-5.5       │  │ kill verdict  │  │
-  │               │  │               │  │               │  │ gemini-3.1    │  │
-  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  │
-         │                  │                  │                  │           │
-         └──────────────────┴────────┬─────────┴──────────────────┘           │
-                                     ▼                                         │
-                       all senior returns route through Arthur ────────────────┘
-                                     ▼
-                         🔁 Jack re-tests → WORKED ? continue : FAIL → next tier
-                                     ▼
-                       ┌─────────────────────────┐
-                       │  ✅ Arthur (merge gate)  │
-                       └────────────┬────────────┘
-                                    ▼
-                       ┌─────────────────────────┐
-                       │  📚 Winston              │  Knowledge Archivist
-                       │  anthropic/haiku-3.5    │  archive + lessons_learned
-                       └─────────────────────────┘
-                                    ▼
-                              📁 SHIPPED
+              YOU
+               │  PRD
+               ▼
+            Arthur          routing · merge gate
+               │
+               ▼
+            Marcus          PRD → SDD → tickets → red TDD
+               │
+               ▼
+             Jack           implements (attempts 1-12)
+               │
+               ▼  stuck after 12?
+
+       Marcus → Maxwell → Cody → Magnus
+       13-15    16-17     18     19
+
+               │  any senior solution returns through Arthur
+               ▼
+            Arthur          merge gate
+               │
+               ▼
+           Winston          archive + lessons_learned
+               │
+               ▼
+            shipped
 ```
 
-**Iron rules baked into the layout:**
-- Arthur is the ONLY merge gate. No agent merges except Arthur.
-- Senior solutions ALWAYS return through Arthur to Jack — never direct.
-- Each tier has a fixed attempt budget. No tier can borrow attempts from another.
-- Magnus is the only tier with kill authority (approach-level termination at attempt 19).
+Models for each agent are in the table below. Magnus is the only tier with kill authority at attempt 19.
 
 | # | Role | Agent | Attempts | Model |
 |--:|---|---|---|---|
