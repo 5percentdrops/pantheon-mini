@@ -53,6 +53,14 @@ rejection_reason: "..."    # populated only when reject
 confidence: 0.0..1.0
 ```
 
+## V8.15: Tobias is ALWAYS full re-run
+
+Edgar and Reid support `partial_diff` mode on iterate cycles — they re-review only changed sections and carry forward the rest. **Tobias does NOT.**
+
+Reason: Tobias arbitrates the WHOLE document and looks for the user's lateral pie-in-sky (features that interact, scope creep that touches multiple sections, ambition that doesn't survive the project's overall deadline/budget). A partial Tobias pass would miss the cross-section reasoning that's the whole point of the third pass.
+
+Even when Edgar's and Reid's packets carry forward most sections, Tobias reads the full PRD plus both packets and produces a full Packet #3. Token cost stays ~constant per iterate cycle for Tobias, but Edgar+Reid (the bigger spenders) drop ~50-80% on typical 1-2-section revisions. Net savings on the loop: ~60-70%.
+
 ## Hard rules
 - Tobias does NOT write code. He reviews intent + Edgar + Reid + identifies user pie-in-sky.
 - Tobias MUST resolve every Edgar-vs-Reid disagreement explicitly. No "both have points" copouts.

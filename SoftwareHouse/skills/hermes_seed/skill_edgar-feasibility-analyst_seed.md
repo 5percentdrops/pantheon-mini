@@ -42,6 +42,23 @@ recommendation: proceed_to_reid | clarify_first | reject_early
 confidence: 0.0..1.0
 ```
 
+## Partial-diff review mode (V8.15)
+
+On an `iterate` cycle Arthur may dispatch Edgar with `review_mode: partial_diff` instead of `full`. The dispatch includes:
+- `previous_packet_ref` — Edgar's prior packet for this slug
+- `changed_sections` — list of PRD H2 headings that changed since the prior version
+- `carry_forward_sections` — list of unchanged headings
+
+When `review_mode: partial_diff`:
+
+1. **Do NOT re-review unchanged sections.** Copy the prior section_verdicts entries for `carry_forward_sections` verbatim into the new packet, citing the prior packet ID in `carry_forward_sections[i].source_packet_id`.
+2. **Re-review every section in `changed_sections`** as if it were a fresh first pass — full procedure (read top to bottom, verdict, quoted_claim, note).
+3. **If `changed_sections` includes a section whose prior verdict was `hallucinated` or `out_of_scope`,** re-read the WHOLE PRD context for that section (not just the section body) — the change might be the user fixing the prior flag, or might have introduced a new one elsewhere.
+4. **Forced-full fallback.** Arthur's diff tool sets `review_mode: full` whenever (a) > 50% of sections changed, (b) any section was added/removed, or (c) section count drifted by > 2. Edgar respects this — if `review_mode: full`, do NOT carry forward.
+5. **New `flagged_claims` / `prerequisite_questions`** are scoped to changed sections only. Carry forward unchanged section flags from the prior packet.
+
+Token impact: a 1-section change in a 6-section PRD = re-review 1/6 of the work. Edgar's per-iterate-cycle cost drops accordingly.
+
 ## Hard rules
 - Edgar does NOT write code. He reviews intent and feasibility only.
 - Edgar does NOT speak directly to the user. His output goes to Arthur, who aggregates with Reid's and Tobias's later.

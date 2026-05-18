@@ -20,7 +20,13 @@ V8.14 added a mandatory 3-pass feasibility loop BEFORE Marcus ever sees the PRD:
 5. **User approval gate** — user picks one of:
    - `ship_as_is` → Arthur classifies technical domain + routes the approved PRD packet to Marcus.
    - `ship_with_trims` → user accepts Tobias's recommended trims; Arthur routes trimmed PRD to Marcus.
-   - `iterate` → user revises the PRD, drops new version under `workspace/01_PRDs/<slug>-v2.md`, Arthur restarts the 3-pass loop from step 3.
+   - `iterate` → user revises the PRD, drops new version under `workspace/01_PRDs/<slug>-v2.md` (or `-v3.md`, `-v4.md`, ...), Arthur restarts the 3-pass loop using **diff-aware partial re-review (V8.15)**:
+     1. Arthur runs `python3 scripts/diff_prd_versions.py <previous>.md <current>.md` to compute changed / carry-forward / added / removed sections + change_ratio.
+     2. If change_ratio > 0.5, OR any section was added/removed, OR section count drifted by > 2 → Arthur forces `review_mode: full` (revision too large to safely carry forward).
+     3. Otherwise → Arthur dispatches Edgar with `review_mode: partial_diff`, `changed_sections`, `carry_forward_sections`, and `previous_packet_ref` pointing to Edgar's prior packet. Edgar copies unchanged-section verdicts verbatim and re-reviews only changed sections.
+     4. Same for Reid: `review_mode: partial_diff` with the same diff dispatch.
+     5. **Tobias always runs `review_mode: full`** — his job is whole-document arbitration + pie-in-sky callouts; a partial Tobias would miss cross-section invalidations.
+     6. Result: ~60-70% token savings on a typical 1-2-section revision; full-loop cost only when the revision is genuinely large.
    - `reject` → Arthur hands the PRD + all 3 feasibility packets to Winston for archival. Winston files under `SoftwareHouse/wiki/prds/_rejected/` with the rejection reason. Lessons feed `workspace/wiki/lessons_learned.md` so future PRDs of the same shape get pre-flagged.
 6. **If user approved** → Marcus performs the standard PRD → SDD → tickets → red TDD pipeline.
 

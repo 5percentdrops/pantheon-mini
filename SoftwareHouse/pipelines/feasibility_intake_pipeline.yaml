@@ -46,9 +46,23 @@ pipeline:
       outcomes:
         - ship_as_is        # Arthur routes to Marcus
         - ship_with_trims   # User accepts trims, Arthur routes trimmed PRD to Marcus
-        - iterate           # User revises PRD, loop runs again
+        - iterate           # User revises PRD; loop re-runs in diff-aware partial mode (V8.15)
         - reject            # Winston archives, Arthur closes the lane
       max_output_bytes: 2000
+
+    - id: iterate_diff_dispatch        # V8.15
+      agent: arthur-project-manager
+      required_when: user_approval_gate.outcome == iterate
+      tool: scripts/diff_prd_versions.py
+      output_contract: feasibility_review_packet.schema.json
+      description: |
+        On iterate, Arthur runs scripts/diff_prd_versions.py against the prior
+        PRD version and the new one. Output: changed_sections, carry_forward_sections,
+        change_ratio, force_full_reason. If forced full (ratio > 0.5 or structural
+        drift) Arthur sets review_mode=full on Edgar+Reid dispatch. Otherwise
+        Edgar+Reid run review_mode=partial_diff with the diff payload. Tobias
+        always runs review_mode=full.
+      max_output_tokens: 1500
 
     - id: winston_archive_on_reject
       agent: winston-director-knowledge-architecture

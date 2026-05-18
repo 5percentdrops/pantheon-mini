@@ -184,6 +184,45 @@ Until that's shipped: manual intake only.
 
 ---
 
+## Iterate cycles — diff-aware re-review (V8.15)
+
+If Tobias's recommendation is `iterate`, you patch the PRD, save the new version as `workspace/01_PRDs/<slug>-v2.md` (or `-v3.md`, etc.), and Arthur restarts the 3-pass loop. **V8.15 makes the re-run cheap** by only re-reviewing sections that actually changed.
+
+### How it works
+
+1. Arthur runs `scripts/diff_prd_versions.py <prev>.md <curr>.md` to compute section-level diff.
+2. The diff outputs:
+   - `changed_sections` — H2 headings whose body changed
+   - `carry_forward_sections` — H2 headings unchanged since the prior version
+   - `added_sections` / `removed_sections` — structural changes
+   - `change_ratio` — fraction of sections that changed
+3. **Forced full re-run** if any of:
+   - `change_ratio > 0.5` (more than half the sections changed)
+   - Any section added or removed
+   - Section count drifted by > 2
+4. **Otherwise partial:** Edgar and Reid dispatch with `review_mode: partial_diff`, re-review only `changed_sections`, copy verdicts on `carry_forward_sections` from their prior packets verbatim.
+5. **Tobias is always full.** Cross-section pie-in-sky arbitration can't be partial.
+
+### Token impact
+
+| Revision shape | Edgar+Reid cost | Tobias cost | Loop total vs full |
+|---|---|---|---|
+| 1 section changed (typical typo / clarification) | ~15% of full | full | ~40-45% of full |
+| 2-3 sections changed (typical revision) | ~30-45% of full | full | ~55-65% of full |
+| Major revision (>50% changed, or structural) | full (forced) | full | 100% |
+
+Worst case: full re-run, same as V8.14. Best case (1-section nudge): ~60% token savings.
+
+### Heading rules for the diff tool to work
+
+- Use H2 headings (`## ...`) for the top-level sections the diff tool tracks.
+- Changing a heading text counts as remove + add → forced full re-run.
+- Identical headings across versions = section identity preserved.
+
+### What you'll see in the consolidated report
+
+Tobias's recommendation field will indicate when the loop ran partial vs full. If partial, Tobias notes which sections were re-reviewed vs carried forward — useful for auditing whether your last revision actually addressed what you intended.
+
 ## Anti-patterns (don't do)
 
 - ❌ Putting the PRD in `workspace/02_SDDs/` or any other downstream folder. Marcus writes SDDs; you write PRDs.

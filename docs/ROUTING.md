@@ -16,7 +16,8 @@ Jack 1-12 → Marcus 13-15 → Maxwell 16-17 → Cody 18 → Magnus 19 → Winst
 | **Arthur** | user | PRD + scope + research notes | Edgar | PRD for feasibility pass 1 (V8.14) |
 | **Edgar** (V8.14) | Arthur | PRD | Arthur | Feasibility Review Packet #1 |
 | **Reid** (V8.14) | Arthur | PRD + Edgar packet | Arthur | Feasibility Review Packet #2 (leak-check on Edgar) |
-| **Tobias** (V8.14) | Arthur | PRD + Edgar + Reid packets | Arthur | Feasibility Review Packet #3 (consolidated + pie-in-sky callouts) |
+| **Tobias** (V8.14) | Arthur | PRD + Edgar + Reid packets | Arthur | Feasibility Review Packet #3 (consolidated + pie-in-sky callouts). **V8.15:** always `review_mode: full`, never partial. |
+| **Arthur → Edgar/Reid (iterate, V8.15)** | user iterate decision | new PRD version + diff payload | Edgar, then Reid | Partial-mode dispatch with `changed_sections` + `carry_forward_sections` + `previous_packet_ref`. Forced-full if change_ratio > 0.5 or structural drift. |
 | **Arthur** | user (approval) | ship / trim / iterate / reject decision | Marcus (if approved) | approved PRD packet (PRD + user notes + scope) |
 | **Marcus** | Arthur | approved PRD | Jack | SDD + feature ticket + red tests + checklist |
 | **Jack** | Marcus | assignment packet (SDD + ticket + checklist) | Marcus (on success) **or** Arthur (blocker @ attempt 13) | green PR **or** `engineer_escalation_packet.v1` |

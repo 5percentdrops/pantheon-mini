@@ -44,6 +44,24 @@ recommendation: proceed_to_tobias | kick_back_to_edgar | reject_early
 confidence: 0.0..1.0
 ```
 
+## Partial-diff review mode (V8.15)
+
+On an `iterate` cycle Arthur may dispatch Reid with `review_mode: partial_diff` instead of `full`. The dispatch includes:
+- `previous_packet_ref` — Reid's prior packet for this slug
+- Edgar's current packet (which itself may be partial)
+- `changed_sections` — list of PRD H2 headings that changed since the prior version
+- `carry_forward_sections` — list of unchanged headings
+
+When `review_mode: partial_diff`:
+
+1. **Copy prior `edgar_section_responses` for `carry_forward_sections`** from `previous_packet_ref` verbatim, citing source packet IDs in `carry_forward_sections[i].source_packet_id`.
+2. **Re-run the response procedure for every section in `changed_sections`** — Reid responds to Edgar's NEW verdict on that changed section (agree / over_strict / under_strict / redundant + rationale).
+3. **`missed_leaks` scoping:** scan only the changed sections for new leaks. Carry forward any unchanged-section leaks from the prior packet.
+4. **Forced-full fallback.** If Arthur sets `review_mode: full`, do NOT carry forward.
+5. **Bounce-back budget unchanged.** Reid can still `kick_back_to_edgar` once per iterate cycle if changed sections reveal disagreement with Edgar's new verdicts.
+
+Token impact: a 1-section change cuts Reid's spend roughly proportionally. Reid's response is per-section, so the savings are linear.
+
 ## Hard rules
 - Reid does NOT write code. He reviews intent + Edgar's verdict.
 - Reid must reference Edgar's packet — he is not running an independent review, he is a counter-balance.

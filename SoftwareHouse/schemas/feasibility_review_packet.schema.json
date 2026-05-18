@@ -162,6 +162,54 @@
       "type": "number",
       "minimum": 0.0,
       "maximum": 1.0
+    },
+    "review_mode": {
+      "type": "string",
+      "enum": ["full", "partial_diff"],
+      "default": "full",
+      "description": "V8.15. `full` = first-time review of every section. `partial_diff` = Arthur dispatched this packet to review only PRD sections that changed since a prior version; unchanged sections carry forward via carry_forward_sections. Tobias is ALWAYS `full` regardless of mode."
+    },
+    "previous_packet_ref": {
+      "type": "string",
+      "description": "V8.15. Path/ID of the prior packet from the same reviewer on a prior PRD version. Required when review_mode == partial_diff. Edgar/Reid only — Tobias does not carry forward."
+    },
+    "previous_prd_version": {
+      "type": "string",
+      "description": "V8.15. Slug of the prior PRD version, e.g. `binance-funding-alerts-v1`, used by Arthur's diff tool to anchor the comparison."
+    },
+    "current_prd_version": {
+      "type": "string",
+      "description": "V8.15. Slug of the current PRD version, e.g. `binance-funding-alerts-v2`."
+    },
+    "changed_sections": {
+      "type": "array",
+      "description": "V8.15. Section names (matching PRD H2 headings) Arthur identified as changed between previous and current PRD. Edgar/Reid re-review ONLY these; verdicts on these sections OVERWRITE prior verdicts. Required when review_mode == partial_diff.",
+      "items": {"type": "string"}
+    },
+    "carry_forward_sections": {
+      "type": "array",
+      "description": "V8.15. Sections unchanged between previous and current PRD. Edgar/Reid copy their prior verdicts for these sections from previous_packet_ref into section_verdicts / edgar_section_responses verbatim. No re-review, no token spend on these.",
+      "items": {
+        "type": "object",
+        "required": ["section", "source_packet_id"],
+        "additionalProperties": false,
+        "properties": {
+          "section": {"type": "string"},
+          "source_packet_id": {"type": "string", "description": "ID of the prior packet whose verdict was copied for this section."}
+        }
+      }
+    },
+    "diff_summary": {
+      "type": "object",
+      "description": "V8.15. Optional diff stats for telemetry.",
+      "additionalProperties": false,
+      "properties": {
+        "sections_total": {"type": "integer", "minimum": 0},
+        "sections_changed": {"type": "integer", "minimum": 0},
+        "sections_added": {"type": "integer", "minimum": 0},
+        "sections_removed": {"type": "integer", "minimum": 0},
+        "change_ratio": {"type": "number", "minimum": 0.0, "maximum": 1.0, "description": "sections_changed / sections_total. If > 0.5, Arthur MUST fall back to review_mode=full (revision too large to safely carry forward)."}
+      }
     }
   }
 }
