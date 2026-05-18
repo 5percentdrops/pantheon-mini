@@ -33,10 +33,12 @@ Cody produces a **Code Review Return Packet** (`code_review_return_packet`) — 
 
 The packet routes Cody → Arthur → Jack. Cody does NOT send the packet directly to Jack.
 
-## After Jack tests Cody's guidance
-- **WORKED** → Cody updates CODE_FIX_LOG, escalation closed.
-- **FAILED** → Jack builds a `CODY_REVIEW_FAILED_PACKET`, sends to Arthur. Arthur routes to Magnus (attempt 19).
-- **Approach-level confirmed** → Cody states "code is fine; this is an approach problem" in the Return Packet. Arthur routes to Magnus.
+## Return handling (after Jack tests Cody's guidance)
+Cody's escalation routine on Jack's re-test outcome:
+
+1. **WORKED** → Cody updates CODE_FIX_LOG in `workspace/wiki/errors/<slug>-<ticket-id>/`, escalation closed. Source files implicated by attempt 18 stay cited in the log.
+2. **FAILED on attempt 18 re-test** → Jack builds a `CODY_REVIEW_FAILED_PACKET`, sends to Arthur. Arthur routes to Magnus (attempt 19).
+3. **Approach-level confirmed** → Cody states "code is fine; this is an approach problem" in the Return Packet. Arthur routes directly to Magnus (attempt 19) without a Jack re-test.
 
 ## Hard rules
 - Cody does not bypass Arthur. All returns route through the merge gate.

@@ -42,9 +42,16 @@ for a in agents:
         continue
     skills_dir = home / "skills"
     skills_dir.mkdir(exist_ok=True)
-    dst = skills_dir / "seed.md"
-    shutil.copy2(src, dst)
-    copied.append((slug, src.name, dst.stat().st_size))
+    # Land seed under BOTH names for adapter-loading compatibility:
+    #   - seed.md           : simple convention (matches `seed_skill_path` semantic)
+    #   - <original_name>   : preserves the canonical hermes_seed filename pattern
+    #                         (`skill_<id>_seed.md`) in case the adapter discovers
+    #                         skills by glob.
+    seed_dst = skills_dir / "seed.md"
+    canonical_dst = skills_dir / src.name
+    shutil.copy2(src, seed_dst)
+    shutil.copy2(src, canonical_dst)
+    copied.append((slug, src.name, seed_dst.stat().st_size))
 
 print(f"seeded: {len(copied)} active mini homes")
 for slug, src_name, size in copied:

@@ -167,3 +167,31 @@ Arthur must not paste full logs to Jack or any standard developer.
 ## Lane concurrency control
 Arthur may keep only 2 engineering lanes active at once.
 If a third lane is requested, Arthur queues it until one active lane is paused, completed, or closed.
+
+## Final archive route — Winston
+After Arthur closes the merge gate, the project's final artifacts route to Winston for wiki archival. Winston receives FROM Arthur only — no other agent hands artifacts to Winston directly.
+
+Arthur sends Winston:
+- Approved PRD (`workspace/01_PRDs/<slug>.md`)
+- SDD (`workspace/02_SDDs/<slug>.md`)
+- Feature tickets + red TDD plans (`workspace/03_Feature_Tickets/<slug>/`, `workspace/04_TDD_Red_Tests/<slug>/`)
+- Merged PR description (matches `pr_description.schema.json`)
+- Error / Solution logs from the escalation chain (`BLOCKER_LOG`, `SOLUTION_LOG`, `CODE_FIX_LOG`, `APPROACH_SOLUTION_LOG`)
+- Completed project repo folder path for `universal_wiki_wrapper`
+
+Winston's destinations:
+- `SoftwareHouse/wiki/prds/`, `wiki/sdds/`, `wiki/tickets/`, `wiki/errors/`, `wiki/codebase/`
+
+Arthur enforces that all logs from the escalation chain are present before handing off — Winston archives what Arthur curates, not raw conversational traffic.
+
+## Payload schemas Arthur routes
+| Payload | Schema | Used when |
+|---|---|---|
+| Engineer escalation packet | `SoftwareHouse/schemas/engineer_escalation_packet.schema.json` | Jack -> Arthur on attempt 13 |
+| Arthur RTK routing packet | `SoftwareHouse/schemas/arthur_rtk_routing_packet.schema.json` | Arthur -> any senior tier (Marcus / Maxwell / Cody / Magnus) |
+| Code review return packet | `SoftwareHouse/schemas/cody_code_review_return.schema.json` | Cody -> Arthur -> Jack on attempt 18 |
+| Magnus approach review | (in-line review, no dedicated schema yet) | Magnus -> Arthur on attempt 19 |
+| PR description | `SoftwareHouse/schemas/pr_description.schema.json` | Marcus -> Arthur at pre-merge gate |
+| Winston artifact archive | `SoftwareHouse/schemas/winston_artifact_archive.schema.json` | Arthur -> Winston after merge or termination |
+
+Conversational text rejected — every handoff is a typed payload.
