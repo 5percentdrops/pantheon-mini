@@ -8,7 +8,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OS](https://img.shields.io/badge/OS-Linux%20%7C%20macOS%20%7C%20WSL-brightgreen)](README_INSTALL.md)
-[![Models](https://img.shields.io/badge/Models-Sonnet%204.6%20%7C%20Opus%204.7%20%7C%20Gemini%203.1%20Pro%20%7C%20DeepSeek%20V4%20Pro%20%7C%20GPT--5.5-blue)](#-the-active-mini-operating-team)
+[![Models](https://img.shields.io/badge/Models-GPT--5%20mini%20%7C%20Opus%204.7%20%7C%20Gemini%203.1%20Pro%20%7C%20DeepSeek%20V4%20Pro%20%7C%20GPT--5.5%20%7C%20Haiku%203.5-blue)](#-the-active-mini-operating-team)
 [![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.11-orange)](https://github.com/5percentdrops/pantheon)
 [![Install](https://img.shields.io/badge/Install-One%20Click-orange)](#-quick-start)
 [![Stars](https://img.shields.io/github/stars/5percentdrops/pantheon-mini?style=social)](https://github.com/5percentdrops/pantheon-mini/stargazers)
@@ -35,7 +35,7 @@ git clone https://github.com/5percentdrops/pantheon-mini.git && cd pantheon-mini
 
 **Problem with full Pantheon:** 33 agents = 33 LLM connections = real token spend. Overkill for solo projects, prototypes, weekend builds.
 
-**Mini's deal:** Same Paperclip+Hermes architecture, same V8.10 hardening, same `SOUL.md`/`MEMORY.md`/skills loop — but only **7 active agents** on an attempt-numbered escalation ladder. Specialist work (frontend, mobile, devops, qa, pinescript, quantower) is intentionally collapsed onto Jack (implementer) or Marcus (planner). The 26 inactive Pantheon roles are placeholders for schema parity only.
+**Mini's deal:** Same Paperclip+Hermes architecture, same V8.10–V8.13 hardening, same `SOUL.md`/`MEMORY.md`/skills loop — but only **7 active agents** on an attempt-numbered escalation ladder. Specialist work (frontend, mobile, devops, qa, pinescript, quantower) is intentionally collapsed onto Jack (implementer) or Marcus (planner). The 26 inactive Pantheon roles are placeholders for schema parity only.
 
 Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
