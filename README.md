@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OS](https://img.shields.io/badge/OS-Linux%20%7C%20macOS%20%7C%20WSL-brightgreen)](README_INSTALL.md)
 [![Models](https://img.shields.io/badge/Models-GPT--5%20mini%20%7C%20Opus%204.7%20%7C%20Gemini%203.1%20Pro%20%7C%20DeepSeek%20V4%20Pro%20%7C%20GPT--5.5%20%7C%20Haiku%203.5-blue)](#-the-active-mini-operating-team)
-[![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.11-orange)](https://github.com/5percentdrops/pantheon)
+[![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.15-orange)](https://github.com/5percentdrops/pantheon)
 [![Install](https://img.shields.io/badge/Install-One%20Click-orange)](#-quick-start)
 [![Stars](https://img.shields.io/github/stars/5percentdrops/pantheon-mini?style=social)](https://github.com/5percentdrops/pantheon-mini/stargazers)
 
@@ -35,7 +35,7 @@ git clone https://github.com/5percentdrops/pantheon-mini.git && cd pantheon-mini
 
 **Problem with full Pantheon:** 33 agents = 33 LLM connections = real token spend. Overkill for solo projects, prototypes, weekend builds.
 
-**Mini's deal:** Same Paperclip+Hermes architecture, same V8.10–V8.14 hardening, same `SOUL.md`/`MEMORY.md`/skills loop — but only **10 active agents** (7 build + 3 PRD-intake feasibility reviewers). Specialist work (frontend, mobile, devops, qa, pinescript, quantower) is intentionally collapsed onto Jack (implementer) or Marcus (planner). The 23 inactive Pantheon roles are placeholders for schema parity only.
+**Mini's deal:** Same Paperclip+Hermes architecture, same V8.10–V8.15 hardening, same `SOUL.md`/`MEMORY.md`/skills loop — but only **10 active agents** (7 build + 3 PRD-intake feasibility reviewers). Specialist work (frontend, mobile, devops, qa, pinescript, quantower) is intentionally collapsed onto Jack (implementer) or Marcus (planner). The 23 inactive Pantheon roles are placeholders for schema parity only.
 
 Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
@@ -54,7 +54,7 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 | Senior planner | Marcus | **Marcus** (also covers SDD/feature/red-test) |
 | Reviewer/auditor | Clara → Cody | **Cody alone** (GPT-5.5, attempt 18) |
 | Hermes namespace | `~/.hermes-*` | `~/.hermes-mini-*` |
-| Patches | V8.5 → V8.10 | **V8.5 → V8.11, 0 parity gaps** |
+| Patches | V8.5 → V8.10 | **V8.5 → V8.15, 0 parity gaps** |
 | Daily token spend (heavy day) | $5–$20 | **$1–$5** |
 
 **Run both on same host:** zero collision. Use Mini for prototypes; Pantheon for production.
@@ -154,7 +154,7 @@ When Marcus's tactical fixes (13-15), Maxwell's deep fixes (16-17), and Cody's f
 
 ---
 
-## 🧠 What's inside (V8.11)
+## 🧠 What's inside (V8.15)
 
 ### 🪞 Each agent has a soul
 ```
@@ -185,9 +185,24 @@ Each agent dreams at 03:00 UTC: sha256 dedup skills, consolidate MEMORY.md, SOUL
 `workspace/07_Finalization/metrics_dashboard.md` rolls up every alert sink. Weekly scorecard: pipeline-completion ≥90% · avg-iter ≤2 · escalation-rate ≤15% · 0 CRIT/week · ≥20% multi-agent lesson reinforcement. `escalate_to_board` lands in Arthur's MEMORY. Winston Sunday scan flags duplicate work (advisory).
 
 ### ⚡ Single-implementer fan-out
-Mini's fan-out collapses onto Jack (single-implementer pool, DeepSeek V4 Pro). Full Pantheon retains the multi-engineer specialist fan-out.
+Mini's fan-out collapses onto Jack (single-implementer pool, DeepSeek V4 Pro). Full Pantheon retains the multi-engineer specialist fan-out. V8.13 added parallel-Jack at the implementation stage when Marcus's tickets have disjoint `touches` sets.
 
-**Patches archive (V8.5 → V8.11):** [`PATCH_NOTES_MINI_V8_10.md`](PATCH_NOTES_MINI_V8_10.md) · [`PATCH_NOTES_MINI_V8_11.md`](PATCH_NOTES_MINI_V8_11.md)
+### 🔪 Per-agent tool scoping (V8.12)
+Sharper specialization. Marcus has no terminal (planner). Cody has no write (reviewer). Winston has no web (archivist). Each agent's `~/.hermes-mini-<slug>/config.yaml` declares a role-specific toolset — least-privilege at the agent boundary.
+
+### 🧭 Pre-ladder Cody reviews + self-grading (V8.12)
+Cody now has 6 review modes — 5 are cheap pre-ladder checkpoints (SDD review, ticket review, red-TDD review, pre-PR review, mid-Maxwell grading) that catch plan errors before they become 12-attempt blockers. Each pipeline stage self-grades against a rubric (`SoftwareHouse/rubrics/`) before handing off. Hard-fail criteria (`actually_red`, `all_red_now_green`, `no_test_relaxation`) stop the pipeline cold.
+
+### 🪟 Mid-Maxwell grading (V8.13)
+Cody scores Maxwell's solution drafts (attempts 16-17) BEFORE they reach Jack. Sub-threshold drafts bounce back to Maxwell within his author-cycle budget — Jack never burns cycles testing a fix Cody can already tell is bad. `no_test_relaxation` hard-fail triggers early Magnus escalation.
+
+### 🔎 3-pass PRD feasibility intake (V8.14)
+Every PRD passes through Edgar (Opus 4.7) → Reid (GPT-5.5 Codex) → Tobias (Opus 4.7) BEFORE Marcus sees it. Edgar checks feasibility + hallucination, Reid leak-checks Edgar from a Codex perspective, Tobias arbitrates + flags user pie-in-sky. User approval gate before Marcus is invoked. Rejected PRDs archived by Winston for lessons-learned.
+
+### 🪡 Diff-aware iterate cycles (V8.15)
+When you revise a PRD (`<slug>-v2.md`), Arthur runs `scripts/diff_prd_versions.py` to detect changed sections. Edgar + Reid re-review only the changed sections (carrying forward unchanged-section verdicts); Tobias always re-runs full for cross-section safety. Forced-full fallback if change_ratio > 0.5 or structural drift. ~55-60% token savings on typical 1-section revisions.
+
+**Patches archive (V8.5 → V8.15):** [`V8.10`](PATCH_NOTES_MINI_V8_10.md) · [`V8.11`](PATCH_NOTES_MINI_V8_11.md) · [`V8.12`](PATCH_NOTES_MINI_V8_12.md) · [`V8.13`](PATCH_NOTES_MINI_V8_13.md) · [`V8.14`](PATCH_NOTES_MINI_V8_14.md) · [`V8.15`](PATCH_NOTES_MINI_V8_15.md)
 
 ---
 
@@ -214,7 +229,7 @@ bash scripts/one_click_install.sh -y --setup-keys
 
 The 8-step installer:
 1. ✅ Workspace mkdir
-2. ✅ Validators (V7 baseline + V8.11 alignment)
+2. ✅ Validators (V7 baseline + V8.11–V8.15 alignment, 23/23 PASS)
 3. ✅ (V7 baseline kept — no agentcompanies/v1 conversion in mini)
 4. 🏠 Bootstrap **7 per-agent `~/.hermes-mini-<slug>/` homes** (Arthur, Marcus, Jack, Cody, Maxwell, Magnus, Winston)
 5. 🔑 Securely prompt for API keys (hidden input, chmod 600, zero network)
@@ -271,7 +286,9 @@ Output:
 ## 📊 Verify the install
 
 ```bash
-python3 scripts/validate_v8_10_mini.py          # V8.11 alignment fast check (PASS)
+python3 scripts/validate_v8_10_mini.py          # V8.11–V8.15 alignment fast check (PASS)
+bash scripts/run_all_validators.sh              # full 23-validator sweep (PASS=23 FAIL=0)
+python3 scripts/audit_readiness.py              # 10/10 active agents pass readiness criteria
 python3 scripts/parity_check_against_pantheon.py # 0 parity gaps vs full
 ls -d ~/.hermes-mini-* | wc -l                  # 7 homes
 cat workspace/07_Finalization/metrics_dashboard.md  # after first cron tick
@@ -282,7 +299,7 @@ cat workspace/07_Finalization/metrics_dashboard.md  # after first cron tick
 ## ❓ FAQ
 
 **Q: Why use Mini instead of full Pantheon?**
-3x cheaper. 10 agents instead of 33. Same V8.10 architecture + V8.11 attempt-numbered ladder + V8.14 3-pass feasibility intake. Use Mini for prototypes, full for production.
+3x cheaper. 10 agents instead of 33. Same V8.10 architecture + V8.11 attempt-numbered ladder + V8.12 self-grading rubrics + V8.13 mid-Maxwell grading + V8.14 3-pass feasibility intake + V8.15 diff-aware iterate. Use Mini for prototypes, full for production.
 
 **Q: Can I run Mini and full Pantheon on the same machine?**
 Yes. Mini uses `~/.hermes-mini-*`, full uses `~/.hermes-*`. Zero collision.
@@ -308,6 +325,10 @@ Because it's literally a mini version of Pantheon. Same architecture, smaller pa
 
 - [`README_INSTALL.md`](README_INSTALL.md) — full install guide
 - [`SMOKE_SCALE.md`](SMOKE_SCALE.md) — 2 → 7 agent phased ramp
+- [`PATCH_NOTES_MINI_V8_15.md`](PATCH_NOTES_MINI_V8_15.md) — V8.15 diff-aware iterate re-review
+- [`PATCH_NOTES_MINI_V8_14.md`](PATCH_NOTES_MINI_V8_14.md) — V8.14 3-pass PRD feasibility intake (Edgar/Reid/Tobias)
+- [`PATCH_NOTES_MINI_V8_13.md`](PATCH_NOTES_MINI_V8_13.md) — V8.13 parallel Jacks + mid-Maxwell grading + ticket `touches`
+- [`PATCH_NOTES_MINI_V8_12.md`](PATCH_NOTES_MINI_V8_12.md) — V8.12 tool scoping + pre-ladder reviews + rubrics
 - [`PATCH_NOTES_MINI_V8_11.md`](PATCH_NOTES_MINI_V8_11.md) — V8.11 shrink to 7-agent Active Mini
 - [`PATCH_NOTES_MINI_V8_10.md`](PATCH_NOTES_MINI_V8_10.md) — V8.10 alignment patch list
 - [`SoftwareHouse/policies/mini_agent_role_map.yaml`](SoftwareHouse/policies/mini_agent_role_map.yaml) — Pantheon ↔ Mini role substitutions + escalation ladder
