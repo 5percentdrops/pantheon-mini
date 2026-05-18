@@ -47,6 +47,11 @@ criteria:
     weight: 0.10
     question: "Are the red test seeds (test names + expected failure mode) stubbed for the TDD step?"
     fail_signal: "Ticket leaves red test design entirely to a later step with no hints."
+
+  - id: touches_declared
+    weight: 0.05
+    question: "(V8.13) Does the ticket declare `touches` (files/paths it writes) and an `isolation_hint`? Needed for Arthur's parallel-Jack fan-out collision detection."
+    fail_signal: "`touches` empty and isolation_hint missing — Arthur cannot judge fan-out eligibility and will fall through to sequential mode."
 ```
 
 **Per-ticket scoring.** Tickets below 0.85 either self-revise or get returned to Marcus by Cody at plan-review with the failing criterion IDs.

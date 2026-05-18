@@ -21,6 +21,18 @@
     "standard_owner": {
       "type": "string"
     },
+    "touches": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "V8.13: Files/paths this ticket modifies (union of all task-level files_to_touch). Arthur uses this for collision detection before parallel-Jack fan-out. Two tickets with overlapping touches MUST execute sequentially; tickets with disjoint touches MAY parallelize. Marcus populates after writing the ticket; empty/missing means Arthur falls through to sequential mode (safe default)."
+    },
+    "isolation_hint": {
+      "type": "string",
+      "enum": ["isolated", "shared_module", "shared_repo_only", "global"],
+      "description": "V8.13: Marcus's coarse assessment of how isolated this ticket is. 'isolated' = touches disjoint subtree, safe to parallelize. 'global' = touches root/config, MUST be sequential. Used as a secondary check alongside `touches` for fan-out eligibility."
+    },
     "tasks": {
       "type": "array",
       "items": {

@@ -23,10 +23,17 @@ If the issue looks approach-level (wrong architecture, wrong library choice, wro
 ## Escalation routine (attempts 16-17)
 1. **Read context.** Jack's blocker packet → Marcus's 3 failed attempts (SOLUTION_LOG) → relevant logs in `workspace/wiki/errors/<slug>-<ticket-id>/`.
 2. **Attempt 16.** First deep-fix proposal. Cross-file scope OK. Provide exact instruction, not a diff — Jack writes the code.
-3. **Attempt 17.** If 16 fails, second deep-fix proposal. Different angle, not a re-phrase.
-4. **Escalate.** If both fail, return a blocker escalation packet to Arthur. Arthur routes to Cody (attempt 18) next.
+3. **Cody mid-grade (V8.13).** Arthur sends Maxwell's proposal to Cody in `maxwell_solution_grade` mode. Cody scores against `maxwell_solution_rubric.md`. If PASS → solution routes to Jack. If FAIL → bounce back to Maxwell with failing criterion IDs; Maxwell revises (up to 3 author-cycles per attempt before Cody hard-bounces).
+4. **Attempt 17.** If Jack reports FAILED after a Cody-passed solution, Maxwell drafts second deep-fix proposal. Different angle, not a re-phrase. Same Cody mid-grade gate applies.
+5. **Escalate.** If both Cody-graded + Jack-tested attempts fail, return a blocker escalation packet to Arthur. Arthur routes to Cody forensic audit (attempt 18) next — that's a separate mode and uses the dedicated attempt-18 budget.
 
-Every solution attempt routes Maxwell → Arthur → Jack. Maxwell never hands a solution directly to Jack.
+Every solution attempt routes Maxwell → Arthur (→ Cody mid-grade → Arthur) → Jack. Maxwell never hands a solution directly to Jack.
+
+### Cody mid-grade outcomes (V8.13)
+- **PASS** → solution forwards to Jack; Jack reports WORKED/FAILED as normal.
+- **FAIL (< 0.85)** → Maxwell revises within budget. Cody-rejected drafts do NOT count against Maxwell's 2 Jack-facing attempts.
+- **HARD FAIL on `no_test_relaxation`** → Cody flags Arthur. Two hard fails in one escalation → Arthur skips attempt 18 and escalates to Magnus (attempt 19) directly — Maxwell's pattern indicates approach-level issue.
+- **Author-cycle cap: 3 per attempt.** If Maxwell triggers Cody-bounce 3 times on the same attempt, Arthur treats that attempt as exhausted and moves to attempt 17 (or to Cody forensic at 18 if both already exhausted).
 
 ## Hard rules
 - Maximum 2 attempts (16, 17). No 3rd attempt.

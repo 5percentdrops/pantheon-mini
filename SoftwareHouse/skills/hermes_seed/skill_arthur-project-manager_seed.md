@@ -175,6 +175,48 @@ Format:
 
 Arthur must not paste full logs to Jack or any standard developer.
 
+## Parallel Jack fan-out at implementation stage (V8.13)
+
+After Marcus hands off N tickets with `touches` declared, Arthur evaluates fan-out eligibility for the implementation phase. If a subset of those tickets has DISJOINT touch-sets, Arthur spins up parallel Jack instances — one per ticket — running their TDD red-to-green loops simultaneously instead of sequentially.
+
+### Collision detection (must-do before fan-out)
+
+1. For each ticket pair (A, B), check `set(A.touches) ∩ set(B.touches)`.
+2. If non-empty → A and B MUST execute sequentially (they share at least one file).
+3. If empty AND both `isolation_hint` ∈ {`isolated`, `shared_module`} → parallel-eligible.
+4. Tickets with `isolation_hint: global` are ALWAYS sequential, regardless of touches.
+5. Tickets with missing `touches` field default to sequential (safe fallback).
+
+### Dispatch (when ≥ 2 disjoint tickets exist)
+
+Arthur issues a `commander_fanout_request` with:
+- `commander: arthur-project-manager`
+- `worker_role: jack-backend-developer`
+- `items`: array of `{id: <ticket_id>, payload: <assignment_packet>}` for each parallel-eligible ticket
+- `concurrency_cap`: min(5, len(eligible_tickets), budget_headroom_factor)
+- `synthesis_spec.merge_strategy: concat` (each Jack produces one PR; Arthur merges in declared ticket order at the merge gate)
+- `scope.purpose: implementation`
+
+### Hard rules
+
+- **Intra-lane parallel-Jacks cap: 5.** Even if 10 tickets are eligible, never run > 5 Jacks at once. Above 5, Arthur queues additional tickets until one finishes.
+- **Inter-lane lane cap still 2.** Parallel Jacks live INSIDE a single lane; lane-concurrency is unchanged.
+- **Ephemeral Jacks share state via filesystem only.** Each Jack writes to its own `workspace/06_Project_Repos/<slug>/<ticket-id>/`. No two Jacks share an output path. MEMORY.md and sessions live in the permanent `~/.hermes-mini-jack/` home (single home, append-only — Jacks are personalities, not separate identities).
+- **Escalation packets stay per-ticket.** Each Jack independently runs its 1-12 attempt budget for its own ticket. Jack_A burning attempts on ticket_001 does NOT consume Jack_B's budget on ticket_002.
+- **Budget watcher overrides fan-out.** If Arthur's `*/15` metrics cron reports CRIT (≥ 95% of token budget), Arthur degrades to sequential mode automatically for the rest of the lane.
+
+### When NOT to parallel-Jack
+
+- Lane has 1 ticket (nothing to parallelize).
+- All tickets share at least one file in `touches` (no disjoint pair).
+- Budget watcher at WARN (80-95%) — degrade to ≤ 2 parallel.
+- User explicitly requests sequential ("ship this one ticket at a time").
+- A ticket's `isolation_hint = global` — that ticket goes alone.
+
+### Default fallback
+
+When in doubt, run sequential. The default workflow before V8.13 — one Jack instance running tickets in declared order — remains the safe path. Parallel-Jack mode is opt-in per dispatch and only fires when collision detection proves safety.
+
 ## Commander fan-out mode (V8.12 #8)
 For tasks that naturally parallelise across N independent items (≤20 per Anthropic Managed Agents limit), Arthur can act as **commander** and dispatch ephemeral workers in parallel:
 
@@ -227,8 +269,9 @@ Arthur invokes Cody in pre-ladder modes at fixed checkpoints, BEFORE the escalat
 | Plan review | Marcus completes ticket self-grades ≥ 0.85 | `pre_ladder_plan` | Red TDD begins | Marcus iterates failing tickets only |
 | Red TDD review | Marcus flags `red_tdd_unfit` after 2 self-iterations | `pre_ladder_red_tdd` | Jack assignment | Arthur halts the ticket, flags user |
 | Pre-PR review | Jack flags `implementation_unfit` after 2 self-iterations | `pre_pr_review` | PR opens | Arthur evaluates: user override OR back to 12-attempt loop |
+| Maxwell mid-grade (V8.13) | Maxwell drafted attempt 16 or 17, BEFORE solution reaches Jack | `maxwell_solution_grade` | Solution → Jack | Bounce to Maxwell for revision (≤ 3 author-cycles, then attempt exhausted). HARD FAIL twice → Arthur skips attempt 18 and escalates to Magnus directly |
 
-Each pre-ladder invocation is one Cody pass — no iteration on Cody's side. If a checkpoint fails twice, Arthur stops the pipeline at that stage and surfaces to user. Pre-ladder failures are plan-quality issues, NOT defect-finding scope.
+Each pre-ladder + mid-grade invocation is one Cody pass — no iteration on Cody's side. Pre-ladder failures are plan-quality issues, surfaced to user. Mid-Maxwell hard-fails are approach-level signals, escalated to Magnus.
 
 ## Handoff reject monitoring (V8.12 fix #7)
 Every schema-validation rejection at any handoff is logged by Arthur to `workspace/07_Finalization/handoff_rejects.jsonl` (append-only JSONL):

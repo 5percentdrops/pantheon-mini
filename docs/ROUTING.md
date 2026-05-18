@@ -85,9 +85,9 @@ Raw conversational text routed between agents will be rejected at schema validat
 
 ---
 
-## Pre-ladder reviews (V8.12)
+## Cody review modes (V8.12 + V8.13)
 
-Cody has 5 review modes — only 1 consumes attempt-18 budget. The other 4 catch plan/test/PR errors BEFORE the escalation ladder activates.
+Cody has 6 review modes — only 1 consumes the attempt-18 forensic-audit budget. The other 5 are cheap checkpoints that catch problems before they become wasted cycles.
 
 | Mode | When | Input | Budget |
 |---|---|---|---|
@@ -95,9 +95,21 @@ Cody has 5 review modes — only 1 consumes attempt-18 budget. The other 4 catch
 | `pre_ladder_plan` | Marcus self-graded all tickets ≥ 0.85 | SDD + tickets + feature_ticket_rubric.md | none |
 | `pre_ladder_red_tdd` | Marcus flagged `red_tdd_unfit` after 2 self-iterations | Tickets + red tests + red_tdd_rubric.md | none |
 | `pre_pr_review` | Jack flagged `implementation_unfit` after 2 self-iterations | Jack's diff + implementation_rubric.md | none |
+| `maxwell_solution_grade` (V8.13) | Maxwell drafted attempt 16 or 17, BEFORE solution reaches Jack | Maxwell's solution packet + maxwell_solution_rubric.md | none |
 | `forensic_audit` | Attempt 18 after Maxwell exhaustion | Full escalation chain | consumes attempt 18 |
 
-Pre-ladder reviews are 1 pass, no iteration loop on Cody's side. Failure twice → Arthur surfaces to user (does not auto-escalate to Magnus — pre-ladder failures are plan-quality issues, not defects).
+Pre-ladder + mid-Maxwell reviews are 1 pass, no iteration loop on Cody's side. Pre-ladder failure twice → Arthur surfaces to user. Mid-Maxwell hard fail twice → Arthur escalates to Magnus (attempt 19) directly, skipping forensic audit.
+
+## Self-grading + Cody mid-grade rubrics
+
+| Stage | Graded by | Rubric | Threshold |
+|---|---|---|---|
+| SDD | Marcus (self) → Cody (pre_ladder_sdd) | `sdd_rubric.md` | 0.85 |
+| Feature ticket | Marcus (self) → Cody (pre_ladder_plan) | `feature_ticket_rubric.md` | 0.85 |
+| Red TDD | Marcus (self) → Cody (pre_ladder_red_tdd) | `red_tdd_rubric.md` | 0.90 |
+| Implementation | Jack (self) → Cody (pre_pr_review) | `implementation_rubric.md` | 0.85 |
+| PR description | Marcus (self) | `pr_description_rubric.md` | 0.90 |
+| Maxwell solution (V8.13) | Cody (`maxwell_solution_grade`) | `maxwell_solution_rubric.md` | 0.85 |
 
 ## Self-grading rubrics (V8.12)
 
@@ -155,6 +167,36 @@ If the matching specialist lane is dormant, Arthur falls through to backend AND 
 - The full Pantheon 33-agent roster (advisory pipeline, security review, compliance, etc.) stays out-of-scope for Mini; Mini's fan-out covers engineering lanes only.
 
 ---
+
+## Parallel Jack fan-out at implementation stage (V8.13)
+
+After Marcus delivers N tickets with `touches` and `isolation_hint` declared, Arthur may parallelize the implementation phase.
+
+**Collision detection:**
+
+| Condition | Outcome |
+|---|---|
+| `touches` overlaps between any pair | Those two run sequentially |
+| `touches` disjoint AND both isolation_hint ∈ {isolated, shared_module} | Parallel-eligible |
+| Any ticket has `isolation_hint: global` | That ticket runs alone |
+| Missing `touches` field | Defaults to sequential (safe) |
+
+**Caps:**
+
+| Cap | Value | Why |
+|---|---|---|
+| Intra-lane parallel Jacks | 5 | Anthropic 20-agent limit divided by sane budget margin |
+| Inter-lane (PRDs at once) | 2 | Unchanged from V8.11 — Arthur lane concurrency |
+| Budget WARN (80%) | degrade to ≤ 2 parallel | Per Arthur's metrics cron |
+| Budget CRIT (95%) | force sequential | Per Arthur's metrics cron |
+
+**Iron rules:**
+- All Jacks write to per-ticket subdirs (`workspace/06_Project_Repos/<slug>/<ticket-id>/`). No two Jacks share an output path.
+- Each Jack runs its own 1-12 attempt budget independently. Escalation chains stay per-ticket.
+- Permanent `~/.hermes-mini-jack/` MEMORY.md is append-only — parallel Jacks are ephemeral personalities sharing one home.
+- Arthur merges in declared ticket order at the merge gate, regardless of which Jack finished first.
+
+**When NOT to use it:** 1 ticket only, all-shared `touches`, budget WARN/CRIT, or user requested sequential.
 
 ## Commander fan-out (V8.12 #8)
 

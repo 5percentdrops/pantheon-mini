@@ -21,6 +21,16 @@
     "standard_owner": {
       "type": "string"
     },
+    "touches": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "V8.13: Files/paths this ticket modifies (union of all task-level files_to_touch). Arthur uses this for collision detection before parallel-Jack fan-out."
+    },
+    "isolation_hint": {
+      "type": "string",
+      "enum": ["isolated", "shared_module", "shared_repo_only", "global"],
+      "description": "V8.13: Marcus's isolation assessment for fan-out eligibility."
+    },
     "tasks": {
       "type": "array",
       "items": {
