@@ -146,11 +146,18 @@ else
     echo
 fi
 
-# Step 5b: optional secure API key setup
+# Step 5c: optional secure API key setup
+# Required providers for V8.11 Mini: Anthropic, OpenAI, OpenRouter
+# (Anthropic -> Marcus/Maxwell/Winston; OpenAI -> Arthur/Cody; OpenRouter -> Jack/Magnus)
 if [ "$SETUP_KEYS" = "1" ]; then
-    echo "==> Step 5b/8: Interactive secure API key setup"
-    echo "    (Input hidden; values written with chmod 600.)"
+    echo "==> Step 5c/8: Interactive secure API key setup"
+    echo "    Providers: Anthropic + OpenAI + OpenRouter (GitHub token optional)."
+    echo "    (Input hidden; values written with chmod 600 to ~/.hermes/.env)"
     bash scripts/setup_api_keys.sh
+    echo
+else
+    echo "==> Step 5c/8: API keys skipped (no --setup-keys flag)"
+    echo "    To configure later: bash scripts/setup_api_keys.sh"
     echo
 fi
 
