@@ -147,11 +147,12 @@ else
 fi
 
 # Step 5c: optional secure API key setup
-# Required providers for V8.11 Mini: Anthropic, OpenAI, OpenRouter
-# (Anthropic -> Marcus/Maxwell/Winston; OpenAI -> Arthur/Cody; OpenRouter -> Jack/Magnus)
+# Required providers for V8.11 Mini (direct APIs, no router):
+#   Anthropic -> Marcus/Maxwell/Winston · OpenAI -> Arthur/Cody
+#   DeepSeek  -> Jack                    · Gemini -> Magnus
 if [ "$SETUP_KEYS" = "1" ]; then
     echo "==> Step 5c/8: Interactive secure API key setup"
-    echo "    Providers: Anthropic + OpenAI + OpenRouter (GitHub token optional)."
+    echo "    Providers: Anthropic + OpenAI + DeepSeek + Gemini (GitHub token optional)."
     echo "    (Input hidden; values written with chmod 600 to ~/.hermes/.env)"
     bash scripts/setup_api_keys.sh
     echo

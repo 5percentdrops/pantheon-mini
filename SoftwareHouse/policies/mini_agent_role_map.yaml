@@ -64,11 +64,47 @@ policy:
     final_archive_owner:            winston-director-knowledge-architecture
     error_memory_archivist:         winston-director-knowledge-architecture
 
-  # Single-engineer fan-out — Active Mini has only one implementer (Jack).
-  # Specialist fan-out (frontend-dev, mobile-dev, devops-dev, qa, pinescript-dev,
-  # quantower-dev) is intentionally collapsed onto Jack. Full Pantheon retains specialists.
+  # Single-engineer fan-out — Active Mini's DEFAULT implementer pool is Jack alone.
+  # Every PRD that doesn't match a domain-specialist route falls through to
+  # Marcus (senior planner) -> Jack (implementer).
   engineer_pool_fan_out:
     - jack-backend-developer
+
+  # Technical-domain fan-out — V8.11 Mini ports full Pantheon's domain-routing
+  # architecture but keeps the specialist pairs DORMANT by default. Arthur
+  # classifies the PRD's implementation target (TradingView/Pine, Quantower/C#,
+  # backend, frontend, mobile, DevOps, QA, security, architecture). If the
+  # matching specialist pair is active (listed in active_mini_team), Arthur
+  # routes there. Otherwise the route falls through to Marcus -> Jack.
+  #
+  # Activation:
+  #   1. Add the specialist senior + standard pair to active_mini_team above.
+  #   2. Set `active_mini_role` + `model` in SoftwareHouse/paperclip/agents.json
+  #      for both agents.
+  #   3. Re-run `bash scripts/one_click_install.sh -y` — bootstrap is idempotent
+  #      and will provision the new ~/.hermes-mini-<slug>/ home + skill seed.
+  #   4. Re-run `python3 scripts/audit_readiness.py` to verify 9/9 (or more)
+  #      against the same Q1/Q2/Q3 criteria.
+  technical_domain_fan_out:
+    # domain                    senior owner                     standard owner            status (V8.11)
+    backend_api_service:        marcus-senior-backend-developer  jack-backend-developer    # ACTIVE (default)
+    tradingview_pinescript:     felix-senior-pinescript-developer ben-pinescript-developer # DORMANT
+    quantower_csharp:           nathan-senior-quantower-csharp-architect grant-quantower-csharp-automation-developer # DORMANT
+    frontend_web:               sonia-senior-frontend-developer  leo-frontend-developer    # DORMANT
+    mobile:                     dominic-senior-mobile-developer  ellie-mobile-developer    # DORMANT
+    devops:                     viktor-senior-devops             theo-devops-developer     # DORMANT
+    qa_testing:                 nadia-senior-qa                  ivan-qa-engineer          # DORMANT
+    data_engineering:           henrik-senior-data-analyst       elena-data-analyst        # DORMANT
+    backtesting:                oscar-senior-backtester          mira-backtester           # DORMANT
+
+  # Arthur's domain classifier inputs (in priority order):
+  #   1. PRD `Constraints` section explicitly names a stack / runtime.
+  #   2. PRD `Goal` mentions a specific platform (TradingView, Quantower, iOS, etc.).
+  #   3. File-extension hints from any attached research notes (.pine, .cs, .tsx, etc.).
+  #   4. Default — backend_api_service (Marcus -> Jack).
+  #
+  # Override: user can force a lane by stating it in the Paperclip session
+  # ("route this PineScript work even though it looks like backend").
 
   active_with_models:
     - arthur-project-manager:                  openai/gpt-5-mini

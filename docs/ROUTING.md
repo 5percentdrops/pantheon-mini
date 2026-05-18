@@ -83,6 +83,45 @@ Raw conversational text routed between agents will be rejected at schema validat
 
 ---
 
+---
+
+## Fan-out — technical domain routing
+
+V8.11 Mini ports full Pantheon's domain-based fan-out architecture. The 7-agent Active Mini operating team is the **default lane** (backend → Marcus → Jack). Every other specialist senior + standard pair is **dormant but architecturally integrated** — when activated, Arthur classifies the PRD by implementation domain and routes to the matching pair.
+
+| Domain                       | Senior owner | Standard owner | V8.11 status |
+|---|---|---|---|
+| backend / API / service      | Marcus       | Jack           | **ACTIVE (default)** |
+| TradingView / Pine Script    | Felix        | Ben            | dormant |
+| Quantower / C#               | Nathan       | Grant          | dormant |
+| Frontend (web)               | Sonia        | Leo            | dormant |
+| Mobile (iOS / Android)       | Dominic      | Ellie          | dormant |
+| DevOps                       | Viktor       | Theo           | dormant |
+| QA / testing                 | Nadia        | Ivan           | dormant |
+| Data engineering             | Henrik       | Elena          | dormant |
+| Backtesting                  | Oscar        | Mira           | dormant |
+
+**Classification (Arthur's job):**
+1. PRD `Constraints` section explicitly names a stack / runtime.
+2. PRD `Goal` mentions a specific platform.
+3. File-extension hints from research notes (`.pine`, `.cs`, `.tsx`, `.swift`, etc.).
+4. Default → backend (Marcus → Jack).
+
+If the matching specialist lane is dormant, Arthur falls through to backend AND flags the fallback in his 3-line routing packet so the user knows. User can override by stating the lane explicitly in the Paperclip session.
+
+**Activation (any dormant lane):**
+1. Add the specialist senior + standard pair to `active_mini_team` in [`SoftwareHouse/policies/mini_agent_role_map.yaml`](../SoftwareHouse/policies/mini_agent_role_map.yaml).
+2. Set `active_mini_role` + `model` for both in [`SoftwareHouse/paperclip/agents.json`](../SoftwareHouse/paperclip/agents.json).
+3. `bash scripts/one_click_install.sh -y` — bootstrap is idempotent; only new homes get provisioned.
+4. `python3 scripts/audit_readiness.py` — must report 9/9 (or whatever active count) before shipping.
+
+**Hard rules:**
+- Specialist pairs are atomic — activating a senior without their matching standard breaks the lane (or vice versa). Activate both or neither.
+- Cross-domain mis-routes are rejected at PRD intake (Arthur sends the PRD back with a 1-line reject reason).
+- The full Pantheon 33-agent roster (advisory pipeline, security review, compliance, etc.) stays out-of-scope for Mini; Mini's fan-out covers engineering lanes only.
+
+---
+
 ## Anti-patterns (don't do)
 
 - ❌ Magnus → Jack direct route — Magnus reports to Arthur only.

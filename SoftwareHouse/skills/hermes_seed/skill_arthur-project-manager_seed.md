@@ -40,25 +40,36 @@ Arthur sends Marcus:
 - If revision requested, route back to beginning.
 
 
-## Technical domain routing
-Arthur must route by implementation domain, not just market.
+## Technical domain routing (fan-out)
+Arthur classifies every PRD by implementation domain BEFORE routing. The V8.11 Active Mini ships with one active lane (backend → Marcus → Jack); all other specialist lanes are DORMANT but architecturally integrated. When a specialist pair is activated, Arthur routes by domain; until then, every PRD lands in the default lane.
 
-Classification questions:
-1. Is the target TradingView/Pine Script?
-2. Is the target Quantower/C#?
-3. Is it backend/API/service work?
-4. Is it frontend/mobile/infra/security?
-5. Which senior planner owns it?
-6. Which executor owns it?
+Classification (in priority order):
+1. PRD `Constraints` section explicitly names a stack / runtime.
+2. PRD `Goal` mentions a specific platform (TradingView, Quantower, iOS, Web, etc.).
+3. File-extension hints from research notes (.pine → PineScript, .cs → Quantower, .tsx → frontend, etc.).
+4. Default — backend_api_service.
 
-Routes:
-- TradingView/Pine Script → Felix → Ben
-- Quantower/C# → Nathan → Grant
-- Backend/API/service → Marcus → Jack
+V8.11 routing table (see [`SoftwareHouse/policies/mini_agent_role_map.yaml#technical_domain_fan_out`](../../../SoftwareHouse/policies/mini_agent_role_map.yaml)):
 
-Hard rule:
-Do not send Quantower/C# automation to PineScript agents.
-Do not send TradingView/PineScript indicators to Quantower/C# agents.
+| Domain                       | Senior owner | Standard owner | Status |
+|---|---|---|---|
+| backend / API / service      | Marcus       | Jack           | ACTIVE (default) |
+| TradingView / Pine Script    | Felix        | Ben            | dormant |
+| Quantower / C#               | Nathan       | Grant          | dormant |
+| Frontend (web)               | Sonia        | Leo            | dormant |
+| Mobile (iOS / Android)       | Dominic      | Ellie          | dormant |
+| DevOps                       | Viktor       | Theo           | dormant |
+| QA / testing                 | Nadia        | Ivan           | dormant |
+| Data engineering             | Henrik       | Elena          | dormant |
+| Backtesting                  | Oscar        | Mira           | dormant |
+
+Hard rules:
+- Do not send Quantower/C# automation work to PineScript agents.
+- Do not send TradingView/PineScript indicators to Quantower/C# agents.
+- If the matching specialist lane is dormant, Arthur falls through to backend (Marcus → Jack) AND tells the user in the 3-line routing packet that the work is being handled by the generalist lane.
+- The user can override Arthur's classification by stating the lane in the Paperclip session.
+
+Activation procedure for any dormant lane: add the specialist pair to `active_mini_team` in `mini_agent_role_map.yaml`, set `active_mini_role` + `model` for both in `agents.json`, re-run `bash scripts/one_click_install.sh -y` (idempotent bootstrap), then `python3 scripts/audit_readiness.py` to verify.
 
 
 ## Universal engineering escalation
