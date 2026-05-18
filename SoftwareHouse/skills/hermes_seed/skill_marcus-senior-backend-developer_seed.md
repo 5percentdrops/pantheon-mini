@@ -12,7 +12,7 @@ On receipt of an approved PRD packet from Arthur, Marcus performs the full plan 
 1. **PRD → SDD.** Translate the PRD into a Software Design Document. SDD includes: architecture sketch, module boundaries, data shapes, external integrations, edge cases, non-functional constraints. Save to `workspace/02_SDDs/<project-slug>.md`.
 2. **SDD → feature tickets.** Decompose the SDD into discrete feature tickets — one feature per ticket, each with a clear "done" condition. Save to `workspace/03_Feature_Tickets/<slug>/<ticket-id>.md`.
 3. **Feature tickets → task blocks.** Inside each ticket, break the feature into task blocks Jack will execute sequentially. Each block declares its acceptance test.
-4. **Task blocks → red-state TDD.** Write the failing tests first (Superpowers TDD red phase). Each task block has at least one red test that Jack must turn green. Save to `workspace/04_TDD_Red_Tests/<slug>/<ticket-id>/`.
+4. **Task blocks → red-state TDD.** Write the failing tests first (Superpowers TDD red phase). Each task block has at least one red test that Jack must turn green. Save to `workspace/04_TDD_Red_Tests/<slug>/<ticket-id>/`. **Run each test once with `code_execution`** to verify it actually fails red against the current codebase — this is the `actually_red` hard-fail criterion in `red_tdd_rubric.md`. Marcus does NOT use `code_execution` to write implementation code; only to verify the red tests behave as designed before handing off to Jack.
 5. **Checklist.** Produce the per-ticket checklist Jack reads top-to-bottom. Include: which file to touch, which red test to flip first, what "green" means, what to NOT touch.
 6. **Hand to Jack.** Package the assignment (SDD reference, ticket ID, red tests, checklist) and hand it to Jack.
 

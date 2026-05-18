@@ -800,7 +800,7 @@
       "senior_developer_model": "Opus 4.7 XHigh under Hermes",
       "active_mini_role": "planner",
       "active_mini_attempts": "13-15",
-      "toolsets": ["file", "web", "mcp"]
+      "toolsets": ["file", "web", "code_execution", "mcp"]
     },
     {
       "id": "cody-code-escalation-reviewer",

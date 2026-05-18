@@ -35,7 +35,7 @@ declare -a STAGE_D=("arthur" "jack" "marcus" "cody" "maxwell" "magnus" "winston"
 # Expected toolsets per slug (must match agents.json `toolsets`)
 declare -A EXPECTED_TOOLSETS=(
   [arthur]="[file, web, mcp]"
-  [marcus]="[file, web, mcp]"
+  [marcus]="[file, web, code_execution, mcp]"
   [jack]="[terminal, file, web, code_execution, mcp]"
   [cody]="[file, web, code_execution, mcp]"
   [maxwell]="[file, web, code_execution, mcp]"
