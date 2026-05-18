@@ -73,26 +73,26 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 
 ```mermaid
 flowchart TD
-    You([👤 You])
-    Arthur1[🎯 Arthur<br/><sub>routes · 3-line RTK</sub>]
-    Marcus1[📋 Marcus<br/><sub>PRD → SDD → tickets → red TDD</sub>]
-    Jack[🔨 Jack<br/><sub>red → green<br/>attempts 1-12</sub>]
-    Marcus2[Marcus<br/><sub>13-15 · tactical</sub>]
-    Maxwell[Maxwell<br/><sub>16-17 · deep fix</sub>]
-    Cody[Cody<br/><sub>18 · forensic audit</sub>]
-    Magnus[Magnus<br/><sub>19 · architect / kill</sub>]
-    Arthur2[🎯 Arthur<br/><sub>merge gate</sub>]
-    Winston[📚 Winston<br/><sub>archive + lessons</sub>]
-    Done([📦 Shipped])
+    You(["You"])
+    Arthur1["Arthur<br/>routes the work<br/>(merge gate later)"]
+    Marcus1["Marcus<br/>writes the plan<br/>SDD, tickets, red tests"]
+    Jack["Jack<br/>writes the code<br/>attempts 1 to 12"]
+    Marcus2["Marcus<br/>tactical fix<br/>attempts 13 to 15"]
+    Maxwell["Maxwell<br/>deep fix<br/>attempts 16 to 17"]
+    Cody["Cody<br/>forensic audit<br/>attempt 18"]
+    Magnus["Magnus<br/>architecture review<br/>attempt 19"]
+    Arthur2["Arthur<br/>merge gate"]
+    Winston["Winston<br/>archive and lessons"]
+    Done(["Shipped"])
 
     You      -- PRD --> Arthur1
     Arthur1  -- approved packet --> Marcus1
     Marcus1  -- assignment --> Jack
     Jack     -- green PR --> Arthur2
-    Jack     -. blocker @ attempt 13 .-> Marcus2
+    Jack     -. blocker at attempt 13 .-> Marcus2
     Marcus2  -. all 3 fail .-> Maxwell
     Maxwell  -. both fail .-> Cody
-    Cody     -. fails or approach-level .-> Magnus
+    Cody     -. fails or approach issue .-> Magnus
     Marcus2  -- WORKED --> Arthur2
     Maxwell  -- WORKED --> Arthur2
     Cody     -- WORKED --> Arthur2
