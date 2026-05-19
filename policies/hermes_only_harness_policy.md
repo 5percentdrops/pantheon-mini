@@ -2,6 +2,6 @@
 
 Every agent and every role in this repo uses Hermes as the harness.
 
-OpenClaw must not be assigned as an agent harness.
+No other harness (e.g. predecessor tool-only harnesses removed in V8.17) may be assigned to an agent.
 
-OpenClaw may exist only as a broader installation/orchestration environment if needed; the agent harness field must be Hermes.
+The `harness` field on every agent record in `agents.json` and `organization.import.json` must read exactly `"Hermes"`. The install-time validator (`validate_org_sanity.py`) rejects any agent with a non-Hermes harness.

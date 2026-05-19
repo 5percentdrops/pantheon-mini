@@ -4,7 +4,7 @@
 All standard / junior developer roles in this repo use DeepSeek V4 Pro under Hermes.
 
 ## Harness
-Hermes only. OpenClaw must not be assigned as an agent harness.
+Hermes only. Hermes must not be assigned as an agent harness.
 
 ## Applies to
 - standard developers

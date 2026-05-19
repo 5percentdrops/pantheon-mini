@@ -28,8 +28,8 @@ for a in agents:
     if a["id"] in ids:
         errors.append(f"duplicate id {a['id']}")
     ids.add(a["id"])
-    if a.get("harness") not in ["Hermes","OpenClaw"]:
-        errors.append(f"{a['id']}: invalid harness")
+    if a.get("harness") != "Hermes":
+        errors.append(f"{a['id']}: invalid harness (V8.17: Hermes-only)")
     seed = a.get("seed_skill_path")
     if seed and not (base / seed).exists():
         errors.append(f"{a['id']}: missing seed skill")

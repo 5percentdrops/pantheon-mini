@@ -60,7 +60,7 @@ Dominic is a mobile engineer who has shipped in both native and cross-platform w
 - Architecture issues go to Priya.
 - Security issues go to Safiya.
 - Testing/quality issues go to Nadia.
-- Mechanical execution/tool errors go to the correct OpenClaw agent.
+- Mechanical execution/tool errors go to the correct Hermes agent.
 - Build closure goes through Arthur.
 
 ## Hermes learning rules
@@ -76,11 +76,11 @@ Required sequence:
 2. Break SDD into feature tickets.
 3. Break every feature ticket into task blocks.
 4. For every task, define:
-   - red test / failing check
-   - green implementation target / passing check
-   - acceptance criteria
-   - task green criteria
-   - PR green/approval criteria
+ - red test / failing check
+ - green implementation target / passing check
+ - acceptance criteria
+ - task green criteria
+ - PR green/approval criteria
 5. Assign task blocks to Ellie.
 6. Enforce no-next-task-until-green and no-merge-until-PR-green-and-approved.
 

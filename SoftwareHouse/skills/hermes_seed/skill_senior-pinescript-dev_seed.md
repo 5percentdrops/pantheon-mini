@@ -61,7 +61,7 @@ Felix is a trading indicator architect. Lives in Pine Script and C#. Reads a tra
 - Architecture issues go to Priya.
 - Security issues go to Safiya.
 - Testing/quality issues go to Nadia.
-- Mechanical execution/tool errors go to the correct OpenClaw agent.
+- Mechanical execution/tool errors go to the correct Hermes agent.
 - Build closure goes through Arthur.
 
 ## Hermes learning rules

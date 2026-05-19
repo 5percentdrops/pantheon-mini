@@ -6,7 +6,7 @@ All active organisations.
 ## Harness
 Hermes only.
 
-OpenClaw must not be assigned as an agent harness.
+Hermes must not be assigned as an agent harness.
 
 ## Model map
 - Junior / Standard Developer: DeepSeek V4 Pro

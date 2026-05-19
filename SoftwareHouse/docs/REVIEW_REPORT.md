@@ -18,14 +18,14 @@ The original Software House concept is strong. It already has:
 |---|---|
 | Architecture | Added Priya — System Architect. This enforces architecture review before implementation and reduces cross-desk contract drift. |
 | Security | Added Safiya — Security Reviewer. This is essential for trading systems, API keys, OAuth, Supabase, execution paths, and deployment safety. |
-| Harness split | Converted purely procedural agents to OpenClaw: Backtester, DevOps Developer, Functional Tester, Indicator Tester. |
-| Seed skills | Added Hermes seed skills and OpenClaw procedural seed skills for every agent. |
-| Escalation | Added explicit OpenClaw → Hermes escalation rules. |
+| Harness split | Converted purely procedural agents to Hermes: Backtester, DevOps Developer, Functional Tester, Indicator Tester. |
+| Seed skills | Added Hermes seed skills and Hermes procedural seed skills for every agent. |
+| Escalation | Added explicit Hermes → Hermes escalation rules. |
 | Install structure | Converted to standalone plug-and-play CoreSeed-style package. |
 
 ## Main challenge
 
-The original repo was too API/onboarding-prompt oriented and not aligned with the final CoreSeed boundary. This version keeps Paperclip as the organisation registry, gives Hermes and OpenClaw starting skills, but does not try to control either harness internally.
+The original repo was too API/onboarding-prompt oriented and not aligned with the final CoreSeed boundary. This version keeps Paperclip as the organisation registry, gives Hermes starting skills, but does not try to control either harness internally.
 
 ## Final agent count
 

@@ -9,12 +9,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OS](https://img.shields.io/badge/OS-Linux%20%7C%20macOS%20%7C%20WSL-brightgreen)](README_INSTALL.md)
 [![Models](https://img.shields.io/badge/Models-GPT--5%20mini%20%7C%20Opus%204.7%20%7C%20Gemini%203.1%20Pro%20%7C%20DeepSeek%20V4%20Pro%20%7C%20GPT--5.5%20%7C%20Haiku%203.5-blue)](#-the-active-mini-operating-team)
-[![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.16-orange)](https://github.com/5percentdrops/pantheon)
+[![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.17-orange)](https://github.com/5percentdrops/pantheon)
 [![Install](https://img.shields.io/badge/Install-One%20Click-orange)](#-quick-start)
 [![Stars](https://img.shields.io/github/stars/5percentdrops/pantheon-mini?style=social)](https://github.com/5percentdrops/pantheon-mini/stargazers)
 
 ```
-You write the PRD.   Pantheon Mini ships the PR.   With 10 agents, not 33.
+You write the PRD. Pantheon Mini ships the PR. With 10 agents, not 33.
 ```
 
 </div>
@@ -66,66 +66,66 @@ Same patterns. Same contracts. Same observability. ~3x cheaper to run.
 **At a glance:** PRD goes in, working code comes out.
 
 ```
-   PRD  ──►  Arthur  ──►  Marcus  ──►  Jack  ──►  Arthur  ──►  Winston
-   you      route        plan         build       merge       archive
+ PRD ──► Arthur ──► Marcus ──► Jack ──► Arthur ──► Winston
+ you route plan build merge archive
 ```
 
 **The team:**
 
 ```mermaid
 flowchart TD
-    You(["You<br/>PRD"])
-    Arthur["Arthur<br/>Project Manager"]
-    Edgar["Edgar<br/>Feasibility (1st pass)"]
-    Reid["Reid<br/>Leak Investigator (2nd pass, Codex)"]
-    Tobias["Tobias<br/>Pragmatist (3rd pass)"]
-    Approve{{"You approve?"}}
-    Marcus["Marcus<br/>Senior Developer<br/>(plans the work)"]
-    Jack["Jack<br/>Standard Developer<br/>(writes the code)"]
-    Cody["Cody<br/>Reviewer<br/>(audits the work)"]
-    Maxwell["Maxwell<br/>Escalation Engineer<br/>(deep fixes, on call)"]
-    Magnus["Magnus<br/>Principal Architect<br/>(re-thinks approach, on call)"]
-    Winston["Winston<br/>Knowledge Archivist<br/>(files lessons + rejected PRDs)"]
-    Shipped(["Shipped"])
+ You(["You<br/>PRD"])
+ Arthur["Arthur<br/>Project Manager"]
+ Edgar["Edgar<br/>Feasibility (1st pass)"]
+ Reid["Reid<br/>Leak Investigator (2nd pass, Codex)"]
+ Tobias["Tobias<br/>Pragmatist (3rd pass)"]
+ Approve{{"You approve?"}}
+ Marcus["Marcus<br/>Senior Developer<br/>(plans the work)"]
+ Jack["Jack<br/>Standard Developer<br/>(writes the code)"]
+ Cody["Cody<br/>Reviewer<br/>(audits the work)"]
+ Maxwell["Maxwell<br/>Escalation Engineer<br/>(deep fixes, on call)"]
+ Magnus["Magnus<br/>Principal Architect<br/>(re-thinks approach, on call)"]
+ Winston["Winston<br/>Knowledge Archivist<br/>(files lessons + rejected PRDs)"]
+ Shipped(["Shipped"])
 
-    You --> Arthur
-    Arthur --> Edgar
-    Edgar --> Reid
-    Reid --> Tobias
-    Tobias --> Approve
-    Approve -- yes --> Marcus
-    Approve -- no --> Winston
-    Marcus --> Jack
-    Jack --> Cody
-    Cody --> Arthur
-    Arthur --> Winston
-    Winston --> Shipped
+ You --> Arthur
+ Arthur --> Edgar
+ Edgar --> Reid
+ Reid --> Tobias
+ Tobias --> Approve
+ Approve -- yes --> Marcus
+ Approve -- no --> Winston
+ Marcus --> Jack
+ Jack --> Cody
+ Cody --> Arthur
+ Arthur --> Winston
+ Winston --> Shipped
 
-    Arthur -.- Maxwell
-    Arthur -.- Magnus
+ Arthur -.- Maxwell
+ Arthur -.- Magnus
 
-    classDef io        fill:#f5f5f5,stroke:#666,stroke-width:2px,color:#222
-    classDef pm        fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
-    classDef senior    fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
-    classDef dev       fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-    classDef review    fill:#ffedd5,stroke:#ea580c,stroke-width:2px,color:#7c2d12
-    classDef arch      fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
-    classDef archive   fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
-    classDef feasib    fill:#fae8ff,stroke:#a21caf,stroke-width:2px,color:#581c87
-    classDef gate      fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
-    classDef done      fill:#bbf7d0,stroke:#15803d,stroke-width:3px,color:#14532d
+ classDef io fill:#f5f5f5,stroke:#666,stroke-width:2px,color:#222
+ classDef pm fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+ classDef senior fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
+ classDef dev fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+ classDef review fill:#ffedd5,stroke:#ea580c,stroke-width:2px,color:#7c2d12
+ classDef arch fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d
+ classDef archive fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
+ classDef feasib fill:#fae8ff,stroke:#a21caf,stroke-width:2px,color:#581c87
+ classDef gate fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e
+ classDef done fill:#bbf7d0,stroke:#15803d,stroke-width:3px,color:#14532d
 
-    class You io
-    class Arthur pm
-    class Edgar,Reid,Tobias feasib
-    class Approve gate
-    class Marcus senior
-    class Jack dev
-    class Cody review
-    class Maxwell senior
-    class Magnus arch
-    class Winston archive
-    class Shipped done
+ class You io
+ class Arthur pm
+ class Edgar,Reid,Tobias feasib
+ class Approve gate
+ class Marcus senior
+ class Jack dev
+ class Cody review
+ class Maxwell senior
+ class Magnus arch
+ class Winston archive
+ class Shipped done
 ```
 
 **The flow:** PRD enters at top. Arthur runs it through a 3-pass feasibility loop (Edgar → Reid → Tobias) before anyone writes code. You see the consolidated report and approve, trim, iterate, or reject. If approved, Marcus plans, Jack codes, Cody audits, Arthur merges, Winston archives. Maxwell and Magnus are on-call when Jack is genuinely stuck. Rejected PRDs also go to Winston so we learn what we kill.
@@ -134,7 +134,7 @@ flowchart TD
 |--:|---|---|---|---|
 | 1 | 🎯 **Project Manager / Head** | Arthur | intake · merge gate | GPT-5 mini |
 | 2 | 🔎 **Feasibility Analyst** (1st pass) | Edgar | PRD intake | Opus 4.7 XHigh |
-| 3 | 🕵 **Leak Investigator** (2nd pass) | Reid  | PRD intake | GPT-5.5 Codex |
+| 3 | 🕵 **Leak Investigator** (2nd pass) | Reid | PRD intake | GPT-5.5 Codex |
 | 4 | ⚖ **Pragmatist** (3rd pass) | Tobias | PRD intake | Opus 4.7 XHigh |
 | 5 | 📋 **Senior Developer / Planner** | Marcus | plan · attempts 13-15 | Opus 4.7 XHigh |
 | 6 | 🔨 **Standard Developer / Implementer** | Jack | build · attempts 1-12 | DeepSeek V4 Pro |
@@ -159,15 +159,15 @@ When Marcus's tactical fixes (13-15), Maxwell's deep fixes (16-17), and Cody's f
 ### 🪞 Each agent has a soul
 ```
 ~/.hermes-mini-magnus/
-  ├── SOUL.md                       ← who they are
-  ├── MEMORY.md                     ← what they've learned (grows forever)
-  ├── USER.md                       ← who they report to
-  ├── skills/
-  │   ├── seed.md                   ← job manual (canonical seed) + Skill Router
-  │   └── responsibilities/         ← 67 executable procedure cards (V8.16)
-  │       ├── INDEX.md              ← pipeline trigger → skill_id router
-  │       └── *.md                  ← one card per responsibility
-  └── sessions/                     ← FTS5-searchable session history
+ ├── SOUL.md ← who they are
+ ├── MEMORY.md ← what they've learned (grows forever)
+ ├── USER.md ← who they report to
+ ├── skills/
+ │ ├── seed.md ← job manual (canonical seed) + Skill Router
+ │ └── responsibilities/ ← 67 executable procedure cards (V8.16)
+ │ ├── INDEX.md ← pipeline trigger → skill_id router
+ │ └── *.md ← one card per responsibility
+ └── sessions/ ← FTS5-searchable session history
 ```
 
 ### 🪜 Attempt-numbered escalation ladder
@@ -212,11 +212,11 @@ Each active-mini agent (Arthur, Magnus, Marcus, Jack, Cody) now ships with a dir
 Layout under [`SoftwareHouse/skills/role_responsibilities/`](SoftwareHouse/skills/role_responsibilities/):
 ```
 role_responsibilities/
-├── arthur/   13 skills (scope lock, master status, dispatch, escalation ladder, merge gate)
-├── magnus/   10 skills (synthesis, route proposal, kill authority, architecture sign-off)
-├── marcus/   13 skills (SDD, contracts, tickets, red TDD, tactical fix, sanity review)
-├── jack/     12 skills (intake, implementation loop, test discipline, escalation packet)
-└── cody/     19 skills (6 review modes, classification gate, hard-fail triggers)
+├── arthur/ 13 skills (scope lock, master status, dispatch, escalation ladder, merge gate)
+├── magnus/ 10 skills (synthesis, route proposal, kill authority, architecture sign-off)
+├── marcus/ 13 skills (SDD, contracts, tickets, red TDD, tactical fix, sanity review)
+├── jack/ 12 skills (intake, implementation loop, test discipline, escalation packet)
+└── cody/ 19 skills (6 review modes, classification gate, hard-fail triggers)
 ```
 
 **Wired into install:** `scripts/seed_active_homes.py` reads each agent's `responsibility_skills_dir` from `SoftwareHouse/paperclip/agents.json` and copies the skill tree into `~/.hermes-mini-<slug>/skills/responsibilities/` at install time. `scripts/validate_responsibility_skills.py` is invoked by `one_click_install.sh` to confirm every skill has valid frontmatter and matching `owner_agent`.
@@ -233,9 +233,9 @@ Anchored by [`ROLES.md`](ROLES.md) — every responsibility in the real-world co
 
 ### 1. Prereqs (5 min, one time)
 ```bash
-node --version          # ≥ 20
-python3 --version       # ≥ 3.11
-npm install -g paperclipai      # ≥ 2026.513.0
+node --version # ≥ 20
+python3 --version # ≥ 3.11
+npm install -g paperclipai # ≥ 2026.513.0
 # Install hermes per https://github.com/NousResearch/hermes-agent
 ```
 
@@ -281,7 +281,7 @@ python3 scripts/parity_check_against_pantheon.py
 Output:
 ```
 ✅ PARITY PASS — Pantheon Mini matches full Pantheon's structural surface.
-   Only delta: active agent count (7 mini vs 33 full) and agent-specific paths.
+ Only delta: active agent count (7 mini vs 33 full) and agent-specific paths.
 ```
 
 ---
@@ -309,12 +309,12 @@ Output:
 ## 📊 Verify the install
 
 ```bash
-python3 scripts/validate_v8_10_mini.py          # V8.11–V8.15 alignment fast check (PASS)
-bash scripts/run_all_validators.sh              # full 23-validator sweep (PASS=23 FAIL=0)
-python3 scripts/audit_readiness.py              # 10/10 active agents pass readiness criteria
+python3 scripts/validate_v8_10_mini.py # V8.11–V8.15 alignment fast check (PASS)
+bash scripts/run_all_validators.sh # full 23-validator sweep (PASS=23 FAIL=0)
+python3 scripts/audit_readiness.py # 10/10 active agents pass readiness criteria
 python3 scripts/parity_check_against_pantheon.py # 0 parity gaps vs full
-ls -d ~/.hermes-mini-* | wc -l                  # 7 homes
-cat workspace/07_Finalization/metrics_dashboard.md  # after first cron tick
+ls -d ~/.hermes-mini-* | wc -l # 7 homes
+cat workspace/07_Finalization/metrics_dashboard.md # after first cron tick
 ```
 
 ---
@@ -361,7 +361,7 @@ Because it's literally a mini version of Pantheon. Same architecture, smaller pa
 
 ## 🚧 Boundary
 
-Mini **does not** install Paperclip, Hermes, OpenClaw, provider API keys, or production trading keys. It stages a company/org package. **Bring your own runtime, your own keys.**
+Mini **does not** install Paperclip, Hermes, provider API keys, or production trading keys. It stages a company/org package. **Bring your own runtime, your own keys.**
 
 ---
 

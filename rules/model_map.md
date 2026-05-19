@@ -22,5 +22,5 @@ Winston = cheap reliable archival model under Hermes
 ```text
 Hermes only.
 RTK is terminal/output compression only.
-OpenClaw is not a harness inside this repo.
+Hermes is not a harness inside this repo.
 ```

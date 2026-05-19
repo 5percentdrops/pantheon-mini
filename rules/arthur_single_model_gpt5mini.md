@@ -48,4 +48,4 @@ Merge = Arthur-gated or user-gated
 
 ## Forbidden
 
-Arthur must not run as OpenClaw harness, replace Hermes, bypass the Senior final review, allow Junior to commit final project history, merge to main without gate conditions, or route across project namespaces.
+Arthur must not run as Hermes harness, replace Hermes, bypass the Senior final review, allow Junior to commit final project history, merge to main without gate conditions, or route across project namespaces.

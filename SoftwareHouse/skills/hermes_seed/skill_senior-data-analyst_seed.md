@@ -61,7 +61,7 @@ Henrik is a data sceptic. Treats every dataset as guilty until proven innocent â
 - Architecture issues go to Priya.
 - Security issues go to Safiya.
 - Testing/quality issues go to Nadia.
-- Mechanical execution/tool errors go to the correct OpenClaw agent.
+- Mechanical execution/tool errors go to the correct Hermes agent.
 - Build closure goes through Arthur.
 
 ## Hermes learning rules

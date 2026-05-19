@@ -13,7 +13,7 @@ This package applies the same final CoreSeed standard used for FeedDeck, StoryVi
 - Harness assignments
 - Paperclip organisation import
 - Hermes seed skills
-- OpenClaw seed skills
+- removed (V8.17 — Hermes-only)
 - Routes / handoff maps
 - Escalation schemas
 - Validation script
@@ -35,8 +35,8 @@ bash scripts/install.sh
 
 - Added Priya — System Architect.
 - Added Safiya — Security Reviewer.
-- Added seed skills for every Hermes/OpenClaw agent.
-- Added OpenClaw escalation rules.
+- Added seed skills for every Hermes/Hermes agent.
+- Added Hermes escalation rules.
 - Kept the Brain/Hands operating model.
 
 
@@ -71,14 +71,14 @@ Fallback: latest Codex default available in the installed Codex environment.
 Software House now uses two separate Hermes-harnessed PR reviewers:
 
 1. **Clara — Claude PR Review Lead**
-   - Harness: Hermes
-   - Underlying engine: Claude Code Review / Opus 4.7
-   - First-line deep PR review
+ - Harness: Hermes
+ - Underlying engine: Claude Code Review / Opus 4.7
+ - First-line deep PR review
 
 2. **Cody — Hermes Codex PR Reviewer**
-   - Harness: Hermes
-   - Underlying engine: latest Codex coding/review model
-   - Second-line PR review and repeated-pattern learning
+ - Harness: Hermes
+ - Underlying engine: latest Codex coding/review model
+ - Second-line PR review and repeated-pattern learning
 
 Specialist escalation is conditional:
 - Safiya for security
