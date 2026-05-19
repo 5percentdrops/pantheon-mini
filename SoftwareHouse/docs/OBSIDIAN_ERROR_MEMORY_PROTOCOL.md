@@ -1,7 +1,7 @@
 # Obsidian Error Memory Protocol
 
 ## Purpose
-`wiki/errors/` is the shared Obsidian-backed learning folder for Software House engineering failures and solutions.
+`wiki/errors/` is the shared Obsidian-backed learning folder for Pantheon Mini engineering failures and solutions.
 
 It exists so future agents/developers can learn:
 

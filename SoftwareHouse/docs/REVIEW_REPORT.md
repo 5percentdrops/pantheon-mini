@@ -2,7 +2,7 @@
 
 ## Verdict
 
-The original Software House concept is strong. It already has:
+The original Pantheon Mini concept is strong. It already has:
 - clear Brain/Hands pattern,
 - human names,
 - good desk structure,

@@ -3,7 +3,7 @@
 ## Purpose
 This pipeline happens before engineering.
 
-It prevents the Software House from building from a weak PRD, wrong route, bad API, stale library, or unqualified assumption.
+It prevents the Pantheon Mini from building from a weak PRD, wrong route, bad API, stale library, or unqualified assumption.
 
 ## Flow
 

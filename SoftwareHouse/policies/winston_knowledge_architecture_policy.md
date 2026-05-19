@@ -1,6 +1,6 @@
 # Winston Knowledge Architecture Policy
 
-All final or route-critical Software House artifacts must be sent from Arthur to Winston for wiki archival.
+All final or route-critical Pantheon Mini artifacts must be sent from Arthur to Winston for wiki archival.
 
 ## Winston model
 Claude 3.5 Haiku under Hermes.

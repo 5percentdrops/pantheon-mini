@@ -1,6 +1,6 @@
 # Pantheon Mini V7 — One-Click Install
 
-This is the mini operating version of Software House.
+This is the mini operating version of Pantheon Mini.
 
 ## Active agents
 

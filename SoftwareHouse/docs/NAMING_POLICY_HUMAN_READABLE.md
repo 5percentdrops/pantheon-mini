@@ -1,6 +1,6 @@
 # Human-Readable Agent Naming Policy
 
-Avoid strange mythic names for Software House intake/advisory agents.
+Avoid strange mythic names for Pantheon Mini intake/advisory agents.
 
 Renames:
 - Apollo → Adrian

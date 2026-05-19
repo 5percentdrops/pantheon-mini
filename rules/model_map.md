@@ -1,4 +1,4 @@
-# Model Map — Software House V7
+# Model Map — Pantheon Mini V7
 
 ## Manager / Router
 

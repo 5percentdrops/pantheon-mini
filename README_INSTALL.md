@@ -42,7 +42,7 @@ bash scripts/install.sh
 
 ## Codex PR Reviewer
 
-Software House now includes **Cody — Codex PR Reviewer**.
+Pantheon Mini now includes **Cody — Codex PR Reviewer**.
 
 Codex review is a required PR gate after a pull request is opened/submitted and before merge readiness.
 
@@ -68,7 +68,7 @@ Fallback: latest Codex default available in the installed Codex environment.
 
 ## Dual PR Review Update
 
-Software House now uses two separate Hermes-harnessed PR reviewers:
+Pantheon Mini now uses two separate Hermes-harnessed PR reviewers:
 
 1. **Clara — Claude PR Review Lead**
  - Harness: Hermes

@@ -1,7 +1,7 @@
 # Universal PRD → SDD → Feature Tickets → Task-Level Superpowers TDD Flow
 
 ## Scope
-This applies to every Software House engineering lane:
+This applies to every Pantheon Mini engineering lane:
 
 - Backend
 - Frontend

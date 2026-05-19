@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This is the smaller operating version of Software House.
+This is the smaller operating version of Pantheon Mini.
 
 It removes specialist domain pairs and keeps only the essential software delivery chain.
 

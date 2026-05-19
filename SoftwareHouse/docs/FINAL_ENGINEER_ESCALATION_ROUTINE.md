@@ -1,7 +1,7 @@
 # Final Engineer Escalation Routine
 
 ## Purpose
-This document defines the final Software House escalation routine for Jack and the wider engineering lanes.
+This document defines the final Pantheon Mini escalation routine for Jack and the wider engineering lanes.
 
 The key rule:
 

@@ -3,7 +3,7 @@
 ## Purpose
 The Jack/Marcus escalation pattern is not exclusive to backend work.
 
-It applies to every Software House engineering lane:
+It applies to every Pantheon Mini engineering lane:
 - backend
 - frontend
 - mobile

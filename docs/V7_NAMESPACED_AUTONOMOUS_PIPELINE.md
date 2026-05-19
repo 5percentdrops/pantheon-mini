@@ -1,4 +1,4 @@
-# Software House V7.0 — Namespaced Autonomous Pipeline
+# Pantheon Mini V7.0 — Namespaced Autonomous Pipeline
 
 **Version:** 7.0  
 **Architecture:** Global namespaced workspace  
@@ -8,7 +8,7 @@
 
 ## 1. Core Decision
 
-Software House keeps the large org-chart, but operates with a smaller active squad by default.
+Pantheon Mini keeps the large org-chart, but operates with a smaller active squad by default.
 
 Default active squad:
 

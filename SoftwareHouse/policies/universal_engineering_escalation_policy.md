@@ -1,7 +1,7 @@
 # Universal Engineering Escalation Policy
 
 ## Scope
-This policy applies to all Software House engineering work.
+This policy applies to all Pantheon Mini engineering work.
 
 ## Standard developer attempt rule
 Every standard developer has 7-10 self-fix attempts.

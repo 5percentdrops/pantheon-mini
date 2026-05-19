@@ -1,6 +1,6 @@
 # Wiki Error Memory Policy
 
-The Software House wiki maintains durable memory of recurring engineering errors and working solutions.
+The Pantheon Mini wiki maintains durable memory of recurring engineering errors and working solutions.
 
 Folder:
 

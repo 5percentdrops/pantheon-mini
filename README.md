@@ -4,12 +4,12 @@
 
 ### **10 AI agents. One small studio. One escalation ladder by attempt number.**
 
-*The minimal viable software house. Ships PRs without the 33-agent overhead.*
+*The minimal viable Pantheon Mini. Ships PRs without the 33-agent overhead.*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OS](https://img.shields.io/badge/OS-Linux%20%7C%20macOS%20%7C%20WSL-brightgreen)](README_INSTALL.md)
 [![Models](https://img.shields.io/badge/Models-GPT--5%20mini%20%7C%20Opus%204.7%20%7C%20Gemini%203.1%20Pro%20%7C%20DeepSeek%20V4%20Pro%20%7C%20GPT--5.5%20%7C%20Haiku%203.5-blue)](#-the-active-mini-operating-team)
-[![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.17-orange)](https://github.com/5percentdrops/pantheon)
+[![Parity](https://img.shields.io/badge/Pantheon%20parity-V8.18-orange)](https://github.com/5percentdrops/pantheon)
 [![Install](https://img.shields.io/badge/Install-One%20Click-orange)](#-quick-start)
 [![Stars](https://img.shields.io/github/stars/5percentdrops/pantheon-mini?style=social)](https://github.com/5percentdrops/pantheon-mini/stargazers)
 

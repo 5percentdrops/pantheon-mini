@@ -122,7 +122,7 @@ Adrian
 
 ## Rule
 
-Do not route normal mini Software House work to removed roles.
+Do not route normal Pantheon Mini work to removed roles.
 
 
 ## Arthur Hiring Responsibility
